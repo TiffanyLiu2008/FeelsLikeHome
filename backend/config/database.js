@@ -1,4 +1,5 @@
 const config = require('./index');
+
 module.exports = {
   development: {
     storage: config.dbFile,
