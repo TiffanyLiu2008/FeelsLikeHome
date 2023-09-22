@@ -38,7 +38,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      }
+      },
+      firstName: {
+        type: Sequelize.STRING(256),
+        allowNull: false
+      },
+      lastName: {
+        type: Sequelize.STRING(256),
+        allowNull: false
+      },
     }, options);
   },
   async down(queryInterface, Sequelize) {
