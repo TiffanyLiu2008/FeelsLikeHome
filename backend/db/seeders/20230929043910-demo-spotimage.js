@@ -16,7 +16,7 @@ const spotImages = [
     url: 'https://spot3Image.com',
     preview: true,
     spotId: 3
-  }
+  },
 ];
 
 module.exports = {

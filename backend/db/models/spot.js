@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Spot.hasMany(models.Booking, {foreignKey: 'spotId'});
       Spot.hasMany(models.Review, {foreignKey: 'spotId'});
+      Spot.hasMany(models.SpotImage, {foreignKey: 'spotId'});
       Spot.belongsTo(models.User, {foreignKey: 'ownerId'});
     }
   }
@@ -46,6 +47,9 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     description: {
       type: DataTypes.STRING,
@@ -54,14 +58,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     avgRating: {
       type: DataTypes.FLOAT,
     },
     previewImage: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     }
   }, {
     sequelize,

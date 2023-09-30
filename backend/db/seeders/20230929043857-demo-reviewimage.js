@@ -13,7 +13,7 @@ const reviewImages = [
   },{
     url: 'https://review3Image.com',
     reviewId: 3
-  }
+  },
 ];
 
 module.exports = {

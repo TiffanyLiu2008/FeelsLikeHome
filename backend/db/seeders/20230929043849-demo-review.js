@@ -21,7 +21,7 @@ const reviews = [
     spotId: 3,
     review: 'Very good!',
     stars: 3
-  }
+  },
 ];
 
 module.exports = {

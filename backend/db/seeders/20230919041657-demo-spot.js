@@ -14,9 +14,7 @@ const spots = [
     lng: -73.9401,
     name: 'Good Bnb',
     description: 'Good Place in NYC',
-    price: 1000,
-    avgRating: 1.0,
-    previewImage: 'https://spot1PreviewImage.com'
+    price: 1000
   },
   {
     ownerId: 2,
@@ -28,10 +26,7 @@ const spots = [
     lng: -73.9402,
     name: 'Better Bnb',
     description: 'Better Place in NYC',
-    price: 2000,
-    avgRating: 2.0,
-    previewImage: 'https://spot2PreviewImage.com'
-
+    price: 2000
   },
   {
     ownerId: 3,
@@ -43,10 +38,8 @@ const spots = [
     lng: -73.9403,
     name: 'Best Bnb',
     description: 'Best Place in NYC',
-    price: 3000,
-    avgRating: 3.0,
-    previewImage: 'https://spot3PreviewImage.com'
-  }
+    price: 3000
+  },
 ];
 
 module.exports = {
