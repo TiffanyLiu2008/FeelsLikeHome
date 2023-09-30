@@ -3,6 +3,11 @@
 
 const { ReviewImage } = require('../models');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 const reviewImages = [
   {
     url: 'https://review1Image.com',
@@ -22,7 +27,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('ReviewImages', {
+    options.tableName = 'ReviewImages';
+    return queryInterface.bulkDelete(options, {
       url: reviewImages.map(reviewImage => reviewImage.url)
     },{});
   }

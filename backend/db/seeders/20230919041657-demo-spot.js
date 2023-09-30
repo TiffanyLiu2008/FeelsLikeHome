@@ -3,6 +3,11 @@
 
 const { Spot } = require('../models');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 const spots = [
   {
     ownerId: 1,
@@ -48,7 +53,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Spots', {
+    options.tableName = 'Spots';
+    return queryInterface.bulkDelete(options, {
       name: spots.map(spot => spot.name)
     },{});
   }

@@ -3,6 +3,11 @@
 
 const { Booking } = require('../models');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 const bookings = [
   {
     spotId: 1,
@@ -30,7 +35,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Bookings', {
+    options.tableName = 'Bookings';
+    return queryInterface.bulkDelete(options, {
       startDate: bookings.map(booking => booking.startDate)
     },{});
   }
