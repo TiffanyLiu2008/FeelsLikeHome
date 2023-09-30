@@ -3,6 +3,11 @@
 
 const { Review } = require('../models');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 const reviews = [
   {
     userId: 1,
@@ -30,7 +35,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Reviews', {
+    options.tableName = 'Reviews';
+    return queryInterface.bulkDelete(options, {
       stars: reviews.map(review => review.stars)
     },{});
   }

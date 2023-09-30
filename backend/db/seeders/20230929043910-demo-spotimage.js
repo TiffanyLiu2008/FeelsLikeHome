@@ -3,6 +3,11 @@
 
 const { SpotImage } = require('../models');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 const spotImages = [
   {
     url: 'https://spot1Image.com',
@@ -25,7 +30,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('spotImages', {
+    options.tableName = 'SpotImages';
+    return queryInterface.bulkDelete(options, {
       url: spotImages.map(spotImage => spotImage.url)
     },{});
   }

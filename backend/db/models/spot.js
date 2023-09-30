@@ -113,17 +113,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: {
-          args: 0,
+          args: [0],
           msg: 'Price per day is required',
         },
       },
     },
-    avgRating: {
-      type: DataTypes.FLOAT,
-    },
-    previewImage: {
-      type: DataTypes.STRING,
-    }
   }, {
     sequelize,
     modelName: 'Spot',
