@@ -16,31 +16,57 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // #20 ; /:bookingId ; PUT
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
-    const {startDate, endDate} = req.body;
     const bookingToUpdate = await Booking.findByPk(req.params.bookingId);
-    bookingToUpdate.startDate = startDate;
-    bookingToUpdate.endDate = endDate;
-    res.status(200);
-    res.json(bookingToUpdate);
-    //err: 404, 'Booking couldn't be found'
-    //err: 403, 'Past bookings can't be modified', past end date
-    //err: 403,
+    if (!bookingToUpdate) {
+        const err = new Error("Booking couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
+    const {requestedStartDate, requestedEndDate} = req.body;
+    if (requestedEndDate ) { //before today's date
+        const err = new Error("Past bookings can't be modified");
+        err.status = 403;
+        return next(err);
+    }
+    const existingBooking = await Booking.findAll({where: {
+        spotId: req.params.spotId,
+        startDate: //before requestedEndDate
+        endDate: //after requestStartDate
+    }});
+    if (existingBooking) {
+        const err = new Error("Sorry, this spot is already booked for the specified dates");
+        err.status = 403;
+        return next(err);
+    }
     // {
     //     "message": "Sorry, this spot is already booked for the specified dates",
     //     "errors": {
     //       "startDate": "Start date conflicts with an existing booking",
     //       "endDate": "End date conflicts with an existing booking"
     //     }
-    //   }
+    // }
+    bookingToUpdate.startDate = requestedStartDate;
+    bookingToUpdate.endDate = requestedEndDate;
+    res.status(200);
+    res.json(bookingToUpdate);
 });
 
 // #21 ; /:bookingId ; DELETE
 router.delete('/bookingId', requireAuth, async (req, res, next) => {
+    const currBooking = await Booking.findByPk(req.params.bookingId);
+    if (!currBooking) {
+        const err = new Error("Booking couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
+    if (currBooking.startDate ) { //after today's date
+        const err = new Error("Bookings that have been started can't be deleted");
+        err.status = 403;
+        return next(err);
+    }
     const bookingToDelete = await Booking.destroy({where: {id: req.params.bookingId}});
     res.status(200);
     res.json({message: 'Successfully deleted'});
-    //err: 404, 'Booking couldn't be found'
-    //err: 403, 'Bookings that have been started can't be deleted', past start date
 });
 
 module.exports = router;
