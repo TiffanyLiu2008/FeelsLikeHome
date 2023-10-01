@@ -118,6 +118,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    previewImage: {
+      type: DataTypes.STRING,
+    },
   }, {
     sequelize,
     modelName: 'Spot',
