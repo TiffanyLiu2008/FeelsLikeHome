@@ -153,8 +153,23 @@ router.get('/:spotId', async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+    // add numReviews, avgStarRating, SpotImages, Owner
+    const currObj = spotToGet.dataValues; //?
+    const currReviewStars = await spotToGet.getReview({attributes: ['stars']});
+    currObj.numReviews = currReviewStars.length;
+    let avgStarRating = 0;
+    let totalStars = 0;
+    for (let i = 0; i < currReviewStars.length; i++) {
+        totalStars += currReviewStars[i];
+    }
+    avgStarRating = totalStars / numReviews;
+    currObj.avgStarRating = avgStarRating;
+    const currSpotImages = await SpotImage.getAll({where: {spotId: spotId}, attributes: ['id', 'url', 'preview']});
+    currObj.SpotImages = currSpotImages;
+    const currOwner = await spotToGet.getOwner({attributes: ['id', 'firstName', 'lastName']});
+    currObj.Owner = currOwner;
     res.status(200);
-    res.json(spotToGet); //add numReviews, avgStarRating, SpotImages, Owner
+    res.json(currObj);
 });
 
 // #9 ; /:spotId/ ; PUT
