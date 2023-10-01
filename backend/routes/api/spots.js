@@ -17,8 +17,8 @@ router.get('/current', requireAuth, async (req, res) => {
 // #22 ; /:spotId/images/:imageId ; DELETE
 router.delete('/:spotId/images/:imageId', requireAuth, async (req, res, next) => {
     const currSpotImage = await SpotImage.findAll({where: {
-        id: req.params.imageId,
-        spotId: req.params.spotId
+        id: Number(req.params.imageId),
+        spotId: Number(req.params.spotId)
     }});
     if (currSpotImage) {
         const err = new Error("Spot Image couldn't be found");
@@ -26,8 +26,8 @@ router.delete('/:spotId/images/:imageId', requireAuth, async (req, res, next) =>
         return next(err);
     }
     const imageToDelete = await SpotImage.destroy({where: {
-        id: req.params.imageId,
-        spotId: req.params.spotId
+        id: Number(req.params.imageId),
+        spotId: Number(req.params.spotId)
     }});
     res.status(200);
     res.json({message: 'Successfully deleted'});
@@ -35,14 +35,14 @@ router.delete('/:spotId/images/:imageId', requireAuth, async (req, res, next) =>
 
 // #8 ; /:spotId/images ; POST
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
-    const currSpot = await Spot.findByPk(req.params.spotId);
+    const spotId = Number (req.params.spotId);
+    const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
         const err = new Error("Spot couldn't be found");
         err.status = 404;
         return next(err);
     }
     const {url, preview} = req.body;
-    const spotId = req.params;
     const newSpotImage = await SpotImage.create({
         url: url,
         preview: preview,
@@ -54,20 +54,22 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
 // #12 ; /:spotId/reviews ; GET
 router.get('/:spotId/reviews', async (req, res, next) => {
-    const currSpot = await Spot.findByPk(req.params.spotId);
+    const spotId = Number(req.params.spotId);
+    const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
         const err = new Error("Review Image couldn't be found");
         err.status = 404;
         return next(err);
     }
-    const reviewsBySpot = await Review.findAll({where: {spotId: req.params.spotId}});
+    const reviewsBySpot = await Review.findAll({where: {spotId: spotId}});
     res.status(200);
     res.json(reviewsBySpot); //add User, ReviewImages
 });
 
 // #13 ; /:spotId/reviews ; POST
-router.post('/:spotId/reviews', requireAuth, validateData, async (req, res, next) => {
-    const currSpot = await Spot.findByPk(req.params.spotId);
+router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
+    const spotId = Number(req.params.spotId);
+    const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
         const err = new Error("Review Image couldn't be found");
         err.status = 404;
@@ -77,7 +79,7 @@ router.post('/:spotId/reviews', requireAuth, validateData, async (req, res, next
     const userId = user.id;
     const existingReview = await Review.findAll({where: {
         userId: userId,
-        spotId: req.params.spotId
+        spotId: spotId
     }});
     if (existingReview) {
         const err = new Error("User already has a review for this spot");
@@ -87,7 +89,7 @@ router.post('/:spotId/reviews', requireAuth, validateData, async (req, res, next
     const {review, stars} = req.body;
     const newReview = await Review.create({
         userId: userId,
-        spotId: req.params.spotId,
+        spotId: spotId,
         review: review,
         stars: stars
     });
@@ -97,14 +99,16 @@ router.post('/:spotId/reviews', requireAuth, validateData, async (req, res, next
 
 // #18 ; /:spotId/bookings ; GET
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
-    const bookingsBySpot = await Booking.findAll({where: {spotId : req.params.spotId}});
+    const spotId = Number(req.params.spotId);
+    const bookingsBySpot = await Booking.findAll({where: {spotId : spotId}});
     res.status(200);
     res.json(bookingsBySpot); //add User
 });
 
 // #19 ; /:spotId/bookings ; POST
 router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
-    const currSpot = await Spot.findByPk(req.params.spotId);
+    const spotId = Number(req.params.spotId);
+    const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
         const err = new Error("Review Image couldn't be found");
         err.status = 404;
@@ -114,9 +118,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const userId = user.id;
     const {requestedStartDate, requestedEndDate} = req.body;
     const existingBooking = await Booking.findAll({where: {
-        spotId: req.params.spotId,
-        startDate: //before requestedEndDate
-        endDate: //after requestStartDate
+        spotId: spotId,
+        startDate: {[Op.lt]: requestedEndDate},
+        endDate: {[Op.gt]: requestedStartDate}
     }});
     if (existingBooking) {
         const err = new Error("Sorry, this spot is already booked for the specified dates");
@@ -131,7 +135,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     //     }
     // }
     const newBooking = await Booking.create({
-        spotId: req.params.spotId,
+        spotId: spotId,
         userId: userId,
         startDate: requestedStartDate,
         endDate: requestedEndDate
@@ -142,7 +146,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
 // #6 ; /:spotId/ ; GET
 router.get('/:spotId', async (req, res, next) => {
-    const spotToGet = await Spot.findByPk(req.params.spotId);
+    const spotId = Number(req.params.spotId);
+    const spotToGet = await Spot.findByPk(spotId);
     if (!spotToGet) {
         const err = new Error("Spot couldn't be found");
         err.status = 404;
@@ -154,7 +159,8 @@ router.get('/:spotId', async (req, res, next) => {
 
 // #9 ; /:spotId/ ; PUT
 router.put('/:spotId', requireAuth, async (req, res, next) => {
-    const spotToUpdate = await Spot.findByPk(req.params.spotId);
+    const spotId = Number(req.params.spotId);
+    const spotToUpdate = await Spot.findByPk(spotId);
     if (!spotToUpdate) {
         const err = new Error("Spot couldn't be found");
         err.status = 404;
@@ -176,13 +182,14 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 
 // #10 ; /:spotId/ ; DELETE
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
-    const currSpot = await Spot.findByPk(req.params.spotId);
+    const spotId = Number(req.params.spotId);
+    const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
         const err = new Error("Spot couldn't be found");
         err.status = 404;
         return next(err);
     }
-    const spotToDelete = await Spot.destroy({where: {id: req.params.spotId}});
+    const spotToDelete = await Spot.destroy({where: {id: spotId}});
     res.status(200);
     res.json({message: 'Successfully deleted'});
 });

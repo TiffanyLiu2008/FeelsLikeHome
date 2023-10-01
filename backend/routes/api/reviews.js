@@ -16,9 +16,11 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // #23 ; /:reviewId/images/:imageId ; DELETE
 router.delete('/:reviewId/images/:imageId', requireAuth, async (req, res, next) => {
+    const reviewId = Number(req.params.reviewId);
+    const imageId = Number(req.params.imageId);
     const currReviewImage = await ReviewImage.findAll({where: {
-        id: req.params.imageId,
-        reviewId: req.params.reviewId
+        id: imageId,
+        reviewId: reviewId
     }});
     if (currReviewImage) {
         const err = new Error("Review Image couldn't be found");
@@ -26,24 +28,24 @@ router.delete('/:reviewId/images/:imageId', requireAuth, async (req, res, next) 
         return next(err);
     }
     const imageToDelete = await ReviewImage.destroy({where: {
-        id: req.params.imageId,
-        reviewId: req.params.reviewId
+        id: imageId,
+        reviewId: reviewId
     }});
     res.status(200);
     res.json({message: 'Successfully deleted'});
-
 });
 
 // #14 ; /:reviewId/images ; POST
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
-    const currReview = await Review.findByPk(req.params.reviewId);
+    const reviewId = Number(req.params.reviewId);
+    const currReview = await Review.findByPk(reviewId);
     if (!currReview) {
         const err = new Error("Review couldn't be found");
         err.status = 404;
         return next(err);
     }
     const existingReviewImages = await ReviewImage.findAll({where: {
-        reviewid: req.params.reviewId
+        reviewid: reviewId
     }});
     if (existingReviewImages.length >= 10) {
         const err = new Error("Maximum number of images for this resource was reached");
@@ -53,7 +55,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const {url} = req.body;
     const newReviewImage = await ReviewImage.create({
         url: url,
-        reviewId: req.params.reviewId
+        reviewId: reviewId
     });
     res.status(200);
     res.json(newReviewImage);
@@ -61,7 +63,8 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
 // #15 ; /:reviewId ; PUT
 router.put('/:reviewId', requireAuth, async (req, res, next) => {
-    const reviewToUpdate = await Review.findByPk(req.params.reviewId);
+    const reviewId = Number(req.params.reviewId);
+    const reviewToUpdate = await Review.findByPk(reviewId);
     if (!reviewToUpdate) {
         const err = new Error("Review couldn't be found");
         err.status = 404;
@@ -76,13 +79,14 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
 
 // #16 ; /:reviewId ; DELETE
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
-    const currReview = await Review.findByPk(req.params.reviewId);
+    const reviewId = Number(req.params.reviewId);
+    const currReview = await Review.findByPk(reviewId);
     if (!currReview) {
         const err = new Error("Review couldn't be found");
         err.status = 404;
         return next(err);
     }
-    const reviewToDelete = await Review.destroy({where: {id: req.params.reviewId}});
+    const reviewToDelete = await Review.destroy({where: {id: reviewId}});
     res.status(200);
     res.json({message: 'Successfully deleted'});
 });
