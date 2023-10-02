@@ -9,8 +9,7 @@ const currDate = Date.now();
 // #17 ; /current ; GET
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
-    const currUser = await User.findByPk(user.id);
-    const currBookings = await currUser.getBookings();
+    const currBookings = await Booking.findAll({where: {userId: user.id}});
     res.status(200);
     res.json(currBookings); //add Spot
 });
@@ -36,17 +35,17 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         endDate: {[Op.gt]: requestedStartDate}
     }});
     if (existingBooking) {
-        const err = new Error("Sorry, this spot is already booked for the specified dates");
+        const errObj = {
+            "message": "Sorry, this spot is already booked for the specified dates",
+            "errors": {
+                "startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"
+            }
+        };
+        const err = new Error(errObj);
         err.status = 403;
         return next(err);
     }
-    // {
-    //     "message": "Sorry, this spot is already booked for the specified dates",
-    //     "errors": {
-    //       "startDate": "Start date conflicts with an existing booking",
-    //       "endDate": "End date conflicts with an existing booking"
-    //     }
-    // }
     bookingToUpdate.startDate = requestedStartDate;
     bookingToUpdate.endDate = requestedEndDate;
     res.status(200);
@@ -62,7 +61,7 @@ router.delete('/bookingId', requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
-    if (currBooking.startDate > currDate ) {
+    if (currBooking.startDate > currDate) {
         const err = new Error("Bookings that have been started can't be deleted");
         err.status = 403;
         return next(err);

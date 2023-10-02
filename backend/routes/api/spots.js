@@ -5,29 +5,46 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
+function avgRating(arr) {
+    let sum = 0;
+    arr.forEach((rating) => {
+        sum += rating;
+    });
+    return sum / arr.length;
+}
+
+function previewImage(arr) {
+    arr.forEach((spotImage) => {
+        if(spotImage.preview) {
+            return spotImage;
+        }
+    });
+}
+
 // #5: /current ; GET
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
-    const currUser = await User.findByPk(user.id);
-    const currSpots = await currUser.getSpots();
+    const currSpots = await Spot.findAll({where: {ownerId: user.id}});
     res.status(200);
     res.json(currSpots); //add avgRating, previewImage
 });
 
 // #22 ; /:spotId/images/:imageId ; DELETE
 router.delete('/:spotId/images/:imageId', requireAuth, async (req, res, next) => {
+    const spotId = Number(req.params.spotId);
+    const imageId = Number(req.params.imageId);
     const currSpotImage = await SpotImage.findAll({where: {
-        id: Number(req.params.imageId),
-        spotId: Number(req.params.spotId)
+        id: imageId,
+        spotId: spotId
     }});
-    if (currSpotImage) {
+    if (!currSpotImage) {
         const err = new Error("Spot Image couldn't be found");
         err.status = 404;
         return next(err);
     }
     const imageToDelete = await SpotImage.destroy({where: {
-        id: Number(req.params.imageId),
-        spotId: Number(req.params.spotId)
+        id: imageId,
+        spotId: spotId
     }});
     res.status(200);
     res.json({message: 'Successfully deleted'});
@@ -57,7 +74,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     const spotId = Number(req.params.spotId);
     const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
-        const err = new Error("Review Image couldn't be found");
+        const err = new Error("Spot couldn't be found");
         err.status = 404;
         return next(err);
     }
@@ -71,7 +88,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     const spotId = Number(req.params.spotId);
     const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
-        const err = new Error("Review Image couldn't be found");
+        const err = new Error("Spot couldn't be found");
         err.status = 404;
         return next(err);
     }
@@ -100,6 +117,12 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
 // #18 ; /:spotId/bookings ; GET
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     const spotId = Number(req.params.spotId);
+    const currSpot = await Spot.findByPk(spotId);
+    if (!currSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
     const bookingsBySpot = await Booking.findAll({where: {spotId : spotId}});
     res.status(200);
     res.json(bookingsBySpot); //add User
@@ -110,7 +133,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const spotId = Number(req.params.spotId);
     const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
-        const err = new Error("Review Image couldn't be found");
+        const err = new Error("Spot couldn't be found");
         err.status = 404;
         return next(err);
     }
@@ -123,17 +146,17 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         endDate: {[Op.gt]: requestedStartDate}
     }});
     if (existingBooking) {
-        const err = new Error("Sorry, this spot is already booked for the specified dates");
+        const errObj = {
+            "message": "Sorry, this spot is already booked for the specified dates",
+            "errors": {
+                "startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"
+            }
+        };
+        const err = new Error(errObj);
         err.status = 403;
         return next(err);
     }
-    // {
-    //     "message": "Sorry, this spot is already booked for the specified dates",
-    //     "errors": {
-    //       "startDate": "Start date conflicts with an existing booking",
-    //       "endDate": "End date conflicts with an existing booking"
-    //     }
-    // }
     const newBooking = await Booking.create({
         spotId: spotId,
         userId: userId,
@@ -155,19 +178,11 @@ router.get('/:spotId', async (req, res, next) => {
     }
     // add numReviews, avgStarRating, SpotImages, Owner
     const currObj = spotToGet.dataValues; //?
-    const currReviewStars = await spotToGet.getReview({attributes: ['stars']});
-    currObj.numReviews = currReviewStars.length;
-    let avgStarRating = 0;
-    let totalStars = 0;
-    for (let i = 0; i < currReviewStars.length; i++) {
-        totalStars += currReviewStars[i];
-    }
-    avgStarRating = totalStars / numReviews;
-    currObj.avgStarRating = avgStarRating;
+    const currReviewStars = await spotToGet.getReviews({attributes: ['stars']});
+    const currNumReviews = currReviewStars.length;
+    const currAvgStarRating = avgRating(currReviewStars);
     const currSpotImages = await SpotImage.getAll({where: {spotId: spotId}, attributes: ['id', 'url', 'preview']});
-    currObj.SpotImages = currSpotImages;
     const currOwner = await spotToGet.getOwner({attributes: ['id', 'firstName', 'lastName']});
-    currObj.Owner = currOwner;
     res.status(200);
     res.json(currObj);
 });

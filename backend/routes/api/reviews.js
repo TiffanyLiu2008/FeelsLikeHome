@@ -8,8 +8,7 @@ const router = express.Router();
 // #11 ; /current ; GET
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
-    const currUser = await User.findByPk(user.id);
-    const currReviews = await currUser.getReviews();
+    const currReviews = await Review.findAll({where: {userId: user.id}});
     res.status(200);
     res.json(currReviews); //add User, Spot, ReviewImages
 });
@@ -22,7 +21,7 @@ router.delete('/:reviewId/images/:imageId', requireAuth, async (req, res, next) 
         id: imageId,
         reviewId: reviewId
     }});
-    if (currReviewImage) {
+    if (!currReviewImage) {
         const err = new Error("Review Image couldn't be found");
         err.status = 404;
         return next(err);
