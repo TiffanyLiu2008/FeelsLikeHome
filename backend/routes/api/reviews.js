@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
-// #11 ; /current ; GET
+// #11 ; /current ; GET ; Authen
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
     const currReviews = await Review.findAll({where: {userId: user.id}});
@@ -13,28 +13,7 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(currReviews); //add User, Spot, ReviewImages
 });
 
-// #23 ; /:reviewId/images/:imageId ; DELETE
-router.delete('/:reviewId/images/:imageId', requireAuth, async (req, res, next) => {
-    const reviewId = Number(req.params.reviewId);
-    const imageId = Number(req.params.imageId);
-    const currReviewImage = await ReviewImage.findAll({where: {
-        id: imageId,
-        reviewId: reviewId
-    }});
-    if (!currReviewImage) {
-        const err = new Error("Review Image couldn't be found");
-        err.status = 404;
-        return next(err);
-    }
-    const imageToDelete = await ReviewImage.destroy({where: {
-        id: imageId,
-        reviewId: reviewId
-    }});
-    res.status(200);
-    res.json({message: 'Successfully deleted'});
-});
-
-// #14 ; /:reviewId/images ; POST
+// #14 ; /:reviewId/images ; POST ; Authen ; Autho
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const reviewId = Number(req.params.reviewId);
     const currReview = await Review.findByPk(reviewId);
@@ -60,7 +39,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     res.json(newReviewImage);
 });
 
-// #15 ; /:reviewId ; PUT
+// #15 ; /:reviewId ; PUT ; Authen ; Autho
 router.put('/:reviewId', requireAuth, async (req, res, next) => {
     const reviewId = Number(req.params.reviewId);
     const reviewToUpdate = await Review.findByPk(reviewId);
@@ -76,7 +55,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
     res.json(reviewToUpdate);
 });
 
-// #16 ; /:reviewId ; DELETE
+// #16 ; /:reviewId ; DELETE ; Authen ; Autho
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     const reviewId = Number(req.params.reviewId);
     const currReview = await Review.findByPk(reviewId);

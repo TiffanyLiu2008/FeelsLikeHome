@@ -6,7 +6,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 const currDate = Date.now();
 
-// #17 ; /current ; GET
+// #17 ; /current ; GET ; Authen
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
     const currBookings = await Booking.findAll({where: {userId: user.id}});
@@ -14,7 +14,7 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(currBookings); //add Spot
 });
 
-// #20 ; /:bookingId ; PUT
+// #20 ; /:bookingId ; PUT ; Authen ; Autho
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const bookingId = Number(req.params.bookingId);
     const bookingToUpdate = await Booking.findByPk(bookingId);
@@ -52,8 +52,8 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     res.json(bookingToUpdate);
 });
 
-// #21 ; /:bookingId ; DELETE
-router.delete('/bookingId', requireAuth, async (req, res, next) => {
+// #21 ; /:bookingId ; DELETE ; Authen ; Autho
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     const bookingId = Number(req.params.bookingId);
     const currBooking = await Booking.findByPk(bookingId);
     if (!currBooking) {
