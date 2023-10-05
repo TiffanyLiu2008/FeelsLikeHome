@@ -8,9 +8,16 @@ const router = express.Router();
 // #11 ; /current ; GET ; Authen
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
-    const currReviews = await Review.findAll({where: {userId: user.id}});
+    const currReviews = await Review.findAll({
+        where: {userId: user.id},
+        include: [
+            {model: User, attributes: ['id', 'firstName', 'lastName']},
+            {model: Spot, attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price', 'previewImage']},
+            {model: ReviewImage, attributes: ['id', 'url']}
+        ]
+    });
     res.status(200);
-    res.json(currReviews); //add User, Spot, ReviewImages
+    res.json({'Reviews': currReviews});
 });
 
 // #14 ; /:reviewId/images ; POST ; Authen ; Autho
@@ -22,6 +29,15 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+    const ownerId = currReview.userId;
+    const {user} = req;
+    const userId = user.id;
+    if (userId !== ownerId) {
+        const err = new Error("Forbidden");
+        err.status = 404;
+        return next(err);
+    }
+
     const existingReviewImages = await ReviewImage.findAll({where: {
         reviewid: reviewId
     }});
@@ -35,8 +51,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         url: url,
         reviewId: reviewId
     });
+    //hide test
+    const returnObj = {...newReviewImage};
+    delete returnObj.reviewId;
+    delete returnObj.createdAt;
+    delete returnObj.updatedAt;
     res.status(200);
-    res.json(newReviewImage);
+    res.json(returnObj);
 });
 
 // #15 ; /:reviewId ; PUT ; Authen ; Autho
@@ -48,7 +69,20 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+    const ownerId = reviewToUpdate.userId;
+    const {user} = req;
+    const userId = user.id;
+    if (userId !== ownerId) {
+        const err = new Error("Forbidden");
+        err.status = 404;
+        return next(err);
+    }
     const {review, stars} = req.body;
+    if (stars < 1 || stars > 5) {
+        const err = new Error("Stars must be an integer from 1 to 5");
+        err.status = 404;
+        return next(err);
+    }
     reviewToUpdate.review = review;
     reviewToUpdate.stars = stars;
     res.status(200);
@@ -64,9 +98,17 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+    const ownerId = currReview.userId;
+    const {user} = req;
+    const userId = user.id;
+    if (userId !== ownerId) {
+        const err = new Error("Forbidden");
+        err.status = 404;
+        return next(err);
+    }
     const reviewToDelete = await Review.destroy({where: {id: reviewId}});
     res.status(200);
-    res.json({message: 'Successfully deleted'});
+    res.json({message: "Successfully deleted"});
 });
 
 module.exports = router;

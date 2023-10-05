@@ -7,7 +7,7 @@ const router = express.Router();
 
 // #22 ; /:imageId ; DELETE ; Authen ; Autho
 router.delete('/:imageId', requireAuth, async (req, res, next) => {
-    const imageId = req.params.imageId;
+    let imageId = req.params.imageId;
     if (imageId === 'null') {
         const err = new Error("Forbidden");
         err.status = 404;
@@ -15,6 +15,11 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     }
     imageId = Number(imageId);
     const currSpotImage = await SpotImage.findByPk(imageId);
+    if (!currSpotImage) {
+        const err = new Error("Spot Image couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
     const spotId = Number(currSpotImage.spotId);
     const currSpot = await Spot.findByPk(spotId);
     const ownerId = Number(currSpot.ownerId);
@@ -25,16 +30,11 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
-    if (!currSpotImage) {
-        const err = new Error("Spot Image couldn't be found");
-        err.status = 404;
-        return next(err);
-    }
     const imageToDelete = await SpotImage.destroy({where: {
         id: imageId
     }});
     res.status(200);
-    res.json({message: 'Successfully deleted'});
+    res.json({message: "Successfully deleted"});
 });
 
 module.exports = router;

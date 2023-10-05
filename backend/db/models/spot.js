@@ -65,11 +65,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: {
-          args: -90,
+          args: [-90],
           msg: 'Latitude is not valid',
         },
         max: {
-          args: 90,
+          args: [90],
           msg: 'Latitude is not valid',
         },
       },
@@ -79,11 +79,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: {
-          args: -180,
+          args: [-180],
           msg: 'Longitude is not valid',
         },
         max: {
-          args: 180,
+          args: [180],
           msg: 'Longitude is not valid',
         },
       },
