@@ -34,13 +34,13 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const {startDate, endDate} = req.body;
     if (startDate >= endDate) {
         const err = new Error("endDate cannot be on or before startDate");
-        err.status = 403;
+        err.status = 400;
         return next(err);
     }
     if (endDate < currDate) {
@@ -50,8 +50,20 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     }
     const existingBooking = await Booking.findAll({where: {
         spotId: bookingToUpdate.spotId,
-        startDate: {[Op.lte]: endDate},
-        endDate: {[Op.gte]: startDate}
+        [Op.or]: [
+            {
+                startDate: { [Op.between]: [startDate, endDate] },
+            },
+            {
+                endDate: { [Op.between]: [startDate, endDate] },
+            },
+            {
+                startDate: { [Op.lt]: startDate },
+                endDate: { [Op.gt]: endDate },
+            }
+        ]
+        // startDate: {[Op.lte]: endDate},
+        // endDate: {[Op.gte]: startDate}
     }});
     if (existingBooking.length > 0) {
         const err = new Error("Sorry, this spot is already booked for the specified dates");
@@ -82,7 +94,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== bookingOwnerId && userId !== spotOwnerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     if (currBooking.startDate < currDate) {

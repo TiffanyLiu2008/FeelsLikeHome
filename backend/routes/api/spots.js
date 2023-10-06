@@ -6,21 +6,43 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 const { Op } = require('sequelize');
 
-function avgRating(arr) {
-    let sum = 0;
-    arr.forEach((rating) => {
-        sum += rating;
-    });
-    return sum / arr.length;
-}
-
-function previewImage(arr) {
-    arr.forEach((spotImage) => {
-        if (spotImage.preview) {
-            return spotImage;
-        }
-    });
-}
+const validateQuery = [
+    check('page')
+        .isInt({min: 1})
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .isInt({min: 1})
+        .withMessage('Size must be greater than or equal to 1'),
+    check('minLat')
+        .optional()
+        .isFloat({min: -90})
+        .isFloat({max: 90})
+        .withMessage('Minimum latitude is invalid'),
+    check('maxLat')
+        .optional()
+        .isFloat({min: -90})
+        .isFloat({max: 90})
+        .withMessage('Maximum latitude is invalid'),
+    check('minLng')
+        .optional()
+        .isFloat({min: -180})
+        .isFloat({max: 180})
+        .withMessage('Minimum longitude is invalid'),
+    check('maxLng')
+        .optional()
+        .isFloat({min: -180})
+        .isFloat({max: 180})
+        .withMessage('Maximum longitude is invalid'),
+    check('minPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Maximum price must be greater than or equal to 0'),
+    handleValidationErrors
+];
 
 // #5: /current ; GET ; Authen
 router.get('/current', requireAuth, async (req, res) => {
@@ -50,7 +72,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const {url, preview} = req.body;
@@ -59,11 +81,11 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         preview: preview,
         spotId: spotId
     });
-    //hide test
-    const returnObj = {...newSpotImage};
-    delete returnObj.spotId;
-    delete returnObj.createdAt;
-    delete returnObj.updatedAt;
+    const returnObj = {
+        id: newSpotImage.id,
+        url: newSpotImage.url,
+        preview: newSpotImage.preview
+    };
     res.status(200);
     res.json(returnObj);
 });
@@ -134,7 +156,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     if (userId === ownerId) {
         const bookingsBySpotForOwner = await Booking.findAll({
             where: {spotId : spotId},
-            includes: [{model: User, attributes: ['id', 'firstName', 'lastName']}]
+            include: [{model: User, attributes: ['id', 'firstName', 'lastName']}]
         });
         res.status(200);
         res.json({'Bookings': bookingsBySpotForOwner});
@@ -163,19 +185,31 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId === ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const {startDate, endDate} = req.body;
     if (startDate >= endDate) {
         const err = new Error("endDate cannot be on or before startDate");
-        err.status = 403;
+        err.status = 400;
         return next(err);
     }
     const existingBooking = await Booking.findAll({where: {
         spotId: spotId,
-        startDate: {[Op.lte]: endDate},
-        endDate: {[Op.gte]: startDate}
+        [Op.or]: [
+            {
+                startDate: { [Op.between]: [startDate, endDate] },
+            },
+            {
+                endDate: { [Op.between]: [startDate, endDate] },
+            },
+            {
+                startDate: { [Op.lt]: startDate },
+                endDate: { [Op.gt]: endDate },
+            }
+        ]
+        // startDate: {[Op.lte]: endDate},
+        // endDate: {[Op.gte]: startDate}
     }});
     if (existingBooking.length > 0) {
         const err = new Error("Sorry, this spot is already booked for the specified dates");
@@ -241,13 +275,13 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
     if (name.length >= 50) {
         const err = new Error("Name must be less than 50 characters");
-        err.status = 404;
+        err.status = 400;
         return next(err);
     }
     spotToUpdate.address = address;
@@ -277,93 +311,40 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const spotToDelete = await Spot.destroy({where: {id: spotId}});
     res.status(200);
-    res.json({message: 'Successfully deleted'});
+    res.json({message: "Successfully deleted"});
 });
 
-// #4 ; / ; GET
-router.get('/', async (req, res) => {
+// #4 & #24 ; / ; GET ; with and without Query Filter
+router.get('/', validateQuery, async (req, res, next) => {
+    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    page = parseInt(page);
+    size = parseInt(size);
+    if (Number.isNaN(page) || page <= 0) page = 1;
+    if (Number.isNaN(size) || size <= 0) size = 20;
+    query.limit = size;
+    query.offset = size * (page - 1);
+    if (minLat) {query.where.minLat = minLat;}
+    if (maxLat) {query.where.maxLat = maxLat;}
+    if (minLng) {query.where.minLng = minLng;}
+    if (maxLng) {query.where.maxLng = maxLng;}
+    if (minPrice) {query.where.minPrice = minPrice;}
+    if (maxPrice) {query.where.maxPrice = maxPrice;}
     const allSpots = await Spot.findAll({
         include: [{model: Review, attributes: []}],
         attributes: {include: [[sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']]},
         group: ['Spot.id'],
         raw: true
     });
+    // where, ...query
+    // allSpots.page = page;
+    // allSpots.size = size;
     res.status(200);
-    res.json({"Spots": allSpots});
-});
-
-// #24 ; / ; GET ; Query Filter
-router.get('/', async (req, res, next) => {
-    const allSpots = await Spot.findAll({
-        include: [{model: Review, attributes: []}],
-        attributes: {include: [[sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']]},
-        group: ['Spot.id'],
-        raw: true
-    });
-    if (req.query) {
-        let {page, size, maxLat, minLat, maxLng, minLng, maxPrice, minPrice} = req.query;
-        if (maxLat > 90) {
-            const err = new Error("Maximum latitude is invalid");
-            err.status = 400;
-            return next(err);
-        }
-        if (minLat < -90) {
-            const err = new Error("Minimum latitude is invalid");
-            err.status = 400;
-            return next(err);
-        }
-        if (maxLng > 180) {
-            const err = new Error("Maximum longitude is invalid");
-            err.status = 400;
-            return next(err);
-        }
-        if (minLng < -180) {
-            const err = new Error("Minimum longitude is invalid");
-            err.status = 400;
-            return next(err);
-        }
-        if (maxPrice < 0) {
-            const err = new Error("Maximum price must be greater than or equal to 0");
-            err.status = 400;
-            return next(err);
-        }
-        if (minPrice < 0) {
-            const err = new Error("Minimum price must be greater than or equal to 0");
-            err.status = 400;
-            return next(err);
-        }
-        if (page < 1) {
-            const err = new Error("Page must be greater than or equal to 1");
-            err.status = 400;
-            return next(err);
-        }
-        if (size < 1) {
-            const err = new Error("Size must be greater than or equal to 1");
-            err.status = 400;
-            return next(err);
-        }
-        if (!page) {
-            page = 1;
-        }
-        if (!size) {
-            size = 20;
-        }
-        const pagination = {...allSpots};
-        pagination.limit = size;
-        pagination.offset = size * (page - 1);
-        page = parseInt(page);
-        size = parseInt(size);
-        res.status(200);
-        res.json({'Spots': pagination})
-    } else {
-        res.status(200);
-        res.json({'Spots': allSpots});
-    }
+    res.json({'Spots': allSpots, page, size});
 });
 
 // #7 ; / ; POST ; Authen

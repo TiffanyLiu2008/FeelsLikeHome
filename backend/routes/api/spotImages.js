@@ -10,7 +10,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     let imageId = req.params.imageId;
     if (imageId === 'null') {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     imageId = Number(imageId);
@@ -27,7 +27,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const imageToDelete = await SpotImage.destroy({where: {

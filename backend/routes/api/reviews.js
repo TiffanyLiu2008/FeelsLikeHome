@@ -34,10 +34,9 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
-
     const existingReviewImages = await ReviewImage.findAll({where: {
         reviewid: reviewId
     }});
@@ -51,11 +50,10 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         url: url,
         reviewId: reviewId
     });
-    //hide test
-    const returnObj = {...newReviewImage};
-    delete returnObj.reviewId;
-    delete returnObj.createdAt;
-    delete returnObj.updatedAt;
+    const returnObj = {
+        id: newReviewImage.id,
+        url: newReviewImage.url
+    };
     res.status(200);
     res.json(returnObj);
 });
@@ -74,13 +72,14 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const {review, stars} = req.body;
-    if (stars < 1 || stars > 5) {
-        const err = new Error("Stars must be an integer from 1 to 5");
-        err.status = 404;
+    if (review.length === 0 || stars < 1 || stars > 5) {
+        const err = new Error("Bad Request");
+        err.status = 400;
+        err.errors = ["Review text is required", "Stars must be an integer from 1 to 5"];
         return next(err);
     }
     reviewToUpdate.review = review;
@@ -103,7 +102,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     const userId = user.id;
     if (userId !== ownerId) {
         const err = new Error("Forbidden");
-        err.status = 404;
+        err.status = 403;
         return next(err);
     }
     const reviewToDelete = await Review.destroy({where: {id: reviewId}});
