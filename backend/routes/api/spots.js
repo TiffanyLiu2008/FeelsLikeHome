@@ -8,9 +8,11 @@ const { Op } = require('sequelize');
 
 const validateQuery = [
     check('page')
+        .optional()
         .isInt({min: 1})
         .withMessage('Page must be greater than or equal to 1'),
     check('size')
+        .optional()
         .isInt({min: 1})
         .withMessage('Size must be greater than or equal to 1'),
     check('minLat')
@@ -164,7 +166,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
         const bookingsBySpotForNonOwner = await Booking.findAll({
             where: {spotId: spotId},
             attributes: ['spotId', 'startDate', 'endDate']
-
         });
         res.status(200);
         res.json({'Bookings': bookingsBySpotForNonOwner});
@@ -204,12 +205,12 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 endDate: { [Op.between]: [startDate, endDate] },
             },
             {
-                startDate: { [Op.lt]: startDate },
-                endDate: { [Op.gt]: endDate },
+                startDate: { [Op.lte]: endDate },
+            },
+            {
+                endDate: { [Op.gte]: startDate },
             }
         ]
-        // startDate: {[Op.lte]: endDate},
-        // endDate: {[Op.gte]: startDate}
     }});
     if (existingBooking.length > 0) {
         const err = new Error("Sorry, this spot is already booked for the specified dates");
@@ -321,30 +322,27 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 // #4 & #24 ; / ; GET ; with and without Query Filter
 router.get('/', validateQuery, async (req, res, next) => {
-    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
-    page = parseInt(page);
-    size = parseInt(size);
-    if (Number.isNaN(page) || page <= 0) page = 1;
-    if (Number.isNaN(size) || size <= 0) size = 20;
-    query.limit = size;
-    query.offset = size * (page - 1);
-    if (minLat) {query.where.minLat = minLat;}
-    if (maxLat) {query.where.maxLat = maxLat;}
-    if (minLng) {query.where.minLng = minLng;}
-    if (maxLng) {query.where.maxLng = maxLng;}
-    if (minPrice) {query.where.minPrice = minPrice;}
-    if (maxPrice) {query.where.maxPrice = maxPrice;}
     const allSpots = await Spot.findAll({
         include: [{model: Review, attributes: []}],
         attributes: {include: [[sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']]},
         group: ['Spot.id'],
         raw: true
     });
-    // where, ...query
-    // allSpots.page = page;
-    // allSpots.size = size;
-    res.status(200);
-    res.json({'Spots': allSpots, page, size});
+        let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+        if (page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice) {
+            page = parseInt(page);
+            size = parseInt(size);
+            if (Number.isNaN(page) || page <= 0) page = 1;
+            if (Number.isNaN(size) || size <= 0) size = 20;
+            const query = {};
+            query.limit = size;
+            query.offset = size * (page - 1);
+            res.status(200);
+            res.json({'Spots': allSpots, page, size});
+        } else {
+            res.status(200);
+            res.json({'Spots': allSpots});
+        }
 });
 
 // #7 ; / ; POST ; Authen

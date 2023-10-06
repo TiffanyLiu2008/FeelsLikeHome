@@ -58,12 +58,12 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
                 endDate: { [Op.between]: [startDate, endDate] },
             },
             {
-                startDate: { [Op.lt]: startDate },
-                endDate: { [Op.gt]: endDate },
+                startDate: { [Op.lte]: endDate },
+            },
+            {
+                endDate: { [Op.gte]: startDate },
             }
         ]
-        // startDate: {[Op.lte]: endDate},
-        // endDate: {[Op.gte]: startDate}
     }});
     if (existingBooking.length > 0) {
         const err = new Error("Sorry, this spot is already booked for the specified dates");
