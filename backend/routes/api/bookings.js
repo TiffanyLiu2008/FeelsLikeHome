@@ -52,16 +52,12 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         spotId: bookingToUpdate.spotId,
         [Op.or]: [
             {
-                startDate: { [Op.between]: [startDate, endDate] },
-            },
-            {
-                endDate: { [Op.between]: [startDate, endDate] },
-            },
-            {
-                startDate: { [Op.lte]: endDate },
-            },
-            {
+                startDate: { [Op.lte]: startDate },
                 endDate: { [Op.gte]: startDate },
+            },
+            {
+                startDate: { [Op.gte]: startDate },
+                startDate: { [Op.lte]: endDate },
             }
         ]
     }});
