@@ -46,6 +46,41 @@ const validateQuery = [
     handleValidationErrors
 ];
 
+const validateSpot = [
+    check('address')
+        .exists({ checkFalsy: true })
+        .withMessage('Street address is required'),
+    check('city')
+        .exists({ checkFalsy: true })
+        .withMessage('City is required'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .withMessage('State is required'),
+    check('country')
+        .exists({ checkFalsy: true })
+        .withMessage('Country is required'),
+    check('lat')
+        .exists({ checkFalsy: true })
+        .isFloat({min: -90, max: 90})
+        .withMessage('Latitude is not valid'),
+    check('lng')
+        .exists({ checkFalsy: true })
+        .isFloat({min: -180, max: 180})
+        .withMessage('Longitude is not valid'),
+    check('name')
+        .exists({ checkFalsy: true })
+        .isLength({max: 49})
+        .withMessage('Name must be less than 50 characters'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .withMessage('Description is required'),
+    check('price')
+        .exists({ checkFalsy: true })
+        .isInt({min: 0})
+        .withMessage('Price per day is required'),
+    handleValidationErrors
+];
+
 // #5: /current ; GET ; Authen
 router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
@@ -199,16 +234,12 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         spotId: spotId,
         [Op.or]: [
             {
-                startDate: { [Op.between]: [startDate, endDate] },
-            },
-            {
-                endDate: { [Op.between]: [startDate, endDate] },
-            },
-            {
-                startDate: { [Op.lte]: endDate },
-            },
-            {
+                startDate: { [Op.lte]: startDate },
                 endDate: { [Op.gte]: startDate },
+            },
+            {
+                startDate: { [Op.gte]: startDate },
+                startDate: { [Op.lte]: endDate },
             }
         ]
     }});
@@ -238,7 +269,7 @@ router.get('/:spotId', async (req, res, next) => {
         return next(err);
     }
     const ownerId = spotToGet.ownerId;
-    const returnObj = await Spot.findByPk(spotId, {
+    const spotInfo = await Spot.findByPk(spotId, {
         include: [
             {model: Review, attributes: []}
         ],
@@ -256,6 +287,22 @@ router.get('/:spotId', async (req, res, next) => {
         where: {id: ownerId},
         attributes: ['id', 'firstName', 'lastName']
     });
+    const returnObj = {};
+    returnObj.id = spotInfo.id;
+    returnObj.ownerId = spotInfo.ownerId;
+    returnObj.address = spotInfo.address;
+    returnObj.city = spotInfo.city;
+    returnObj.state = spotInfo.state;
+    returnObj.country = spotInfo.country;
+    returnObj.lat = spotInfo.lat;
+    returnObj.lng = spotInfo.lng;
+    returnObj.name = spotInfo.name;
+    returnObj.description = spotInfo.description;
+    returnObj.price = spotInfo.price;
+    returnObj.createdAt = spotInfo.createdAt;
+    returnObj.updatedAt = spotInfo.updatedAt;
+    returnObj.numReviews = spotInfo.numReviews;
+    returnObj.avgStarRating = spotInfo.avgStarRating;
     returnObj.SpotImages = spotImages;
     returnObj.Owner = owner;
     res.status(200);
@@ -263,15 +310,15 @@ router.get('/:spotId', async (req, res, next) => {
 });
 
 // #9 ; /:spotId/ ; PUT ; Authen ; Autho
-router.put('/:spotId', requireAuth, async (req, res, next) => {
+router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     const spotId = Number(req.params.spotId);
-    const spotToUpdate = await Spot.findByPk(spotId);
-    if (!spotToUpdate) {
+    const oldSpot = await Spot.findByPk(spotId);
+    if (!oldSpot) {
         const err = new Error("Spot couldn't be found");
         err.status = 404;
         return next(err);
     }
-    const ownerId = spotToUpdate.ownerId;
+    const ownerId = oldSpot.ownerId;
     const {user} = req;
     const userId = user.id;
     if (userId !== ownerId) {
@@ -280,11 +327,9 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         return next(err);
     }
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
-    if (name.length >= 50) {
-        const err = new Error("Name must be less than 50 characters");
-        err.status = 400;
-        return next(err);
-    }
+    const spotToUpdate = {};
+    spotToUpdate.id = oldSpot.id;
+    spotToUpdate.ownerId = oldSpot.ownerId;
     spotToUpdate.address = address;
     spotToUpdate.city = city;
     spotToUpdate.state = state;
@@ -294,6 +339,8 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     spotToUpdate.name = name;
     spotToUpdate.description = description;
     spotToUpdate.price = price;
+    spotToUpdate.createdAt = oldSpot.createdAt;
+    spotToUpdate.updatedAt = oldSpot.createdAt;
     res.status(200);
     res.json(spotToUpdate);
 });
