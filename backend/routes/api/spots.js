@@ -277,7 +277,8 @@ router.get('/:spotId', async (req, res, next) => {
             [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
             [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating']
         ]},
-        group: ['Reviews.id', 'Reviews.stars'],
+        // group: ['Reviews.id', 'Reviews.stars'],
+        group: ['id'],
         raw: true
     });
     const spotImages = await SpotImage.findAll({
