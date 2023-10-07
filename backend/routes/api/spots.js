@@ -37,11 +37,11 @@ const validateQuery = [
         .withMessage('Maximum longitude is invalid'),
     check('minPrice')
         .optional()
-        .isFloat({min: 0})
+        .isInt({min: 0})
         .withMessage('Minimum price must be greater than or equal to 0'),
     check('maxPrice')
         .optional()
-        .isFloat({min: 0})
+        .isInt({min: 0})
         .withMessage('Maximum price must be greater than or equal to 0'),
     handleValidationErrors
 ];

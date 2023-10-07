@@ -22,7 +22,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     }
     const reviewId = Number(currReviewImage.reviewId);
     const currReview = await Review.findByPk(reviewId);
-    const ownerId = Number(currReview.userId);
+    const ownerId = currReview.userId;
     const {user} = req;
     const userId = user.id;
     if(userId !== ownerId) {
