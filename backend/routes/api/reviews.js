@@ -38,7 +38,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         return next(err);
     }
     const existingReviewImages = await ReviewImage.findAll({where: {
-        reviewid: reviewId
+        reviewId: reviewId
     }});
     if (existingReviewImages.length >= 10) {
         const err = new Error("Maximum number of images for this resource was reached");
