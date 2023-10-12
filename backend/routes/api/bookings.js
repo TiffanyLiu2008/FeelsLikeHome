@@ -12,9 +12,7 @@ router.get('/current', requireAuth, async (req, res) => {
     const {user} = req;
     const currBookings = await Booking.findAll({
         where: {userId: user.id},
-        include: [
-            {model: Spot, attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price', 'previewImage']}
-        ]
+        include: [{model: Spot, attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price', 'previewImage']}]
     });
     res.status(200);
     res.json({'Bookings': currBookings});
@@ -53,11 +51,11 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         [Op.or]: [
             {
                 startDate: { [Op.lte]: startDate },
-                endDate: { [Op.gte]: startDate },
+                endDate: { [Op.gte]: startDate }
             },
             {
                 startDate: { [Op.gte]: startDate },
-                startDate: { [Op.lte]: endDate },
+                startDate: { [Op.lte]: endDate }
             }
         ]
     }});
