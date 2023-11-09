@@ -9,9 +9,6 @@ import CreateSpot from './components/CreateSpot/index';
 import UpdateSpot from './components/UpdateSpot/index';
 import ManageSpots from './components/ManageSpots/index';
 import ManageReviews from './components/ManageReviews/index';
-// import DeleteSpotModal from './components/DeleteSpotModal/index';
-// import DeleteReviewModal from './components/DeleteReviewModal/index';
-// import PostReviewModal from './components/PostReviewModal/index';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,9 +27,6 @@ function App() {
         <Route exact path="/spots/:spotId/edit" component={UpdateSpot}/>
         <Route exact path="/spots/:spotId(\d+)" component={SpotDetails}/>
         <Route exact path="/" component={SpotIndex}/>
-        {/* <Route exact path="/spots/:spotId/delete" component={DeleteSpotModal}/>
-        <Route exact path="/reviews/:reviewId/delete" component={DeleteReviewModal}/>
-        <Route exact path="/spots/:spotId/reviews/new" component={PostReviewModal}/> */}
       </Switch>}
     </>
   );

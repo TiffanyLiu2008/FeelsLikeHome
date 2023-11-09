@@ -9,17 +9,14 @@ export const loadSpots = (spots) => ({
   type: LOAD_SPOTS,
   spots,
 });
-
 export const receiveSpot = (spot) => ({
   type: RECEIVE_SPOT,
   spot,
 });
-
 export const editSpot = (spot) => ({
   type: UPDATE_SPOT,
   spot,
 });
-
 export const removeSpot = (spotId) => ({
   type: REMOVE_SPOT,
   spotId,
@@ -35,7 +32,6 @@ export const getAllSpots = () => async (dispatch) => {
   }
   return res;
 };
-
 export const deleteSpot = (spotId) => async (dispatch) => {
   const res = await fetch(`api/spots/${spotId}`, {
     method: 'DELETE'
@@ -47,7 +43,6 @@ export const deleteSpot = (spotId) => async (dispatch) => {
   }
   return res;
 };
-
 export const getSpotDetails = (spotId) => async (dispatch) => {
   const res = await fetch(`/api/spots/${spotId}`);
   if (res.ok) {
@@ -57,7 +52,6 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
   }
   return res;
 };
-
 export const createSpot = (payload) => async (dispatch) => {
   const res = await fetch('/api/spots', {
     method: 'POST',
@@ -71,7 +65,6 @@ export const createSpot = (payload) => async (dispatch) => {
   }
   return res;
 };
-
 export const updateSpot = (payload) => async (dispatch) => {
   const res = await fetch(`api/spots/${payload.id}`, {
     method: 'PUT',
@@ -90,13 +83,18 @@ export const updateSpot = (payload) => async (dispatch) => {
 const spotsReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_SPOTS:
-      const spotsState = {};
+      const spotsState = {...state};
       action.spots.Spots.forEach((spot) => {
-        spotsState[spot.id] = spot;
+         if (!spotsState[spot.id]) {
+          spotsState[spot.id] = spot;
+        }
       });
-      return spotsState;
+      return {...spotsState};
     case RECEIVE_SPOT:
       return { ...state, [action.spot.id]: action.spot };
+      // const spotState = {...state};
+      // spotState[action.spot.id] = action.spot;
+      // return spotState;
     case UPDATE_SPOT:
       return { ...state, [action.spot.id]: action.spot };
     case REMOVE_SPOT:

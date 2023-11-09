@@ -5,25 +5,21 @@ import { deleteSpot } from '../../store/spots';
 
 const SpotItem = ({ spot }) => {
   const dispatch = useDispatch();
+  const {name, SpotImages, city, state, price, avgRating} = spot;
+
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(deleteSpot(spot.id));
   };
   return (
-    <li>
-      <div className="li-contents-flex">
-        <Link to={`/spots/${spot.id}`}>{spot.id}</Link>
-        <div className="buttons-container">
-          <Link
-            className="edit-link"
-            to={`/spots/${spot.id}/edit`}
-          >
-            Update
-          </Link>
-          <button onClick={handleDelete}>Delete</button>
-        </div>
-      </div>
-    </li>
+    <div>
+      <h2>{name}</h2>
+      <Link to={`/spots/${spot.id}`}><button>Image</button></Link>
+      <p2>{city}, {state}, {avgRating}</p2>
+      <p>$ {price} night</p>
+      <Link to={`/spots/${spot.id}/edit`}><button>Update</button></Link>
+      <button onClick={handleDelete}>Delete</button>
+    </div>
   );
 };
 
