@@ -23,7 +23,7 @@ export const getAllReviews = (spotId) => async (dispatch) => {
   const res = await fetch(`/api/spots/${spotId}/reviews`);
   if (res.ok) {
     const data = await res.json();
-    dispatch(loadReviews(data));
+    dispatch(loadReviews(spotId, data));
     return data;
   }
   return res;
@@ -62,6 +62,7 @@ const reviewsReducer = (state = {}, action, spotId) => {
         reviewsState[review.id] = review;
       });
       return {...state, spotId: reviewsState};
+      // return { ...state, [action.spotId]: action.review };
     case RECEIVE_REVIEW:
       return { ...state, [action.review.id]: action.review };
     case REMOVE_REVIEW:
