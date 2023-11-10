@@ -54,15 +54,14 @@ export const createReview = (spotId, payload) => async (dispatch) => {
 };
 
 /** Reviews reducer: */
-const reviewsReducer = (state = {}, action, spotId) => {
+const reviewsReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_REVIEWS:
       const reviewsState = {};
       action.reviews.Reviews.forEach((review) => {
         reviewsState[review.id] = review;
       });
-      return {...state, spotId: reviewsState};
-      // return { ...state, [action.spotId]: action.review };
+      return {...state, [action.spotId]: reviewsState};
     case RECEIVE_REVIEW:
       return { ...state, [action.review.id]: action.review };
     case REMOVE_REVIEW:

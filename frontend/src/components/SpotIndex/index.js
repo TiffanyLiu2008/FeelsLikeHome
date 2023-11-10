@@ -1,4 +1,5 @@
 import './SpotIndex.css';
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSpots } from '../../store/spots';
@@ -12,6 +13,7 @@ const SpotIndex = () => {
   }, [dispatch]);
   return (
     <div>
+      {/* <Link to={'/spots/new'}><button>Create a New Spot</button></Link> */}
       <ul>
         {spots.map((spot) => (
           <SpotIndexItem spot={spot} key={spot.id}/>

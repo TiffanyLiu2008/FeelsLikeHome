@@ -1,5 +1,5 @@
 import './SpotForm.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createSpot, updateSpot } from '../../store/spots';
@@ -7,6 +7,18 @@ import { createSpot, updateSpot } from '../../store/spots';
 const SpotForm = ({ spot, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  // const [country, setCountry] = useState('');
+  // const [address, setAddress] = useState('');
+  // const [city, setCity] = useState('');
+  // const [state, setState] = useState('');
+  // const [lat, setLat] = useState('');
+  // const [lng, setLng] = useState('');
+  // const [description, setDescription] = useState('');
+  // const [name, setName] = useState('');
+  // const [price, setPrice] = useState('');
+  // const [preview, setPreview] = useState('');
+  // const [url, setUrl] = useState('');
+  // const [errors, setErrors] = useState({});
   const [country, setCountry] = useState(spot?.country);
   const [address, setAddress] = useState(spot?.address);
   const [city, setCity] = useState(spot?.city);
@@ -19,8 +31,10 @@ const SpotForm = ({ spot, formType }) => {
   const [preview, setPreview] = useState(spot?.preview);
   const [url, setUrl] = useState(spot?.url);
   const [errors, setErrors] = useState({});
+  // const [hasSubmitted, setHasSubmitted] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // setHasSubmitted(true);
     setErrors({});
     spot = { ...spot, country, address, city, state, lat, lng, description, name, price, preview, url };
     let newSpot;
@@ -36,6 +50,46 @@ const SpotForm = ({ spot, formType }) => {
       setErrors(errors);
     }
   };
+  useEffect(() => {
+    const currErrors = {};
+    if (!country) {
+      currErrors.country = 'Country is required';
+    }
+    if (!address) {
+      currErrors.address = 'Address is required';
+    }
+    if (!city) {
+      currErrors.city = 'City is required';
+    }
+    if (!state) {
+      currErrors.state = 'State is required';
+    }
+    if (!lat) {
+      currErrors.lat = 'Latitude is required';
+    }
+    if (!lng) {
+      currErrors.lng = 'Longitude is required';
+    }
+    if (description.length < 30) {
+      currErrors.description = 'Description needs a minimum of 30 characters';
+    }
+    if (!name) {
+      currErrors.name = 'Name is required';
+    }
+    if (!price) {
+      currErrors.price = 'Price is required';
+    }
+    if (formType !== 'Update Spot' && !url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+      currErrors.url = 'Image URL must end in .png, .jpg, or.jpeg';
+    }
+    if (formType !== 'Update Spot' && !preview) {
+      currErrors.preview = 'Preview image is required';
+    } else if (formType !== 'Update Spot' && !preview.endsWith('.png') && !preview.endsWith('.jpg') && !preview.endsWith('.jpeg')) {
+      currErrors.preview = 'Image URL must end in .png, .jpg, or.jpeg';
+    }
+    setErrors(currErrors);
+  }, [country, address, city, state, lat, lng, description, name, price, preview, url]);
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>{formType}</h2>

@@ -2,6 +2,8 @@ import './PostReview.css';
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { createReview } from '../../store/reviews';
+// import ReactStars from "react-rating-stars-component";
 
 function PostReviewModal() {
     const dispatch = useDispatch();
@@ -11,8 +13,18 @@ function PostReviewModal() {
     const {closeModal} = useModal();
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors({});
-        // const newReview = await dispatch();
+        if (!errors) {
+            setErrors({});
+            return dispatch(createReview({review, stars}))
+            .then(closeModal)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.erros);
+                }
+            });
+        }
+        return setErrors({});
     };
     return (
         <form onSubmit={handleSubmit}>
@@ -22,10 +34,11 @@ function PostReviewModal() {
                 <textarea value={review} onChange={(e) => setReview(e.target.value)} required/>
             </label>
             <div className='errors'>{errors.stars}</div>
+            {/* <ReactStars value={stars} onChange={(e) => setStars(e.target.value)} precision={1} required/> */}
             <label>
                 <input type='text' value={stars} onChange={(e) => setStars(e.target.value)} required/>
             </label>
-            <button type='submit'>Submit Your Review</button>
+            <button type='submit' disabled={review.length < 10}>Submit Your Review</button>
         </form>
     );
 }
