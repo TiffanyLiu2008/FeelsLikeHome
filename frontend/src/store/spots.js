@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf";
 /** Action Type Constants: */
 export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 export const RECEIVE_SPOT = 'spots/RECEIVE_SPOT';
@@ -24,7 +25,7 @@ export const removeSpot = (spotId) => ({
 
 /** Thunk Action Creators: */
 export const getAllSpots = () => async (dispatch) => {
-  const res = await fetch('/api/spots');
+  const res = await csrfFetch('/api/spots');
   if (res.ok) {
     const data = await res.json();
     dispatch(loadSpots(data));
@@ -33,7 +34,7 @@ export const getAllSpots = () => async (dispatch) => {
   return res;
 };
 export const getMySpots = () => async (dispatch) => {
-  const res = await fetch('/api/spots/current');
+  const res = await csrfFetch('/api/spots/current');
   if (res.ok) {
     const data = await res.json();
     dispatch(loadSpots(data));
@@ -42,7 +43,7 @@ export const getMySpots = () => async (dispatch) => {
   return res;
 };
 export const deleteSpot = (spotId) => async (dispatch) => {
-  const res = await fetch(`api/spots/${spotId}`, {
+  const res = await csrfFetch(`api/spots/${spotId}`, {
     method: 'DELETE'
   });
   if (res.ok) {
@@ -53,7 +54,7 @@ export const deleteSpot = (spotId) => async (dispatch) => {
   return res;
 };
 export const getSpotDetails = (spotId) => async (dispatch) => {
-  const res = await fetch(`/api/spots/${spotId}`);
+  const res = await csrfFetch(`/api/spots/${spotId}`);
   if (res.ok) {
     const data = await res.json();
     dispatch(receiveSpot(data));
@@ -62,7 +63,7 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
   return res;
 };
 export const createSpot = (payload) => async (dispatch) => {
-  const res = await fetch('/api/spots', {
+  const res = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
@@ -76,7 +77,7 @@ export const createSpot = (payload) => async (dispatch) => {
   return res;
 };
 export const updateSpot = (payload) => async (dispatch) => {
-  const res = await fetch(`api/spots/${payload.id}`, {
+  const res = await csrfFetch(`api/spots/${payload.id}`, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)

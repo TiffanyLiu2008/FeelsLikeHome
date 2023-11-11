@@ -1,11 +1,12 @@
+import { csrfFetch } from "./csrf";
 /** Action Type Constants: */
-export const LOAD_REVIEWS = 'reviews/LOAD_REVIEWS';
+export const LOAD_SPOTREVIEWS = 'reviews/LOAD_SPOTREVIEWS';
 export const RECEIVE_REVIEW = 'reviews/RECEIVE_REVIEW';
 export const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
 
 /**  Action Creators: */
-export const loadReviews = (spotId, reviews) => ({
-  type: LOAD_REVIEWS,
+export const loadSpotReviews = (spotId, reviews) => ({
+  type: LOAD_SPOTREVIEWS,
   spotId,
   reviews,
 });
@@ -19,26 +20,17 @@ export const removeReview = (reviewId) => ({
 });
 
 /** Thunk Action Creators: */
-export const getAllReviews = (spotId) => async (dispatch) => {
-  const res = await fetch(`/api/spots/${spotId}/reviews`);
+export const getSpotReviews = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
   if (res.ok) {
     const data = await res.json();
-    dispatch(loadReviews(spotId, data));
-    return data;
-  }
-  return res;
-};
-export const getMyReviews = () => async (dispatch) => {
-  const res = await fetch('/api/reviews/current');
-  if (res.ok) {
-    const data = await res.json();
-    dispatch(loadReviews(data));
+    dispatch(loadSpotReviews(spotId, data));
     return data;
   }
   return res;
 };
 export const deleteReview = (reviewId) => async (dispatch) => {
-  const res = await fetch(`api/reviews/${reviewId}`, {
+  const res = await csrfFetch(`api/reviews/${reviewId}`, {
     method: 'DELETE'
   });
   if (res.ok) {
@@ -49,7 +41,7 @@ export const deleteReview = (reviewId) => async (dispatch) => {
   return res;
 };
 export const createReview = (spotId, payload) => async (dispatch) => {
-  const res = await fetch(`/api/spots/${spotId}/reviews`, {
+  const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
@@ -65,7 +57,7 @@ export const createReview = (spotId, payload) => async (dispatch) => {
 /** Reviews reducer: */
 const reviewsReducer = (state = {}, action) => {
   switch (action.type) {
-    case LOAD_REVIEWS:
+    case LOAD_SPOTREVIEWS:
       const reviewsState = {};
       action.reviews.Reviews.forEach((review) => {
         reviewsState[review.id] = review;

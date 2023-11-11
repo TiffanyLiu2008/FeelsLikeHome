@@ -16,7 +16,7 @@ const SpotDetails = () => {
     dispatch(getSpotDetails(spotId)).then(() => setIsLoading(false));
   }, [dispatch, spotId]);
   const handleReserve = (e) => {
-    alert('Feture Coming Soon...');
+    alert('Feature Coming Soon...');
   };
   if (isLoading) return (<>Loading...</>);
   const {name, city, state, country, SpotImages, Owner, description, price, avgStarRating, numReviews} = spot;
