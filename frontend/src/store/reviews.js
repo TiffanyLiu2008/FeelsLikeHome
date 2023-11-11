@@ -28,6 +28,15 @@ export const getAllReviews = (spotId) => async (dispatch) => {
   }
   return res;
 };
+export const getMyReviews = () => async (dispatch) => {
+  const res = await fetch('/api/reviews/current');
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadReviews(data));
+    return data;
+  }
+  return res;
+};
 export const deleteReview = (reviewId) => async (dispatch) => {
   const res = await fetch(`api/reviews/${reviewId}`, {
     method: 'DELETE'

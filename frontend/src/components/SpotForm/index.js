@@ -36,7 +36,9 @@ const SpotForm = ({ spot, formType }) => {
     e.preventDefault();
     // setHasSubmitted(true);
     setErrors({});
-    spot = { ...spot, country, address, city, state, lat, lng, description, name, price, preview, url };
+    spot = { ...spot, country, address, city, state, lat, lng, description, name, price };
+    // const spotImages = { ...spotImages, url, preview };
+    console.log(country);
     let newSpot;
     if (formType === 'Update Spot') {
       newSpot = await dispatch(updateSpot(spot));
@@ -50,45 +52,46 @@ const SpotForm = ({ spot, formType }) => {
       setErrors(errors);
     }
   };
-  useEffect(() => {
-    const currErrors = {};
-    if (!country) {
-      currErrors.country = 'Country is required';
-    }
-    if (!address) {
-      currErrors.address = 'Address is required';
-    }
-    if (!city) {
-      currErrors.city = 'City is required';
-    }
-    if (!state) {
-      currErrors.state = 'State is required';
-    }
-    if (!lat) {
-      currErrors.lat = 'Latitude is required';
-    }
-    if (!lng) {
-      currErrors.lng = 'Longitude is required';
-    }
-    if (description.length < 30) {
-      currErrors.description = 'Description needs a minimum of 30 characters';
-    }
-    if (!name) {
-      currErrors.name = 'Name is required';
-    }
-    if (!price) {
-      currErrors.price = 'Price is required';
-    }
-    if (formType !== 'Update Spot' && !url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
-      currErrors.url = 'Image URL must end in .png, .jpg, or.jpeg';
-    }
-    if (formType !== 'Update Spot' && !preview) {
-      currErrors.preview = 'Preview image is required';
-    } else if (formType !== 'Update Spot' && !preview.endsWith('.png') && !preview.endsWith('.jpg') && !preview.endsWith('.jpeg')) {
-      currErrors.preview = 'Image URL must end in .png, .jpg, or.jpeg';
-    }
-    setErrors(currErrors);
-  }, [country, address, city, state, lat, lng, description, name, price, preview, url]);
+  // useEffect(() => {
+  //   const currErrors = {};
+  //   if (!country) {
+  //     currErrors.country = 'Country is required';
+  //   }
+  //   if (!address) {
+  //     currErrors.address = 'Address is required';
+  //   }
+  //   if (!city) {
+  //     currErrors.city = 'City is required';
+  //   }
+  //   if (!state) {
+  //     currErrors.state = 'State is required';
+  //   }
+  //   if (!lat) {
+  //     currErrors.lat = 'Latitude is required';
+  //   }
+  //   if (!lng) {
+  //     currErrors.lng = 'Longitude is required';
+  //   }
+  //   if (description.length < 30) {
+  //     currErrors.description = 'Description needs a minimum of 30 characters';
+  //   }
+  //   if (!name) {
+  //     currErrors.name = 'Name is required';
+  //   }
+  //   if (!price) {
+  //     currErrors.price = 'Price is required';
+  //   }
+  //   if (formType !== 'Update Spot' && !url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+  //     currErrors.url = 'Image URL must end in .png, .jpg, or.jpeg';
+  //   }
+  //   if (formType !== 'Update Spot' && !preview) {
+  //     currErrors.preview = 'Preview image is required';
+  //   } else if (formType !== 'Update Spot' && !preview.endsWith('.png') && !preview.endsWith('.jpg') && !preview.endsWith('.jpeg')) {
+  //     currErrors.preview = 'Image URL must end in .png, .jpg, or.jpeg';
+  //   }
+  //   setErrors(currErrors);
+  // }, [country, address, city, state, lat, lng, description, name, price, preview, url]);
+  console.log(country);
 
   return (
     <form onSubmit={handleSubmit}>

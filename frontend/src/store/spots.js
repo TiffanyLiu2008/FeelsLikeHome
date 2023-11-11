@@ -32,6 +32,15 @@ export const getAllSpots = () => async (dispatch) => {
   }
   return res;
 };
+export const getMySpots = () => async (dispatch) => {
+  const res = await fetch('/api/spots/current');
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadSpots(data));
+    return data;
+  }
+  return res;
+};
 export const deleteSpot = (spotId) => async (dispatch) => {
   const res = await fetch(`api/spots/${spotId}`, {
     method: 'DELETE'
@@ -61,6 +70,7 @@ export const createSpot = (payload) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(receiveSpot(data));
+    console.log(data);
     return data;
   }
   return res;
