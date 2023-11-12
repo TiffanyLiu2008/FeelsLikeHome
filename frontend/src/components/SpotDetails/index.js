@@ -29,7 +29,7 @@ const SpotDetails = () => {
     reviewNums = numReviews + 'reviews';
   }
   let reviewStars;
-  numReviews > 0 ? reviewStars = avgStarRating : reviewStars = 'New';
+  numReviews > 0 ? reviewStars = avgStarRating.toFixed(1) : reviewStars = 'New';
   return (
     <div>
       <h2>{name}</h2>
@@ -38,8 +38,7 @@ const SpotDetails = () => {
       <h2>Hosted by {Owner.firstName} {Owner.lastName}</h2>
       <p>{description}</p>
       <h2>$ {price} night</h2>
-      <p>{reviewStars}</p>
-      <p>{reviewNums}</p>
+      <p>{reviewStars} . {reviewNums}</p>
       <button onClick={handleReserve}>Reserve</button>
       <h2>{reviewStars} {reviewNums}</h2>
       <OpenModalMenuButton itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>

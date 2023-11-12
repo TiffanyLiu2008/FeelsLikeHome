@@ -2,12 +2,14 @@ import './DeleteSpot.css';
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { deleteSpot } from '../../store/spots';
 
-function DeleteSpotModal() {
+const DeleteSpotModal = ({spot}) => {
     const dispatch = useDispatch();
     const {closeModal} = useModal();
     const handleDelete = (e) => {
-
+        e.preventDefault();
+        dispatch(deleteSpot(spot.id));
     };
     return (
         <div>

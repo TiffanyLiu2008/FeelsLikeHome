@@ -31,7 +31,7 @@ function PostReviewModal() {
             <h2>How was your stay?</h2>
             <div className='errors'>{errors.review}</div>
             <label>
-                <textarea value={review} onChange={(e) => setReview(e.target.value)} required/>
+                <textarea value={review} placeholder='Leave your review here...' onChange={(e) => setReview(e.target.value)} required/>
             </label>
             <div className='errors'>{errors.stars}</div>
             {/* <ReactStars value={stars} onChange={(e) => setStars(e.target.value)} precision={1} required/> */}
