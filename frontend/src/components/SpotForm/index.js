@@ -89,69 +89,69 @@ const SpotForm = ({ spot, formType }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{formType}</h2>
-      <h3>Where's your place located?</h3>
-      <h4>Guests will only get your exact address once they booked a reservation.</h4>
+    <form className='body' onSubmit={handleSubmit}>
+      <p className='heading'>{formType}</p>
+      <p className='subheading'>Where's your place located?</p>
+      <p classNam='nomal'>Guests will only get your exact address once they booked a reservation.</p>
       <div className="errors">{errors.country}</div>
-      <label>
+      <label className='normal'>
         Country
-        <input type="text" value={country} placeholder="Country" onChange={(e) => setCountry(e.target.value)}/>
+        <input className='normal' type="text" value={country} placeholder="Country" onChange={(e) => setCountry(e.target.value)}/>
       </label>
       <div className="errors">{errors.address}</div>
-      <label>
+      <label className='normal'>
         Street Address
-        <input type="text" value={address} placeholder="Address" onChange={(e) => setAddress(e.target.value)}/>
+        <input className='normal' type="text" value={address} placeholder="Address" onChange={(e) => setAddress(e.target.value)}/>
       </label>
       <div className="errors">{errors.city}</div>
-      <label>
+      <label className='normal'>
         City
-        <input type="text" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)}/>
+        <input className='normal' type="text" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)}/>
       </label>
       <div className="errors">{errors.state}</div>
-      <label>
+      <label className='normal'>
         State
-        <input type="text" value={state} placeholder="STATE" onChange={(e) => setState(e.target.value)}/>
+        <input className='normal' type="text" value={state} placeholder="STATE" onChange={(e) => setState(e.target.value)}/>
       </label>
       <div className="errors">{errors.lat}</div>
-      <label>
+      <label className='normal'>
         Latitude
-        <input type="text" value={lat} placeholder="Latitude" onChange={(e) => setLat(e.target.value)}/>
+        <input className='normal' type="text" value={lat} placeholder="Latitude" onChange={(e) => setLat(e.target.value)}/>
       </label>
       <div className="errors">{errors.lng}</div>
-      <label>
+      <label className='normal'>
         Langitude
-        <input type="text" value={lng} placeholder="Langitude" onChange={(e) => setLng(e.target.value)}/>
+        <input className='normal' type="text" value={lng} placeholder="Langitude" onChange={(e) => setLng(e.target.value)}/>
       </label>
-      <h3>Describe your place to guests</h3>
-      <h4>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
+      <p className='subheading'>Describe your place to guests</p>
+      <p className='normal'>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
       <div className="errors">{errors.description}</div>
-      <label>
-        <textarea value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)}/>
+      <label className='normal'>
+        <textarea className='normal' value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)}/>
       </label>
-      <h3>Create a title for your spot</h3>
-      <h4>Catch guests' attention with a spot title that highlights what makes your place special.</h4>
+      <p className='subheading'>Create a title for your spot</p>
+      <p className='normal'>Catch guests' attention with a spot title that highlights what makes your place special.</p>
       <div className="errors">{errors.name}</div>
-      <label>
-        <input type="text" value={name} placeholder="Name of your spot" onChange={(e) => setName(e.target.value)}/>
+      <label className='normal'>
+        <input className='normal' type="text" value={name} placeholder="Name of your spot" onChange={(e) => setName(e.target.value)}/>
       </label>
-      <h3>Set a base price for your spot</h3>
-      <h4>Competitive pricing can help your listing stand out and rank higher in search results.</h4>
+      <p className='subheading'>Set a base price for your spot</p>
+      <p className='normal'>Competitive pricing can help your listing stand out and rank higher in search results.</p>
       <div className="errors">{errors.price}</div>
-      <label>
-        $ <input type="text" value={price} placeholder="Price per night(USD)" onChange={(e) => setPrice(e.target.value)}/>
+      <label className='normal'>
+        $ <input className='normal' type="text" value={price} placeholder="Price per night(USD)" onChange={(e) => setPrice(e.target.value)}/>
       </label>
-      <h3>Liven up your spot with photos</h3>
-      <h4>Submit a link to at least one photo to publish your spot.</h4>
+      <p className='subheading'>Liven up your spot with photos</p>
+      <p className='normal'>Submit a link to at least one photo to publish your spot.</p>
       <div className="errors">{errors.preview}</div>
-      <label>
-        <input type="text" value={preview} placeholder="Preview Image URL" onChange={(e) => setPreview(e.target.value)}/>
+      <label className='normal'>
+        <input className='normal' type="text" value={preview} placeholder="Preview Image URL" onChange={(e) => setPreview(e.target.value)}/>
       </label>
       <div className="errors">{errors.url}</div>
-      <label>
-        <input type="text" value={url} placeholder="Image URL" onChange={(e) => setUrl(e.target.value)}/>
+      <label className='normal'>
+        <input className='normal' type="text" value={url} placeholder="Image URL" onChange={(e) => setUrl(e.target.value)}/>
       </label>
-      <button type="submit">{formType}</button>
+      <button className='button' type="submit">{formType}</button>
     </form>
   );
 };

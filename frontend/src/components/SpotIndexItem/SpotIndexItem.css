@@ -1,24 +1,64 @@
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'title title title'
+    'image image image'
+    'cityState cityState stars'
+    'price price price'
+    'update delete delete';
+    grid-template-rows:1fr 3fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
 .title {
-    font-family: sans-serif;
+    font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
     padding: 2px;
+    grid-area: title;
 }
-
+.image {
+    font-family: montserrat;
+    font-size: 24pt;
+    grid-area: image;
+}
 .cityState {
-    font-family: sans-serif;
+    font-family: montserrat;
     font-size: 14pt;
     padding: 1px;
+    grid-area: cityState;
 }
-
 .stars {
-    font-family: sans-serif;
+    font-family: montserrat;
     font-size: 14pt;
     padding: 1px;
+    grid-area: stars;
 }
-
 .price {
-    font-family: sans-serif;
+    font-family: montserrat;
     font-size: 14pt;
+    font-weight: bold;
     padding: 1px;
+    grid-area: price;
+}
+.update {
+    font-family: montserrat;
+    font-size: 14pt;
+    padding: 4px;
+    color: white;
+    background-color: gray;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 4px 4px gray;
+    grid-area: update;
+}
+.delete {
+    font-family: montserrat;
+    font-size: 14pt;
+    padding: 4px;
+    color: white;
+    background-color: gray;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 4px 4px gray;
+    grid-area: delete;
 }

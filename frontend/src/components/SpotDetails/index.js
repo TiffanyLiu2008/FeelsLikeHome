@@ -31,18 +31,29 @@ const SpotDetails = () => {
   let reviewStars;
   numReviews > 0 ? reviewStars = avgStarRating.toFixed(1) : reviewStars = 'New';
   return (
-    <div>
-      <h2>{name}</h2>
-      <p>{city}, {state}, {country}</p>
-      <p>Image</p>
-      <h2>Hosted by {Owner.firstName} {Owner.lastName}</h2>
-      <p>{description}</p>
-      <h2>$ {price} night</h2>
-      <p>{reviewStars} . {reviewNums}</p>
-      <button onClick={handleReserve}>Reserve</button>
-      <h2>{reviewStars} {reviewNums}</h2>
-      <OpenModalMenuButton itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>
-      <SpotReviews/>
+    <div className='grid-container'>
+      <p className='title'>{name}</p>
+      <p className='cityState'>{city}, {state}, {country}</p>
+      <div className='imgSec'>
+        <p className='image0'>Big Image</p>
+        <p className='image1'>Image #1</p>
+        <p className='image2'>Image #2</p>
+        <p className='image3'>Image #3</p>
+        <p className='image4'>Image #4</p>
+      </div>
+      <div className='infoSec'>
+        <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
+        <p className='description'>{description}</p>
+      </div>
+      <div className='reserveSec'>
+        <p className='priceStars'>$ {price} night   {reviewStars} . {reviewNums}</p>
+        <button className='button' onClick={handleReserve}>Reserve</button>
+      </div>
+      <div className='reviewSec'>
+        <p className='reviews'>{reviewStars} {reviewNums}</p>
+        <OpenModalMenuButton className='button' itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>
+        <SpotReviews className='eachReview'/>
+      </div>
     </div>
   )
 };

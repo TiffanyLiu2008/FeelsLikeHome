@@ -1,14 +1,71 @@
-heading {
-    font-family: sans-serif;
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'title title title title'
+    'cityState cityState cityState cityState'
+    'image0 image0 image1 image2'
+    'image0 image0 image3 image4'
+    'infoSec infoSec infoSec reserveSec'
+    'reviewSec reviewSec reviewSec reviewSec';
+    grid-template-rows:1fr 1fr 2fr 2fr 2fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.title {
+    font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
+    padding: 2px;
+    grid-area: title;
 }
-subheading {
-    font-family: sans-serif;
-    font-size: 18pt;
-    font-weight: bold;
-}
-normal {
-    font-family: sans-serif;
+.cityState {
+    font-family: montserrat;
     font-size: 14pt;
+    padding: 1px;
+    grid-area: cityState;
+}
+.imgSec {
+    font-family: montserrat;
+    font-size: 24pt;
+}
+.owner {
+    font-family: montserrat;
+    font-size: 24pt;
+    font-weight: bold;
+    padding: 2px;
+    grid-area: infoSec;
+}
+.description {
+    font-family: montserrat;
+    font-size: 14pt;
+    grid-area: infoSec;
+}
+.priceStars {
+    font-family: montserrat;
+    font-size: 14pt;
+    font-weight: bold;
+    padding: 1px;
+    grid-area: reserveSec;
+}
+.button {
+    font-family: montserrat;
+    font-size: 14pt;
+    padding: 4px;
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 4px 4px gray;
+    grid-area: reserveSec;
+}
+.reviews {
+    font-family: montserrat;
+    font-size: 14pt;
+    font-weight: bold;
+    padding: 1px;
+    grid-area: reviewSec;
+}
+.eachReview {
+    font-family: montserrat;
+    font-size: 14pt;
+    grid-area: reviewSec;
 }

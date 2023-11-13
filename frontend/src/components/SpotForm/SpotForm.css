@@ -1,14 +1,29 @@
-heading {
-    font-family: sans-serif;
+.body {
+    text-align: center;
+}
+.heading {
+    font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
+    padding: 2px;
 }
-subheading {
-    font-family: sans-serif;
-    font-size: 18pt;
-    font-weight: bold;
-}
-normal {
-    font-family: sans-serif;
+.subheading {
+    font-family: montserrat;
     font-size: 14pt;
+    font-weight: bold;
+    padding: 1px;
+}
+.normal {
+    font-family: montserrat;
+    font-size: 14pt;
+}
+.button {
+    font-family: montserrat;
+    font-size: 14pt;
+    padding: 4px;
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 4px 4px gray;
 }

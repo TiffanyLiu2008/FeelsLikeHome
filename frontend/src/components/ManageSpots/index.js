@@ -13,8 +13,8 @@ const ManageSpots = () => {
     }, [dispatch]);
     return (
         <div>
-            <h1>Manage Your Spots</h1>
-            <Link to={'/spots/new'}><button>Create a New Spot</button></Link>
+            <p className='title'>Manage Your Spots</p>
+            <Link to={'/spots/new'}><button className='create'>Create a New Spot</button></Link>
             <ul>
                 {spots.map((spot) => (
                     <SpotIndexItem spot={spot} key={spot.id}/>
