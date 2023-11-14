@@ -13,7 +13,10 @@ const CreateSpot = () => {
     name: '',
     price: '',
     preview: '',
-    url: ''
+    url1: '',
+    url2: '',
+    url3: '',
+    url4: ''
   };
   return (
     <SpotForm spot={spot} formType="Create Spot"/>

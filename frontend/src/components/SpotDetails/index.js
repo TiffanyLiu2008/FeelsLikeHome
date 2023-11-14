@@ -8,6 +8,8 @@ import PostReviewModal from '../PostReviewModal/index';
 import SpotReviews from '../SpotReviews/index';
 
 const SpotDetails = () => {
+  const sessionUser = useSelector(state => state.session.user);
+
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots[spotId]);
@@ -46,12 +48,12 @@ const SpotDetails = () => {
         <p className='description'>{description}</p>
       </div>
       <div className='reserveSec'>
-        <p className='priceStars'>$ {price} night   {reviewStars} . {reviewNums}</p>
+        <p className='priceStars'>$ {price} night ★ {reviewStars} · {reviewNums}</p>
         <button className='button' onClick={handleReserve}>Reserve</button>
       </div>
       <div className='reviewSec'>
-        <p className='reviews'>{reviewStars} {reviewNums}</p>
-        <OpenModalMenuButton className='button' itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>
+        <p className='reviews'>★ {reviewStars} {reviewNums}</p>
+        <OpenModalMenuButton user={sessionUser} className='button' itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>
         <SpotReviews className='eachReview'/>
       </div>
     </div>

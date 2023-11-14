@@ -18,10 +18,16 @@ function LoginFormModal() {
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors);
+                console.log(data.message);
+                if (data && data.message) {
+                    setErrors(data.message);
                 }
             });
+    };
+
+    const handleDemo = (e) => {
+        setCredential("Demo-lition");
+        setPassword("password");
     };
 
     return (
@@ -49,7 +55,8 @@ function LoginFormModal() {
                 {errors.credential && (
                     <p>{errors.credential}</p>
                 )}
-                <button className='button' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
+                <button className='login' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
+                <button className='demo' type='submit' onClick={handleDemo}>Demo User</button>
             </form>
         </div>
     );

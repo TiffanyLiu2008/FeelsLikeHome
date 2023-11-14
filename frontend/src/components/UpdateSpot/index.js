@@ -1,9 +1,9 @@
 import './UpdateSpot.css';
+import SpotForm from '../SpotForm/index';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetails } from '../../store/spots';
 import { useEffect } from 'react';
-import SpotForm from '../SpotForm/index';
 
 const UpdateSpot = () => {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-.grid-container {
+/* .grid-container {
     display: grid;
     grid-template-areas:
     'title'
@@ -6,8 +6,9 @@
     'usernameInput'
     'passwordLabel'
     'passwordInput'
-    'button';
-    grid-template-rows: 2fr 1fr 1fr 1fr 1fr 2fr;
+    'login'
+    'demo';
+    grid-template-rows: 2fr 1fr 1fr 1fr 1fr 2fr 1fr;
     grid-template-columns: 1fr;
 }
 .title {
@@ -44,7 +45,7 @@
     grid-area: passwordInput;
 
 }
-.button {
+.login {
     font-family: montserrat;
     font-size: 14pt;
     padding: 4px;
@@ -53,5 +54,16 @@
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
-    grid-area: button;
+    grid-area: login;
 }
+.demo {
+    font-family: montserrat;
+    font-size: 14pt;
+    padding: 4px;
+    color: white;
+    background-color: gray;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 4px 4px gray;
+    grid-area: demo;
+} */

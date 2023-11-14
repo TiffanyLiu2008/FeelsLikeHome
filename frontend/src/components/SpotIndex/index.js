@@ -13,7 +13,6 @@ const SpotIndex = () => {
   }, [dispatch]);
   return (
     <div>
-      {/* <Link to={'/spots/new'}><button>Create a New Spot</button></Link> */}
       <ul>
         {spots.map((spot) => (
           <SpotIndexItem spot={spot} key={spot.id}/>
