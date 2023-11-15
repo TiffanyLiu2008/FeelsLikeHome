@@ -31,15 +31,15 @@ const SpotForm = ({ spot, formType }) => {
     if (!state.length) {errors['state'].push('State is required');}
     if (!lat.length) {errors['lat'].push('Latitude is required');}
     if (!lng.length) {errors['lng'].push('Longitude is required');}
-    if (description.length < 30) {errors['description'].push('Description needs a minimum of 30 characters');}
+    if (description && description.length < 30) {errors['description'].push('Description needs a minimum of 30 characters');}
     if (!name.length) {errors['name'].push('Name is required');}
     if (!price.length) {errors['price'].push('Price is required');}
-    if (formType !== 'Update Spot' && !url1.endsWith('.png') && !url1.endsWith('.jpg') && !url1.endsWith('.jpeg')) {console.log(url1); errors['url1'].push('Image URL must end in .png, .jpg, or.jpeg');}
-    // if (formType !== 'Update Spot' && !url2.endsWith('.png') && !url2.endsWith('.jpg') && !url2.endsWith('.jpeg')) {errors['url2'].push('Image URL must end in .png, .jpg, or.jpeg');}
-    // if (formType !== 'Update Spot' && !url3.endsWith('.png') && !url3.endsWith('.jpg') && !url3.endsWith('.jpeg')) {errors['url3'].push('Image URL must end in .png, .jpg, or.jpeg');}
-    // if (formType !== 'Update Spot' && !url4.endsWith('.png') && !url4.endsWith('.jpg') && !url4.endsWith('.jpeg')) {errors['url4'].push('Image URL must end in .png, .jpg, or.jpeg');}
-    if (formType !== 'Update Spot' && !preview) {errors['preview'].push('Preview image is required');}
-    else if (formType !== 'Update Spot' && !preview.endsWith('.png') && !preview.endsWith('.jpg') && !preview.endsWith('.jpeg')) {errors['preview'].push('Image URL must end in .png, .jpg, or.jpeg');}
+    if (formType !== 'Update Spot' && url1 && !url1.endsWith('.png') && !url1.endsWith('.jpg') && !url1.endsWith('.jpeg')) {errors['url1'].push('Image URL must end in .png, .jpg, or.jpeg');}
+    if (formType !== 'Update Spot' && url2 && !url2.endsWith('.png') && !url2.endsWith('.jpg') && !url2.endsWith('.jpeg')) {errors['url2'].push('Image URL must end in .png, .jpg, or.jpeg');}
+    if (formType !== 'Update Spot' && url3 && !url3.endsWith('.png') && !url3.endsWith('.jpg') && !url3.endsWith('.jpeg')) {errors['url3'].push('Image URL must end in .png, .jpg, or.jpeg');}
+    if (formType !== 'Update Spot' && url4 && !url4.endsWith('.png') && !url4.endsWith('.jpg') && !url4.endsWith('.jpeg')) {errors['url4'].push('Image URL must end in .png, .jpg, or.jpeg');}
+    if (formType !== 'Update Spot' && !preview.length) {errors['preview'].push('Preview image is required');}
+    else if (formType !== 'Update Spot' && preview.length && !preview.endsWith('.png') && !preview.endsWith('.jpg') && !preview.endsWith('.jpeg')) {errors['preview'].push('Image URL must end in .png, .jpg, or.jpeg');}
     setValidationErrors(errors);
   }, [country, address, city, state, lat, lng, description, name, price, preview, url1, url2, url3, url4]);
   const reset = () => {
@@ -72,7 +72,7 @@ const SpotForm = ({ spot, formType }) => {
     }
     if (newSpot.id) {
       history.push(`/spots/${newSpot.id}`);
-    } else if (Object.values(validationErrors).length){
+    } else if (Object.values(validationErrors).length) {
       const {validationErrors} = await newSpot.json();
       setValidationErrors(validationErrors);
     }

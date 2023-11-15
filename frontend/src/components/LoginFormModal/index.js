@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -10,7 +10,10 @@ function LoginFormModal() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
-
+    const handleDemo = (e) => {
+        setCredential("Demo-lition");
+        setPassword("password");
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
@@ -18,18 +21,15 @@ function LoginFormModal() {
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
-                console.log(data.message);
-                if (data && data.message) {
-                    setErrors(data.message);
+                console.log('data', data);
+                console.log('data.msg', data.message);
+                console.log('data.errors', data.errors);
+                if (data && data.errors) {
+                    setErrors(data.errors[0]);
                 }
             });
+        return setErrors({credential: 'The provided credentials were invalid.'});
     };
-
-    const handleDemo = (e) => {
-        setCredential("Demo-lition");
-        setPassword("password");
-    };
-
     return (
         <div className='grid-container'>
             <h1 className='title'>Log In</h1>

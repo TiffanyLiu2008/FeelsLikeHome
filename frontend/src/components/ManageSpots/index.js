@@ -7,6 +7,7 @@ import SpotIndexItem from '../SpotIndexItem/index';
 
 const ManageSpots = () => {
     const dispatch = useDispatch();
+    // const user = useSelector(state => state.session);
     const spots = useSelector(state => Object.values(state.spots));
     useEffect(() => {
         dispatch(getMySpots());
