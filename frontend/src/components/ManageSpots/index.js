@@ -12,15 +12,17 @@ const ManageSpots = () => {
     useEffect(() => {
         dispatch(getMySpots());
     }, [dispatch]);
+    let hasSpots;
+    spots ? hasSpots = true : hasSpots = false;
     return (
         <div>
-            <p className='title'>Manage Your Spots</p>
-            <Link to={'/spots/new'}><button className='create'>Create a New Spot</button></Link>
-            <ul>
+            <p className='title'>Manage Spots</p>
+            {!hasSpots && <Link to={'/spots/new'}><button className='create'>Create a New Spot</button></Link>}
+            {hasSpots && <ul>
                 {spots.map((spot) => (
                     <SpotIndexItem spot={spot} key={spot.id}/>
                 ))}
-             </ul>
+             </ul>}
         </div>
     );
 };

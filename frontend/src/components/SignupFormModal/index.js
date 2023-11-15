@@ -14,20 +14,11 @@ function SignupFormModal() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors({});
-            return dispatch(
-                sessionActions.signup({
-                    email,
-                    username,
-                    firstName,
-                    lastName,
-                    password,
-                })
-            )
+            return dispatch(sessionActions.signup({email, username, firstName, lastName, password}))
                 .then(closeModal)
                 .catch(async (res) => {
                     const data = await res.json();
@@ -42,7 +33,7 @@ function SignupFormModal() {
     };
 
     return (
-        <>
+        <div>
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -107,9 +98,9 @@ function SignupFormModal() {
                 {errors.confirmPassword && (
                     <p>{errors.confirmPassword}</p>
                 )}
-                <button type="submit">Sign Up</button>
+                <button type="submit" disabled={username.length < 4 || password.length < 6 }>Sign Up</button>
             </form>
-        </>
+        </div>
     );
 }
 

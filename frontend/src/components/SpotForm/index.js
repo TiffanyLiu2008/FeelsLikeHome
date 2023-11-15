@@ -23,6 +23,8 @@ const SpotForm = ({ spot, formType }) => {
   const [url4, setUrl4] = useState(spot?.url4);
   const [validationErrors, setValidationErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  let title;
+  formType === 'Create Spot' ? title = 'Create a New Spot' : title = 'Update Your Spot';
   useEffect(() => {
     const errors = {country: [], address: [], city: [], state: [], lat: [], lng: [], description: [], name: [], price: [], preview: [], url1: [], url2: [], url3: [], url4: []};
     if (!country.length) {errors['country'].push('Country is required');}
@@ -66,6 +68,7 @@ const SpotForm = ({ spot, formType }) => {
     spot = {...spot, country, address, city, state, lat, lng, description, name, price, preview, url1, url2, url3, url4 };
     let newSpot;
     if (formType === 'Update Spot') {
+      console.log('spot', spot);
       newSpot = await dispatch(updateSpot(spot));
     } else if (formType === 'Create Spot') {
       newSpot = await dispatch(createSpot(spot));
@@ -81,7 +84,7 @@ const SpotForm = ({ spot, formType }) => {
 
   return (
     <form className='body' onSubmit={handleSubmit}>
-      <p className='heading'>{formType}</p>
+      <p className='heading'>{title}</p>
       <p className='subheading'>Where's your place located?</p>
       <p className='nomal'>Guests will only get your exact address once they booked a reservation.</p>
 
@@ -124,7 +127,7 @@ const SpotForm = ({ spot, formType }) => {
       <p className='subheading'>Describe your place to guests</p>
       <p className='normal'>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
       <label className='normal'>
-        <textarea className='normal' value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)}/>
+        <textarea className='normal' value={description} placeholder="Please write at least 30 characters." onChange={(e) => setDescription(e.target.value)}/>
       </label>
       {hasSubmitted && validationErrors.description.length > 0 && validationErrors.description.map((error, idx) => (<ul key={idx}><li className='error'>{error}</li></ul>))}
 

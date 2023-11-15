@@ -9,7 +9,6 @@ import SpotReviews from '../SpotReviews/index';
 
 const SpotDetails = () => {
   const sessionUser = useSelector(state => state.session.user);
-
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots[spotId]);
@@ -32,6 +31,10 @@ const SpotDetails = () => {
   }
   let reviewStars;
   numReviews > 0 ? reviewStars = avgStarRating.toFixed(1) : reviewStars = 'New';
+  let firstReview;
+  numReviews === 0 ? firstReview = 'Be the first to post a review!' : firstReview = '';
+  let checkUserVSOwner;
+  // Owner.id === ;
   return (
     <div className='grid-container'>
       <p className='title'>{name}</p>
@@ -54,6 +57,7 @@ const SpotDetails = () => {
       <div className='reviewSec'>
         <p className='reviews'>★ {reviewStars} {reviewNums}</p>
         <OpenModalMenuButton user={sessionUser} className='button' itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>
+        <p className='firstReview'>{firstReview}</p>
         <SpotReviews className='eachReview'/>
       </div>
     </div>

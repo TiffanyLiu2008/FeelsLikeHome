@@ -14,6 +14,8 @@ const SpotReviewItem = ({ eachReview }) => {
     return  findMonth[str[1]] + ' ' + str[0];
   };
   const date = convertDate(createdAt);
+  let checkUserVSReviewer;
+  // User.id === ;
   return (
     <div>
       <p>{firstName}</p>

@@ -21,17 +21,14 @@ function LoginFormModal() {
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
-                console.log('data', data);
-                console.log('data.msg', data.message);
-                console.log('data.errors', data.errors);
                 if (data && data.errors) {
-                    setErrors(data.errors[0]);
+                    setErrors(data.errors);
                 }
             });
-        return setErrors({credential: 'The provided credentials were invalid.'});
     };
     return (
-        <div className='grid-container'>
+        // <div className='grid-container'>
+        <div className>
             <h1 className='title'>Log In</h1>
             <form onSubmit={handleSubmit}>
                 <label className='usernameLabel'>
@@ -56,7 +53,7 @@ function LoginFormModal() {
                     <p>{errors.credential}</p>
                 )}
                 <button className='login' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
-                <button className='demo' type='submit' onClick={handleDemo}>Demo User</button>
+                <button className='demo' type='submit' onClick={handleDemo}>Log in as Demo User</button>
             </form>
         </div>
     );

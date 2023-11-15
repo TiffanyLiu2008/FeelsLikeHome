@@ -52,8 +52,9 @@ function PostReviewModal() {
                         onMouseLeave={handleMouseLeave}
                     />
                 )})}
+                <p>Stars</p>
             </div>
-            <button type='submit' disabled={review.length < 10}>Submit Your Review</button>
+            <button type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
         </form>
     );
 }
