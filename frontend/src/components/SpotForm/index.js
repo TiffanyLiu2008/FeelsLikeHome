@@ -49,7 +49,6 @@ const SpotForm = ({ spot, formType }) => {
       return newSpot = dispatch(updateSpot(spot))
       .catch(async (res) => {
         const data = await res.json();
-        console.log('data', data);
         if (data && data.errors) {
           setErrors(data.errors);
         }
@@ -58,7 +57,6 @@ const SpotForm = ({ spot, formType }) => {
       return newSpot = dispatch(createSpot(spot))
       .catch(async (res) => {
         const data = await res.json();
-        console.log('data', data);
         if (data && data.errors) {
           setErrors(data.errors);
         }
@@ -73,6 +71,8 @@ const SpotForm = ({ spot, formType }) => {
   const addressError = errors.address ? errors.address : null;
   const cityError = errors.city ? errors.city : null;
   const stateError = errors.state ? errors.state : null;
+  const latError = errors.lat ? errors.lat : null;
+  const lngError = errors.lng ? errors.lng : null;
   const descriptionError = errors.description ? errors.description : null;
   const nameError = errors.name ? errors.name : null;
   const priceError = errors.price ? errors.price : null;
@@ -83,6 +83,8 @@ const SpotForm = ({ spot, formType }) => {
       <ul>{addressError}</ul>
       <ul>{cityError}</ul>
       <ul>{stateError}</ul>
+      <ul>{latError}</ul>
+      <ul>{lngError}</ul>
       <ul>{descriptionError}</ul>
       <ul>{nameError}</ul>
       <ul>{priceError}</ul>
