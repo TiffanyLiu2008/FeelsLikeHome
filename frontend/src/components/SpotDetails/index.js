@@ -22,7 +22,7 @@ const SpotDetails = () => {
     alert('Feature Coming Soon...');
   };
   if (isLoading) return (<>Loading...</>);
-  const {name, city, state, country, SpotImages, Owner, description, price, avgStarRating, numReviews} = spot;
+  const {name, city, state, country, Owner, description, price, avgStarRating, numReviews} = spot;
   let reviewNums;
   if (numReviews === 0) {
     reviewNums = '';
@@ -36,14 +36,14 @@ const SpotDetails = () => {
   const firstReview = numReviews === 0 ? 'Be the first to post a review!' : null;
   const sessionUserId = sessionUser ? sessionUser.id : null;
   const checkUserVSOwner = sessionUserId === Owner.id ? true : false;
-  const checkHasReviewed = () => {
+  let checkHasReviewed = false;
+  if (reviews && Object.values(reviews).length) {
     for (let i = 0; i < Object.values(reviews)[0]; i++) {
       if (Object.values(reviews)[0][i].User.id === sessionUserId) {
-        return true;
+        checkHasReviewed = true;
       }
     }
-    return false;
-  };
+  }
   return (
     <div className='grid-container'>
       <p className='title'>{name}</p>

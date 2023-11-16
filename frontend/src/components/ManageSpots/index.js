@@ -7,13 +7,12 @@ import SpotIndexItem from '../SpotIndexItem/index';
 
 const ManageSpots = () => {
     const dispatch = useDispatch();
-    // const user = useSelector(state => state.session);
+    const sessionUser = useSelector(state => state.session.user);
     const spots = useSelector(state => Object.values(state.spots));
     useEffect(() => {
         dispatch(getMySpots());
     }, [dispatch]);
-    let hasSpots;
-    spots ? hasSpots = true : hasSpots = false;
+    const hasSpots = spots.length ? true : false;
     return (
         <div>
             <p className='title'>Manage Spots</p>

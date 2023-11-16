@@ -69,15 +69,23 @@ const validateSpot = [
         .withMessage('Longitude is not valid'),
     check('name')
         .exists({ checkFalsy: true })
-        .isLength({max: 49})
+        .isLength({min: 1, max: 49})
         .withMessage('Name must be less than 50 characters'),
     check('description')
         .exists({ checkFalsy: true })
-        .withMessage('Description is required'),
+        .isLength({min: 30})
+        .withMessage('Description needs a minimum of 30 characters'),
     check('price')
         .exists({ checkFalsy: true })
         .isInt({min: 0})
         .withMessage('Price per day is required'),
+    handleValidationErrors
+];
+
+const validateSpotImage = [
+    check('preview')
+        .exists({ checkFalse: true})
+        .withMessage('Preview Image URL is required'),
     handleValidationErrors
 ];
 
@@ -96,7 +104,7 @@ router.get('/current', requireAuth, async (req, res) => {
 });
 
 // #8 ; /:spotId/images ; POST ; Authen ; Autho
-router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+router.post('/:spotId/images', requireAuth, validateSpotImage, async (req, res, next) => {
     const spotId = Number(req.params.spotId);
     const currSpot = await Spot.findByPk(spotId);
     if (!currSpot) {
@@ -326,22 +334,20 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
         return next(err);
     }
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
-    const spotToUpdate = {};
-    spotToUpdate.id = oldSpot.id;
-    spotToUpdate.ownerId = oldSpot.ownerId;
-    spotToUpdate.address = address;
-    spotToUpdate.city = city;
-    spotToUpdate.state = state;
-    spotToUpdate.country = country;
-    spotToUpdate.lat = lat;
-    spotToUpdate.lng = lng;
-    spotToUpdate.name = name;
-    spotToUpdate.description = description;
-    spotToUpdate.price = price;
-    spotToUpdate.createdAt = oldSpot.createdAt;
-    spotToUpdate.updatedAt = oldSpot.createdAt;
-    res.status(200);
-    res.json(spotToUpdate);
+    await oldSpot.set({
+        address: address,
+        city: city,
+        state: state,
+        country: country,
+        lat: lat,
+        lng: lng,
+        name: name,
+        description: description,
+        price: price
+    });
+    await oldSpot.save();
+    const newSpot = await Spot.findByPk(spotId);
+    return res.json(newSpot);
 });
 
 // #10 ; /:spotId/ ; DELETE ; Authen ; Autho
@@ -392,7 +398,7 @@ router.get('/', validateQuery, async (req, res, next) => {
 });
 
 // #7 ; / ; POST ; Authen
-router.post('/', requireAuth, async (req, res, next) => {
+router.post('/', requireAuth, validateSpot, async (req, res, next) => {
     const {user} = req;
     const userId = user.id;
     const {address, city, state, country, lat, lng, name, description, price} = req.body;

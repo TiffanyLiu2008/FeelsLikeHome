@@ -21,13 +21,13 @@ router.get('/current', requireAuth, async (req, res) => {
 // #20 ; /:bookingId ; PUT ; Authen ; Autho
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const bookingId = Number(req.params.bookingId);
-    const bookingToUpdate = await Booking.findByPk(bookingId);
-    if (!bookingToUpdate) {
+    const oldBooking = await Booking.findByPk(bookingId);
+    if (!oldBooking) {
         const err = new Error("Booking couldn't be found");
         err.status = 404;
         return next(err);
     }
-    const ownerId = bookingToUpdate.userId;
+    const ownerId = oldBooking.userId;
     const {user} = req;
     const userId = user.id;
     if (userId !== ownerId) {
@@ -47,7 +47,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         return next(err);
     }
     const existingBooking = await Booking.findAll({where: {
-        spotId: bookingToUpdate.spotId,
+        spotId: oldBooking.spotId,
         [Op.or]: [
             {
                 startDate: { [Op.lte]: startDate },
@@ -65,10 +65,13 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         err.errors = ["Start date conflicts with an existing booking", "End date conflicts with an existing booking"];
         return next(err);
     }
-    bookingToUpdate.startDate = startDate;
-    bookingToUpdate.endDate = endDate;
-    res.status(200);
-    res.json(bookingToUpdate);
+    await oldBooking.set({
+        startDate: startDate,
+        endDate: endDate
+    });
+    await oldBooking.save();
+    const newBooking = await Booking.findByPk(bookingId);
+    return res.json(newBooking);
 });
 
 // #21 ; /:bookingId ; DELETE ; Authen ; Autho

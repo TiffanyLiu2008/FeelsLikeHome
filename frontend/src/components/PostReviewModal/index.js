@@ -1,4 +1,5 @@
 import './PostReview.css';
+import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -9,6 +10,7 @@ function PostReviewModal() {
     const colors = {gray: 'CCCCCC', black: '000000'};
     const fiveStars = Array(5).fill(0);
     const dispatch = useDispatch();
+    const { spotId } = useParams();
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [hoverStars, setHoverStars] = useState(undefined);
@@ -25,7 +27,7 @@ function PostReviewModal() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
-        return dispatch(createReview({review, stars}))
+        return dispatch(createReview({spotId, review, stars}))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();

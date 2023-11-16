@@ -59,13 +59,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 // #15 ; /:reviewId ; PUT ; Authen ; Autho
 router.put('/:reviewId', requireAuth, async (req, res, next) => {
     const reviewId = Number(req.params.reviewId);
-    const reviewToUpdate = await Review.findByPk(reviewId);
-    if (!reviewToUpdate) {
+    const oldReview = await Review.findByPk(reviewId);
+    if (!oldReview) {
         const err = new Error("Review couldn't be found");
         err.status = 404;
         return next(err);
     }
-    const ownerId = reviewToUpdate.userId;
+    const ownerId = oldReview.userId;
     const {user} = req;
     const userId = user.id;
     if (userId !== ownerId) {
@@ -80,10 +80,13 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
         err.errors = ["Review text is required", "Stars must be an integer from 1 to 5"];
         return next(err);
     }
-    reviewToUpdate.review = review;
-    reviewToUpdate.stars = stars;
-    res.status(200);
-    res.json(reviewToUpdate);
+    await oldReview.set({
+        review: review,
+        stars: stars
+    });
+    await oldReview.save();
+    const newReview = await Review.findByPk(reviewId);
+    return res.json(newReview);
 });
 
 // #16 ; /:reviewId ; DELETE ; Authen ; Autho

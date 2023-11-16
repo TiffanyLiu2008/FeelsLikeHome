@@ -6,7 +6,6 @@ import { useModal } from "../../context/Modal";
 import { deleteSpot } from '../../store/spots';
 
 const DeleteSpotModal = ({spot}) => {
-    console.log('spot', spot);
     const dispatch = useDispatch();
     const history = useHistory();
     const {closeModal} = useModal();

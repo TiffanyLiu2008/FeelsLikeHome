@@ -1,15 +1,17 @@
 import './SpotIndexItem.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from '../DeleteSpotModal/index';
 import spotImg from '../../images/spot.png';
 
 const SpotItem = ({ spot }) => {
   const dispatch = useDispatch();
-  const {name, SpotImages, city, state, price, avgRating} = spot;
-  let avgStarRating;
-  avgRating ? avgStarRating = avgRating.toFixed(1) : avgStarRating = 'New';
+  const sessionUser = useSelector(state => state.session.user);
+  const {name, city, state, price, avgRating, ownerId} = spot;
+  const avgStarRating = avgRating ? avgRating.toFixed(1) : 'New';
+  const sessionUserId = sessionUser ? sessionUser.id : null;
+  const checkUserVSOwner = sessionUserId === ownerId ? true : false;
   return (
     <div className='grid-container'>
       <p className='title'>{name}</p>
@@ -17,8 +19,8 @@ const SpotItem = ({ spot }) => {
       <p className='cityState'>{city}, {state}</p>
       <p className='stars'>★ {avgStarRating}</p>
       <p className='price'>$ {price} night</p>
-      <Link to={`/spots/${spot.id}/edit`}><button className='update'>Update</button></Link>
-      <OpenModalMenuItem className='delete' itemText='Delete' modalComponent={<DeleteSpotModal/>}/>
+      {checkUserVSOwner && <Link to={`/spots/${spot.id}/edit`}><button className='update'>Update</button></Link>}
+      {checkUserVSOwner && <OpenModalMenuItem className='delete' itemText='Delete' modalComponent={<DeleteSpotModal/>}/>}
     </div>
   );
 };
