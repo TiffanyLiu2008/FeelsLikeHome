@@ -6,6 +6,7 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
     const sessionUser = useSelector(state => state.session.user);
+    const sessionUserId = sessionUser ? sessionUser.id : null;
     return (
         <ul>
             <li>
@@ -17,7 +18,7 @@ function Navigation({ isLoaded }){
                     <ProfileButton user={sessionUser}/>
                 </li>
                 <li>
-                    <Link to={'/spots/new'} user={sessionUser}><button>Create a New Spot</button></Link>
+                    {sessionUserId && <Link to={'/spots/new'} user={sessionUser}><button>Create a New Spot</button></Link>}
                 </li>
                 </>
             )}

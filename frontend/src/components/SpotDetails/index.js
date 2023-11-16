@@ -6,12 +6,14 @@ import { getSpotDetails } from '../../store/spots';
 import OpenModalMenuButton from '../Navigation/OpenModalMenuItem';
 import PostReviewModal from '../PostReviewModal/index';
 import SpotReviews from '../SpotReviews/index';
+import spotImg from '../../images/spot.png';
 
 const SpotDetails = () => {
-  const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const { spotId } = useParams();
+  const sessionUser = useSelector(state => state.session.user);
   const spot = useSelector(state => state.spots[spotId]);
+  const reviews = useSelector(state => state.reviews[spotId]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     dispatch(getSpotDetails(spotId)).then(() => setIsLoading(false));
@@ -29,35 +31,42 @@ const SpotDetails = () => {
   } else {
     reviewNums = numReviews + 'reviews';
   }
-  let reviewStars;
-  numReviews > 0 ? reviewStars = avgStarRating.toFixed(1) : reviewStars = 'New';
-  let firstReview;
-  numReviews === 0 ? firstReview = 'Be the first to post a review!' : firstReview = '';
-  let checkUserVSOwner;
-  // Owner.id === ;
+  const reviewStars = numReviews > 0 ? avgStarRating.toFixed(1): 'New';
+  const centerDot = numReviews > 0 ? ' · ': null;
+  const firstReview = numReviews === 0 ? 'Be the first to post a review!' : null;
+  const sessionUserId = sessionUser ? sessionUser.id : null;
+  const checkUserVSOwner = sessionUserId === Owner.id ? true : false;
+  const checkHasReviewed = () => {
+    for (let i = 0; i < Object.values(reviews)[0]; i++) {
+      if (Object.values(reviews)[0][i].User.id === sessionUserId) {
+        return true;
+      }
+    }
+    return false;
+  };
   return (
     <div className='grid-container'>
       <p className='title'>{name}</p>
       <p className='cityState'>{city}, {state}, {country}</p>
       <div className='imgSec'>
-        <p className='image0'>Big Image</p>
-        <p className='image1'>Image #1</p>
-        <p className='image2'>Image #2</p>
-        <p className='image3'>Image #3</p>
-        <p className='image4'>Image #4</p>
+        <img className='image0' src={spotImg} alt='image0'/>
+        <img className='image1' src={spotImg} alt='image1'/>
+        <img className='image2' src={spotImg} alt='image2'/>
+        <img className='image3' src={spotImg} alt='image3'/>
+        <img className='image4' src={spotImg} alt='image4'/>
       </div>
       <div className='infoSec'>
         <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
         <p className='description'>{description}</p>
       </div>
       <div className='reserveSec'>
-        <p className='priceStars'>$ {price} night ★ {reviewStars} · {reviewNums}</p>
+        <p className='priceStars'>$ {price} night ★ {reviewStars} {centerDot} {reviewNums}</p>
         <button className='button' onClick={handleReserve}>Reserve</button>
       </div>
       <div className='reviewSec'>
         <p className='reviews'>★ {reviewStars} {reviewNums}</p>
-        <OpenModalMenuButton user={sessionUser} className='button' itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>
-        <p className='firstReview'>{firstReview}</p>
+        {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton user={sessionUser} className='button' itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>}
+        {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
         <SpotReviews className='eachReview'/>
       </div>
     </div>

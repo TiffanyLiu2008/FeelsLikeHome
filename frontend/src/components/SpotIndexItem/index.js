@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from '../DeleteSpotModal/index';
+import spotImg from '../../images/spot.png';
 
 const SpotItem = ({ spot }) => {
   const dispatch = useDispatch();
@@ -12,10 +13,7 @@ const SpotItem = ({ spot }) => {
   return (
     <div className='grid-container'>
       <p className='title'>{name}</p>
-      {/* <a className='image' target='{`/spots/${spot.id}`}' href='spot.jpg'>
-        <img src='../../../images/spot.png' alt='spot'/>
-      </a> */}
-      <Link to={`/spots/${spot.id}`}><button className='image'>Image</button></Link>
+      <Link to={`/spots/${spot.id}`}><img src={spotImg} alt='spot'/></Link>
       <p className='cityState'>{city}, {state}</p>
       <p className='stars'>★ {avgStarRating}</p>
       <p className='price'>$ {price} night</p>
