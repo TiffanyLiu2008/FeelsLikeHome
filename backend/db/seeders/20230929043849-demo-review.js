@@ -12,38 +12,74 @@ const reviews = [
   {
     userId: 2,
     spotId: 1,
-    review: 'BnB Number 1 - very bad!',
+    review: 'BnB 1 (owned by 1) - reviewed by 2',
     stars: 1
   },
   {
     userId: 2,
     spotId: 2,
-    review: 'BnB Number 2 - very bad!',
+    review: 'BnB 2 (owned by 1) - reviewed by 2',
+    stars: 2
+  },
+  {
+    userId: 2,
+    spotId: 5,
+    review: 'BnB 5 (owned by 3) - reviewed by 2',
+    stars: 5
+  },
+  {
+    userId: 2,
+    spotId: 6,
+    review: 'BnB 6 (owned by 3) - reviewed by 2',
+    stars: 1
+  },
+  {
+    userId: 3,
+    spotId: 1,
+    review: 'BnB 1 (owned by 1) - reviewed by 3',
     stars: 2
   },
   {
     userId: 3,
+    spotId: 2,
+    review: 'BnB 2 (owned by 1) - reviewed by 3',
+    stars: 3
+  },
+  {
+    userId: 3,
     spotId: 3,
-    review: 'BnB Number 3 - so so!',
+    review: 'BnB 3 (owned by 2) - reviewed by 3',
     stars: 3
   },
   {
     userId: 3,
     spotId: 4,
-    review: 'BnB Number 4 - so so!',
+    review: 'BnB 4 (owned by 2) - reviewed by 3',
     stars: 4
   },
   {
     userId: 1,
-    spotId: 5,
-    review: 'BnB Number 5 - very good!',
+    spotId: 3,
+    review: 'BnB 3 (owned by 2) - reviewed by 1',
+    stars: 4
+  },
+  {
+    userId: 1,
+    spotId: 4,
+    review: 'BnB 4 (owned by 2) - reviewed by 1',
     stars: 5
   },
   {
     userId: 1,
+    spotId: 5,
+    review: 'BnB 5 (owned by 3) - reviewed by 1',
+    stars: 1
+  },
+  {
+    userId: 1,
     spotId: 6,
-    review: 'BnB Number 6 - very good!',
-    stars: 5
+    review: 'BnB 6 (owned by 3) - reviewed by 1',
+    stars: 2
   },
 ];
 

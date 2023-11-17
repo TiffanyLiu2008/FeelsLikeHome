@@ -29,7 +29,8 @@ const SpotForm = ({ spot, formType }) => {
     spot = {...spot, country, address, city, state, lat, lng, description, name, price, preview, url1, url2, url3, url4};
     let newSpot;
     if (formType === 'Update Spot') {
-      dispatch(updateSpot(spot)).then((newSpot) => history.push(`/spots/${newSpot.id}`))
+      dispatch(updateSpot(spot))
+      .then((newSpot) => history.push(`/spots/${newSpot.id}`))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -37,7 +38,8 @@ const SpotForm = ({ spot, formType }) => {
         }
       });
     } else if (formType === 'Create Spot') {
-      dispatch(createSpot(spot)).then((newSpot) => history.push(`/spots/${newSpot.id}`))
+      dispatch(createSpot(spot))
+      .then((newSpot) => history.push(`/spots/${newSpot.id}`))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {

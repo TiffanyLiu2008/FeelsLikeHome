@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createReview } from '../../store/reviews';
+import { getSpotReviews } from '../../store/reviews';
 import { FaStar } from 'react-icons/fa';
 
 function PostReviewModal() {
@@ -24,17 +25,19 @@ function PostReviewModal() {
         if (!review || review.length < 10) {errors['review'].push('Review needs a minimum of 10 characters');}
         setErrors(errors);
     }, [review, stars]);
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        return dispatch(createReview({spotId, review, stars}))
-            .then(closeModal)
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors);
-                }
-            });
+        const reviewData = {review, stars};
+        dispatch(createReview(spotId, reviewData))
+        .then(() => dispatch(getSpotReviews(spotId)))
+        .then(closeModal)
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) {
+                setErrors(data.errors);
+            }
+        });
     };
     return (
         <form onSubmit={handleSubmit}>

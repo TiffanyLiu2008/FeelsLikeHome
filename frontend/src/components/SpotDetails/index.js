@@ -29,7 +29,7 @@ const SpotDetails = () => {
   } else if (numReviews === 1) {
     reviewNums ='1 review';
   } else {
-    reviewNums = numReviews + 'reviews';
+    reviewNums = numReviews + ' reviews';
   }
   const reviewStars = numReviews > 0 ? avgStarRating.toFixed(1): 'New';
   const centerDot = numReviews > 0 ? ' · ': null;
@@ -38,8 +38,8 @@ const SpotDetails = () => {
   const checkUserVSOwner = sessionUserId === Owner.id ? true : false;
   let checkHasReviewed = false;
   if (reviews && Object.values(reviews).length) {
-    for (let i = 0; i < Object.values(reviews)[0]; i++) {
-      if (Object.values(reviews)[0][i].User.id === sessionUserId) {
+    for (let i = 0; i < Object.values(reviews).length; i++) {
+      if (Object.values(reviews)[i].userId === sessionUserId) {
         checkHasReviewed = true;
       }
     }

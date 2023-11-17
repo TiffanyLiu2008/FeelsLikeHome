@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteReview } from '../../store/reviews';
+import { getSpotReviews } from '../../store/reviews';
 
 const DeleteReviewModal = ({review}) => {
     const reviewId = review.id;
@@ -12,16 +13,17 @@ const DeleteReviewModal = ({review}) => {
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
-        dispatch(deleteReview(reviewId)).then(closeModal)
+        dispatch(deleteReview(reviewId))
+        .then(() => dispatch(getSpotReviews(spotId)))
+        .then(closeModal)
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) {
                 setErrors(data.errors);
             }
         });
-        history.push(`/spots/${spotId}`);
     };
     return (
         <div>

@@ -10,9 +10,10 @@ export const loadSpotReviews = (spotId, reviews) => ({
   spotId,
   reviews,
 });
-export const receiveReview = (spotId, review) => ({
+export const receiveReview = (spotId, reviewData) => ({
   type: RECEIVE_REVIEW,
-  review,
+  spotId,
+  reviewData,
 });
 export const removeReview = (reviewId) => ({
   type: REMOVE_REVIEW,
@@ -29,15 +30,15 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
   }
   return res;
 };
-export const createReview = (spotId, payload) => async (dispatch) => {
+export const createReview = (spotId, reviewData) => async (dispatch) => {
   const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
+    body: JSON.stringify(reviewData)
   });
   if (res.ok) {
     const data = await res.json();
-    dispatch(receiveReview(data));
+    dispatch(receiveReview(spotId, data));
     return data;
   }
   return res;
@@ -64,7 +65,7 @@ const reviewsReducer = (state = {}, action) => {
       });
       return {...state, [action.spotId]: reviewsState};
     case RECEIVE_REVIEW:
-      return {...state, [action.spotId]: action.review };
+      return {...state, [action.spotId]: [...state[action.spotId], action.reviewData]};
     case REMOVE_REVIEW:
       const newState = { ...state };
       delete newState[action.reviewId];

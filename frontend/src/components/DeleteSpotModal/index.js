@@ -11,16 +11,16 @@ const DeleteSpotModal = ({spot}) => {
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const {closeModal} = useModal();
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
-        dispatch(deleteSpot(spotId)).then(closeModal)
+        dispatch(deleteSpot(spotId))
+        .then(closeModal)
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) {
               setErrors(data.errors);
             }
-          });
-        history.push('/spots/current');
+        });
     };
     return (
         <div>
