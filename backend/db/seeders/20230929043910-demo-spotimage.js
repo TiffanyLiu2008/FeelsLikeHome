@@ -22,6 +22,19 @@ const spotImages = [
     preview: true,
     spotId: 3
   },
+  {
+    url: 'https://spot4Image.com',
+    preview: true,
+    spotId: 4
+  },{
+    url: 'https://spot5Image.com',
+    preview: true,
+    spotId: 5
+  },{
+    url: 'https://spot6Image.com',
+    preview: true,
+    spotId: 6
+  },
 ];
 
 module.exports = {

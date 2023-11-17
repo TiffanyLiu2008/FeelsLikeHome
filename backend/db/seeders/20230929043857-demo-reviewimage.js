@@ -19,6 +19,16 @@ const reviewImages = [
     url: 'https://review3Image.com',
     reviewId: 3
   },
+  {
+    url: 'https://review4Image.com',
+    reviewId: 4
+  },{
+    url: 'https://review5Image.com',
+    reviewId: 5
+  },{
+    url: 'https://review6Image.com',
+    reviewId: 6
+  },
 ];
 
 module.exports = {

@@ -21,7 +21,7 @@ const SpotReviewItem = ({ eachReview }) => {
       <p>{firstName}</p>
       <p>{date}</p>
       <p>{review}</p>
-      {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal/>}/>}
+      {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal review={eachReview}/> }/>}
     </div>
   );
 };

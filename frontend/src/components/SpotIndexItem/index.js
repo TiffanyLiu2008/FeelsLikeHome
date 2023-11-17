@@ -20,7 +20,7 @@ const SpotItem = ({ spot }) => {
       <p className='stars'>★ {avgStarRating}</p>
       <p className='price'>$ {price} night</p>
       {checkUserVSOwner && <Link to={`/spots/${spot.id}/edit`}><button className='update'>Update</button></Link>}
-      {checkUserVSOwner && <OpenModalMenuItem className='delete' itemText='Delete' modalComponent={<DeleteSpotModal/>}/>}
+      {checkUserVSOwner && <OpenModalMenuItem className='delete' itemText='Delete' modalComponent={<DeleteSpotModal spot={spot}/>}/>}
     </div>
   );
 };

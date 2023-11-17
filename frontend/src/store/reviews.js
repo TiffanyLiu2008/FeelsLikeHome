@@ -10,7 +10,7 @@ export const loadSpotReviews = (spotId, reviews) => ({
   spotId,
   reviews,
 });
-export const receiveReview = (review) => ({
+export const receiveReview = (spotId, review) => ({
   type: RECEIVE_REVIEW,
   review,
 });
@@ -29,8 +29,7 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
   }
   return res;
 };
-export const createReview = (payload) => async (dispatch) => {
-  const {spotId} = payload;
+export const createReview = (spotId, payload) => async (dispatch) => {
   const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},

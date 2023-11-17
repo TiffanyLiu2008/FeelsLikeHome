@@ -23,30 +23,13 @@ const SpotForm = ({ spot, formType }) => {
   const [url4, setUrl4] = useState(spot?.url4);
   const [errors, setErrors] = useState({});
   const title = formType === 'Create Spot' ? 'Create a New Spot' : 'Update Your Spot';
-  const reset = () => {
-    setCountry('');
-    setAddress('');
-    setCity('');
-    setState('');
-    setLat('');
-    setLng('');
-    setDescription('');
-    setName('');
-    setPrice('');
-    setPreview('');
-    setUrl1('');
-    setUrl2('');
-    setUrl3('');
-    setUrl4('');
-    setErrors({});
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
     spot = {...spot, country, address, city, state, lat, lng, description, name, price, preview, url1, url2, url3, url4};
     let newSpot;
     if (formType === 'Update Spot') {
-      newSpot = await dispatch(updateSpot(spot))
+      dispatch(updateSpot(spot)).then((newSpot) => history.push(`/spots/${newSpot.id}`))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -54,7 +37,7 @@ const SpotForm = ({ spot, formType }) => {
         }
       });
     } else if (formType === 'Create Spot') {
-      newSpot = await dispatch(createSpot(spot))
+      dispatch(createSpot(spot)).then((newSpot) => history.push(`/spots/${newSpot.id}`))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -62,13 +45,6 @@ const SpotForm = ({ spot, formType }) => {
         }
       });
     }
-    if (newSpot.id) {
-      history.push(`/spots/${newSpot.id}`);
-    } else {
-      const {errors} = await newSpot.json();
-      setErrors(errors);
-    }
-    reset();
   };
   const countryError = errors.country ? 'Country: ' + errors.country : null;
   const addressError = errors.address ? 'Address: ' + errors.address : null;
