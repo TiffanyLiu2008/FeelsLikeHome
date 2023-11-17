@@ -10,6 +10,7 @@ const DeleteReviewModal = ({review}) => {
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteReview(review.id));
+        closeModal();
     };
     return (
         <div>

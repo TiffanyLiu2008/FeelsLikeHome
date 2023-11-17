@@ -46,7 +46,7 @@ const SpotForm = ({ spot, formType }) => {
     spot = {...spot, country, address, city, state, lat, lng, description, name, price, preview, url1, url2, url3, url4};
     let newSpot;
     if (formType === 'Update Spot') {
-      return newSpot = dispatch(updateSpot(spot))
+      newSpot = await dispatch(updateSpot(spot))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -54,7 +54,7 @@ const SpotForm = ({ spot, formType }) => {
         }
       });
     } else if (formType === 'Create Spot') {
-      return newSpot = dispatch(createSpot(spot))
+      newSpot = await dispatch(createSpot(spot))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -63,19 +63,22 @@ const SpotForm = ({ spot, formType }) => {
       });
     }
     if (newSpot.id) {
-      history.push(`/spots/${newSpot.id}`)
+      history.push(`/spots/${newSpot.id}`);
+    } else {
+      const {errors} = await newSpot.json();
+      setErrors(errors);
     }
     reset();
   };
-  const countryError = errors.country ? errors.country : null;
-  const addressError = errors.address ? errors.address : null;
-  const cityError = errors.city ? errors.city : null;
-  const stateError = errors.state ? errors.state : null;
-  const latError = errors.lat ? errors.lat : null;
-  const lngError = errors.lng ? errors.lng : null;
-  const descriptionError = errors.description ? errors.description : null;
-  const nameError = errors.name ? errors.name : null;
-  const priceError = errors.price ? errors.price : null;
+  const countryError = errors.country ? 'Country: ' + errors.country : null;
+  const addressError = errors.address ? 'Address: ' + errors.address : null;
+  const cityError = errors.city ? 'City: ' + errors.city : null;
+  const stateError = errors.state ? 'State: ' + errors.state : null;
+  const latError = errors.lat ? 'Latitude: ' + errors.lat : null;
+  const lngError = errors.lng ? 'Longitude: ' + errors.lng : null;
+  const descriptionError = errors.description ? 'Description: ' + errors.description : null;
+  const nameError = errors.name ? 'Name: ' + errors.name : null;
+  const priceError = errors.price ? 'Price: ' + errors.price : null;
   return (
     <form className='body' onSubmit={handleSubmit}>
       <p className='heading'>{title}</p>
@@ -111,8 +114,8 @@ const SpotForm = ({ spot, formType }) => {
         <input className='normal' type="text" value={lat} placeholder="Latitude" onChange={(e) => setLat(e.target.value)}/>
       </label>
       <label className='normal'>
-        Langitude
-        <input className='normal' type="text" value={lng} placeholder="Langitude" onChange={(e) => setLng(e.target.value)}/>
+        Longitude
+        <input className='normal' type="text" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}/>
       </label>
       <p className='subheading'>Describe your place to guests</p>
       <p className='normal'>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
