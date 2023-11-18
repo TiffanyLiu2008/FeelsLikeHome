@@ -15,10 +15,12 @@ const SpotReviews = () => {
     }, [dispatch, spotId]);
     if (isLoading) return (<>Loading...</>);
     if (!reviews) return (<p>Be the first to post a review!</p>);
+    const arrReviews = Object.values(reviews);
+    const sortedArrReviews = arrReviews.sort((a,b) => a.createdAt - b.createdAt);
     return (
         <div>
             <ul>
-                {Object.values(reviews).map((review) => {return <SpotReviewItem eachReview={review} key={review.id}/>})}
+                {sortedArrReviews.map((review) => {return <SpotReviewItem eachReview={review} key={review.id}/>})}
             </ul>
         </div>
     )

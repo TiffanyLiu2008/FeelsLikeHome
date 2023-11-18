@@ -65,7 +65,7 @@ const reviewsReducer = (state = {}, action) => {
       });
       return {...state, [action.spotId]: reviewsState};
     case RECEIVE_REVIEW:
-      return {...state, [action.spotId]: [...state[action.spotId], action.reviewData]};
+      return {...state, [action.spotId]: [...(state[action.spotId] || []), action.reviewData]};
     case REMOVE_REVIEW:
       const newState = { ...state };
       delete newState[action.reviewId];

@@ -14,12 +14,12 @@ function Navigation({ isLoaded }){
             </li>
             {isLoaded && (
                 <>
-                <li>
+                <ul>
                     <ProfileButton user={sessionUser}/>
-                </li>
-                <li>
-                    {sessionUserId && <Link to={'/spots/new'} user={sessionUser}><button>Create a New Spot</button></Link>}
-                </li>
+                </ul>
+                <ul>
+                    {sessionUserId && <Link to={'/spots/new'}><button>Create a New Spot</button></Link>}
+                </ul>
                 </>
             )}
         </ul>
