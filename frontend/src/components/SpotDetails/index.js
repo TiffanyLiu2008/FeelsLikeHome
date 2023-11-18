@@ -56,7 +56,7 @@ const SpotDetails = () => {
       </div>
       <div className='reviewSec'>
         <p className='reviews'>★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {numReviews && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
-        {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='button' itemText='Post Your Review' modalComponent={<PostReviewModal/>}/>}
+        {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='button' itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
         {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
         <SpotReviews className='eachReview'/>
       </div>

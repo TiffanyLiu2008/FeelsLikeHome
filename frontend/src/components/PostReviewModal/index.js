@@ -1,17 +1,16 @@
 import './PostReview.css';
-import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createReview } from '../../store/reviews';
-import { getSpotReviews } from '../../store/reviews';
+import { createReview, getSpotReviews } from '../../store/reviews';
+import { getSpotDetails } from '../../store/spots';
 import { FaStar } from 'react-icons/fa';
 
-function PostReviewModal() {
+function PostReviewModal({spot}) {
     const colors = {gray: 'CCCCCC', black: '000000'};
     const fiveStars = Array(5).fill(0);
+    const spotId = spot.id;
     const dispatch = useDispatch();
-    const { spotId } = useParams();
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [hoverStars, setHoverStars] = useState(undefined);
@@ -31,6 +30,7 @@ function PostReviewModal() {
         const reviewData = {review, stars};
         dispatch(createReview(spotId, reviewData))
         .then(() => dispatch(getSpotReviews(spotId)))
+        .then(() => dispatch(getSpotDetails(spotId)))
         .then(closeModal)
         .catch(async (res) => {
             const data = await res.json();
@@ -55,8 +55,7 @@ function PostReviewModal() {
                         onMouseOver={() => handleMouseOver(index + 1)}
                         onMouseLeave={handleMouseLeave}
                     />
-                )})}
-                <p>Stars</p>
+                )})} Stars
             </div>
             <button type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
         </form>
