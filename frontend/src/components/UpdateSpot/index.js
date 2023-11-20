@@ -1,4 +1,3 @@
-import './UpdateSpot.css';
 import SpotForm from '../SpotForm/index';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';

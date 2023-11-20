@@ -1,14 +1,6 @@
-heading {
-    font-family: sans-serif;
-    font-size: 24pt;
-    font-weight: bold;
-}
-subheading {
-    font-family: sans-serif;
-    font-size: 18pt;
-    font-weight: bold;
-}
-normal {
-    font-family: sans-serif;
+.normal {
+    font-family: montserrat;
     font-size: 14pt;
+    text-align: left;
+    padding: 2px;
 }

@@ -18,9 +18,11 @@ const SpotReviewItem = ({ eachReview }) => {
   const checkUserVSOwner = sessionUserId === id ? true : false;
   return (
     <div>
-      <p>{firstName}</p>
-      <p>{date}</p>
-      <p>{review}</p>
+      <div className='normal'>
+        <p>{firstName}</p>
+        <p>{date}</p>
+        <p>{review}</p>
+      </div>
       {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal review={eachReview}/> }/>}
     </div>
   );

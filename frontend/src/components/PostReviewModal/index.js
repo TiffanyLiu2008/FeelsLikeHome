@@ -41,12 +41,12 @@ function PostReviewModal({spot}) {
     };
     return (
         <form onSubmit={handleSubmit}>
-            <h2>How was your stay?</h2>
+            <p className='heading'>How was your stay?</p>
             <div className='errors'>{errors.review}</div>
-            <label>
+            <label className='normal'>
                 <textarea value={review} placeholder='Leave your review here...' onChange={(e) => setReview(e.target.value)} required/>
             </label>
-            <div>
+            <div className='normal'>
                 {fiveStars.map((_, index) => {return (
                     <FaStar
                         key={index}
@@ -57,7 +57,7 @@ function PostReviewModal({spot}) {
                     />
                 )})} Stars
             </div>
-            <button type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
+            <button className='button' type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
         </form>
     );
 }

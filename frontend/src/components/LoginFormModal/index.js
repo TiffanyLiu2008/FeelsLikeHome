@@ -27,33 +27,34 @@ function LoginFormModal() {
             });
     };
     return (
-        // <div className='grid-container'>
-        <div className>
-            <h1 className='title'>Log In</h1>
+        <div>
+            <p className='heading'>Log In</p>
             <form onSubmit={handleSubmit}>
-                <label className='usernameLabel'>
-                    Username or Email
-                    <input className='usernameInput'
+                {errors.credential && (
+                    <p className='errors'>{errors.credential}</p>
+                )}
+                <div className='normal'>
+                <label>
+                    Username or Email<br/>
+                    <input
                         type="text"
                         value={credential}
                         onChange={(e) => setCredential(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
-                <label className='passwordLabel'>
-                    Password
-                    <input className='passwordInput'
+                <label>
+                    Password<br/>
+                    <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
-                {errors.credential && (
-                    <p>{errors.credential}</p>
-                )}
-                <button className='login' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
-                <button className='demo' type='submit' onClick={handleDemo}>Log in as Demo User</button>
+                </div>
+                <button className='button' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
+                <button className='button' type='submit' onClick={handleDemo}>Log in as Demo User</button>
             </form>
         </div>
     );

@@ -1,7 +1,6 @@
 .body {
-    /* text-align: center; */
-    justify-content: 'center';
-    align-items: 'center';
+    width: 40%;
+    margin: auto;
 }
 .heading {
     font-family: montserrat;
@@ -13,11 +12,17 @@
     font-family: montserrat;
     font-size: 14pt;
     font-weight: bold;
-    padding: 1px;
+    padding: 2px;
 }
 .normal {
     font-family: montserrat;
     font-size: 14pt;
+    padding: 2px;
+}
+.errors {
+    font-family: montserrat;
+    font-size: 14pt;
+    color: red;
 }
 .button {
     font-family: montserrat;

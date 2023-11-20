@@ -1,34 +1,22 @@
-.heading {
+.info {
     font-family: montserrat;
-    font-size: 24pt;
+    font-size: 14pt;
+    padding: 2px;
+}
+.manage {
+    font-family: montserrat;
+    font-size: 14pt;
     font-weight: bold;
-    text-align: center;
     padding: 2px;
 }
-.normal {
+.logout {
     font-family: montserrat;
     font-size: 14pt;
-    text-align: center;
-    padding: 2px;
-}
-.errors {
-    font-family: montserrat;
-    font-size: 14pt;
-    color: red;
-}
-.button {
-    width: 90%;
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: center;
     color: white;
+    text-align: center;
     padding: 4px;
     background-color: grey;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
-    margin: 10px;
-    &:disabled {
-        background-color: lightgrey;
-    }
 }

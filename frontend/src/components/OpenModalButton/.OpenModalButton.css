@@ -1,16 +1,10 @@
-.title {
-    font-family: montserrat;
-    font-size: 24pt;
-    font-weight: bold;
-    padding: 2px;
-}
-.create {
+.button {
     font-family: montserrat;
     font-size: 14pt;
-    text-align: center;
     color: white;
+    text-align: center;
     padding: 4px;
-    background-color: gray;
+    background-color: grey;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;

@@ -51,11 +51,11 @@ const SpotDetails = () => {
         <p className='description'>{description}</p>
       </div>
       <div className='reserveSec'>
-        <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {centerDot} {numReviews && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
+        <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {centerDot} {numReviews > 0 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
         <button className='button' onClick={handleReserve}>Reserve</button>
       </div>
       <div className='reviewSec'>
-        <p className='reviews'>★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {numReviews && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
+        <p className='reviews'>★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {numReviews >= 1 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
         {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='button' itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
         {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
         <SpotReviews className='eachReview'/>

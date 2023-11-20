@@ -1,4 +1,3 @@
-import './SpotReviews.css';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +8,7 @@ const SpotReviews = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const reviews = useSelector(state => state.reviews[spotId]);
+    console.log('reviews', reviews);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         dispatch(getSpotReviews(spotId)).then(() => setIsLoading(false));
@@ -16,7 +16,7 @@ const SpotReviews = () => {
     if (isLoading) return (<>Loading...</>);
     if (!reviews) return (<p>Be the first to post a review!</p>);
     const arrReviews = Object.values(reviews);
-    const sortedArrReviews = arrReviews.sort((a,b) => a.createdAt - b.createdAt);
+    const sortedArrReviews = arrReviews.sort((b, a) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
     return (
         <div>
             <ul>

@@ -1,4 +1,3 @@
-import './CreateSpot.css';
 import SpotForm from '../SpotForm/index';
 
 const CreateSpot = () => {

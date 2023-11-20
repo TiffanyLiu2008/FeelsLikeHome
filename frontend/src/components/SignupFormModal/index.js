@@ -34,71 +34,71 @@ function SignupFormModal() {
 
     return (
         <div>
-            <h1>Sign Up</h1>
+            <p className='heading'>Sign Up</p>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Email
-                    <input
+                <label className='normal'>
+                    Email<br/>
+                    <input className='normal'
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
-                {errors.email && <p>{errors.email}</p>}
-                <label>
-                    Username
-                    <input
+                {errors.email && <p className='errors'>{errors.email}</p>}
+                <label className='normal'>
+                    Username<br/>
+                    <input className='normal'
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
-                {errors.username && <p>{errors.username}</p>}
-                <label>
-                    First Name
-                    <input
+                {errors.username && <p className='errors'>{errors.username}</p>}
+                <label className='normal'>
+                    First Name<br/>
+                    <input className='normal'
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
-                {errors.firstName && <p>{errors.firstName}</p>}
-                <label>
-                    Last Name
-                    <input
+                {errors.firstName && <p className='errors'>{errors.firstName}</p>}
+                <label className='normal'>
+                    Last Name<br/>
+                    <input className='normal'
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
-                {errors.lastName && <p>{errors.lastName}</p>}
-                <label>
-                    Password
-                    <input
+                {errors.lastName && <p className='errors'>{errors.lastName}</p>}
+                <label className='normal'>
+                    Password<br/>
+                    <input className='normal'
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
-                {errors.password && <p>{errors.password}</p>}
-                <label>
-                    Confirm Password
-                    <input
+                {errors.password && <p className='errors'>{errors.password}</p>}
+                <label className='normal'>
+                    Confirm Password<br/>
+                    <input className='normal'
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
-                    />
+                    /><br/>
                 </label>
                 {errors.confirmPassword && (
-                    <p>{errors.confirmPassword}</p>
+                    <p className='errors'>{errors.confirmPassword}</p>
                 )}
-                <button type="submit" disabled={username.length < 4 || password.length < 6 }>Sign Up</button>
+                <button className='button' type="submit" disabled={username.length < 4 || password.length < 6 }>Sign Up</button>
             </form>
         </div>
     );

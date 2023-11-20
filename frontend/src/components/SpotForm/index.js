@@ -58,43 +58,50 @@ const SpotForm = ({ spot, formType }) => {
   const nameError = errors.name ? 'Name: ' + errors.name : null;
   const priceError = errors.price ? 'Price: ' + errors.price : null;
   return (
-    <form className='body' onSubmit={handleSubmit}>
+    <div className='body'>
+    <form className='form' onSubmit={handleSubmit}>
       <p className='heading'>{title}</p>
-      <ul>{countryError}</ul>
-      <ul>{addressError}</ul>
-      <ul>{cityError}</ul>
-      <ul>{stateError}</ul>
-      <ul>{latError}</ul>
-      <ul>{lngError}</ul>
-      <ul>{descriptionError}</ul>
-      <ul>{nameError}</ul>
-      <ul>{priceError}</ul>
+      <div className='errors'>
+        <ul >{countryError}</ul>
+        <ul>{addressError}</ul>
+        <ul>{cityError}</ul>
+        <ul>{stateError}</ul>
+        <ul>{latError}</ul>
+        <ul>{lngError}</ul>
+        <ul>{descriptionError}</ul>
+        <ul>{nameError}</ul>
+        <ul>{priceError}</ul>
+      </div>
       <p className='subheading'>Where's your place located?</p>
       <p className='nomal'>Guests will only get your exact address once they booked a reservation.</p>
-      <label className='normal'>
-        Country
-        <input className='normal' type="text" value={country} placeholder="Country" onChange={(e) => setCountry(e.target.value)}/>
+      <div className='normal'>
+      <label>
+        Country<br/>
+        <input type="text" value={country} placeholder="Country" onChange={(e) => setCountry(e.target.value)}/><br/>
       </label>
-      <label className='normal'>
-        Street Address
-        <input className='normal' type="text" value={address} placeholder="Address" onChange={(e) => setAddress(e.target.value)}/>
+      <label>
+        Street Address<br/>
+        <input type="text" value={address} placeholder="Address" onChange={(e) => setAddress(e.target.value)}/><br/>
       </label>
-      <label className='normal'>
+      <label>
         City
-        <input className='normal' type="text" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)}/>
+        <input type="text" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)}/>
       </label>
-      <label className='normal'>
+      <label>
+        ,
         State
-        <input className='normal' type="text" value={state} placeholder="STATE" onChange={(e) => setState(e.target.value)}/>
+        <input type="text" value={state} placeholder="STATE" onChange={(e) => setState(e.target.value)}/><br/>
       </label>
-      <label className='normal'>
+      <label>
         Latitude
-        <input className='normal' type="text" value={lat} placeholder="Latitude" onChange={(e) => setLat(e.target.value)}/>
+        <input type="text" value={lat} placeholder="Latitude" onChange={(e) => setLat(e.target.value)}/>
       </label>
-      <label className='normal'>
+      <label>
+        ,
         Longitude
-        <input className='normal' type="text" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}/>
+        <input type="text" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}/><br/>
       </label>
+      </div>
       <p className='subheading'>Describe your place to guests</p>
       <p className='normal'>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
       <label className='normal'>
@@ -103,32 +110,35 @@ const SpotForm = ({ spot, formType }) => {
       <p className='subheading'>Create a title for your spot</p>
       <p className='normal'>Catch guests' attention with a spot title that highlights what makes your place special.</p>
       <label className='normal'>
-        <input className='normal' type="text" value={name} placeholder="Name of your spot" onChange={(e) => setName(e.target.value)}/>
+        <input className='input' type="text" value={name} placeholder="Name of your spot" onChange={(e) => setName(e.target.value)}/>
       </label>
       <p className='subheading'>Set a base price for your spot</p>
       <p className='normal'>Competitive pricing can help your listing stand out and rank higher in search results.</p>
       <label className='normal'>
-        $ <input className='normal' type="text" value={price} placeholder="Price per night(USD)" onChange={(e) => setPrice(e.target.value)}/>
+        $ <input className='input' type="text" value={price} placeholder="Price per night(USD)" onChange={(e) => setPrice(e.target.value)}/>
       </label>
       <p className='subheading'>Liven up your spot with photos</p>
       <p className='normal'>Submit a link to at least one photo to publish your spot.</p>
-      <label className='normal'>
-        <input className='normal' type="text" value={preview} placeholder="Preview Image URL" onChange={(e) => setPreview(e.target.value)}/>
+      <div className='normal'>
+      <label>
+        <input type="text" value={preview} placeholder="Preview Image URL" onChange={(e) => setPreview(e.target.value)}/><br/>
       </label>
-      <label className='normal'>
-        <input className='normal' type="text" value={url1} placeholder="Image URL" onChange={(e) => setUrl1(e.target.value)}/>
+      <label>
+        <input type="text" value={url1} placeholder="Image URL" onChange={(e) => setUrl1(e.target.value)}/><br/>
       </label>
-      <label className='normal'>
-        <input className='normal' type="text" value={url2} placeholder="Image URL" onChange={(e) => setUrl2(e.target.value)}/>
+      <label>
+        <input type="text" value={url2} placeholder="Image URL" onChange={(e) => setUrl2(e.target.value)}/><br/>
       </label>
-      <label className='normal'>
-        <input className='normal' type="text" value={url3} placeholder="Image URL" onChange={(e) => setUrl3(e.target.value)}/>
+      <label>
+        <input type="text" value={url3} placeholder="Image URL" onChange={(e) => setUrl3(e.target.value)}/><br/>
       </label>
-      <label className='normal'>
-        <input className='normal' type="text" value={url4} placeholder="Image URL" onChange={(e) => setUrl4(e.target.value)}/>
+      <label>
+        <input type="text" value={url4} placeholder="Image URL" onChange={(e) => setUrl4(e.target.value)}/><br/>
       </label>
+      </div>
       <button className='button' type="submit">{formType}</button>
     </form>
+    </div>
   );
 };
 

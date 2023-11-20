@@ -7,15 +7,11 @@ const MyReviewItem = ({ singleReview }) => {
   const dispatch = useDispatch();
   const {review, createdAt, Spot} = singleReview;
   const {name} = Spot;
-  const handleUpdate = (e) => {
-    alert('Feature Coming Soon...');
-  };
   return (
     <div>
-      <h2>{name}</h2>
-      <p>{createdAt}</p>
-      <p>{review}</p>
-      <button onClick={handleUpdate}>Update</button>
+      <p className='subheading'>{name}</p>
+      <p className='subheading'>{createdAt}</p>
+      <p className='normal'>{review}</p>
       <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal/>}/>
     </div>
   );
