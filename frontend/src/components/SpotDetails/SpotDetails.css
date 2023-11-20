@@ -1,14 +1,19 @@
 .grid-container {
     display: grid;
     grid-template-areas:
-    'title title title title'
-    'cityState cityState cityState cityState'
-    'image0 image0 image1 image2'
-    'image0 image0 image3 image4'
-    'infoSec infoSec infoSec reserveSec'
-    'reviewSec reviewSec reviewSec reviewSec';
-    grid-template-rows:1fr 1fr 2fr 2fr 2fr 2fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    'title title title'
+    'cityState cityState cityState'
+    'image0 image1 image2'
+    'image0 image3 image4'
+    'owner owner owner'
+    'description description priceStars'
+    'description description reserveButton'
+    'reviews reviews reviews'
+    'postButton postButton postButton'
+    'firstReview firstReview firstReview'
+    'eachReview eachReview eachReview';
+    grid-template-rows:100px 100px 500px 500px 100px 100px 100px 100px 100px 100px 500px;
+    grid-template-columns: 2fr 1fr 1fr;
 }
 .title {
     font-family: montserrat;
@@ -23,49 +28,80 @@
     padding: 1px;
     grid-area: cityState;
 }
-.imgSec {
-    font-family: montserrat;
-    font-size: 24pt;
+.image0 {
+    grid-area: image0;
+}
+.image1 {
+    grid-area: image1;
+}
+.image2 {
+    grid-area: image2;
+}
+.image3 {
+    grid-area: image3;
+}
+.image4 {
+    grid-area: image4;
 }
 .owner {
     font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
     padding: 2px;
-    grid-area: infoSec;
+    grid-area: owner;
 }
 .description {
     font-family: montserrat;
     font-size: 14pt;
-    grid-area: infoSec;
+    padding: 1px;
+    grid-area: description;
 }
 .priceStars {
     font-family: montserrat;
     font-size: 14pt;
     font-weight: bold;
     padding: 1px;
-    grid-area: reserveSec;
+    grid-area: priceStars;
 }
-.button {
+.reserveButton {
     font-family: montserrat;
     font-size: 14pt;
-    padding: 4px;
     color: white;
+    text-align: center;
     background-color: red;
+    padding: 4px;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
-    grid-area: reserveSec;
+    margin: 10px;
+    grid-area: reserveButton;
 }
 .reviews {
     font-family: montserrat;
-    font-size: 14pt;
+    font-size: 24pt;
     font-weight: bold;
-    padding: 1px;
-    grid-area: reviewSec;
+    padding: 2px;
+    grid-area: reviews;
 }
-.eachReview {
+.postButton {
     font-family: montserrat;
     font-size: 14pt;
-    grid-area: reviewSec;
+    color: white;
+    text-align: center;
+    background-color: grey;
+    padding: 4px;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 4px 4px gray;
+    margin: 10px;
+    grid-area: postButton;
+}
+.firstReview {
+    font-family: montserrat;
+    font-size: 14pt;
+    padding: 1px;
+    grid-area: firstReview;
+}
+.eachReview {
+    grid-area: eachReview;
 }

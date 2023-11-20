@@ -8,7 +8,6 @@ const SpotReviews = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const reviews = useSelector(state => state.reviews[spotId]);
-    console.log('reviews', reviews);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         dispatch(getSpotReviews(spotId)).then(() => setIsLoading(false));

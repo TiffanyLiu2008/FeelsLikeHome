@@ -6,8 +6,8 @@
     'cityState cityState stars'
     'price price price'
     'update delete delete';
-    grid-template-rows:1fr 3fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows:100px 500px 100px 100px 100px;
+    grid-template-columns: 100px 300px 100px;
 }
 .title {
     font-family: montserrat;
@@ -17,8 +17,6 @@
     grid-area: title;
 }
 .image {
-    font-family: montserrat;
-    font-size: 24pt;
     grid-area: image;
 }
 .cityState {
@@ -43,9 +41,10 @@
 .update {
     font-family: montserrat;
     font-size: 14pt;
-    padding: 4px;
     color: white;
+    text-align: center;
     background-color: gray;
+    padding: 4px;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
@@ -54,9 +53,10 @@
 .delete {
     font-family: montserrat;
     font-size: 14pt;
-    padding: 4px;
     color: white;
+    text-align: center;
     background-color: gray;
+    padding: 4px;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;

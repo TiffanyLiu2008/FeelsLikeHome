@@ -15,7 +15,7 @@ const SpotItem = ({ spot }) => {
   return (
     <div className='grid-container'>
       <p className='title'>{name}</p>
-      <Link to={`/spots/${spot.id}`}><img src={spotImg} alt='spot'/></Link>
+      <Link to={`/spots/${spot.id}`}><img className='image' src={spotImg} alt='spot'/></Link>
       <p className='cityState'>{city}, {state}</p>
       <p className='stars'>★ {avgStarRating}</p>
       <p className='price'>$ {price} night</p>

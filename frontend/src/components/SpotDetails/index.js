@@ -39,27 +39,19 @@ const SpotDetails = () => {
     <div className='grid-container'>
       <p className='title'>{name}</p>
       <p className='cityState'>{city}, {state}, {country}</p>
-      <div className='imgSec'>
-        <img className='image0' src={spotImg} alt='image0'/>
-        <img className='image1' src={spotImg} alt='image1'/>
-        <img className='image2' src={spotImg} alt='image2'/>
-        <img className='image3' src={spotImg} alt='image3'/>
-        <img className='image4' src={spotImg} alt='image4'/>
-      </div>
-      <div className='infoSec'>
-        <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
-        <p className='description'>{description}</p>
-      </div>
-      <div className='reserveSec'>
-        <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {centerDot} {numReviews > 0 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
-        <button className='button' onClick={handleReserve}>Reserve</button>
-      </div>
-      <div className='reviewSec'>
-        <p className='reviews'>★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {numReviews >= 1 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
-        {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='button' itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
-        {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
-        <SpotReviews className='eachReview'/>
-      </div>
+      <img className='image0' src={spotImg} alt='image0'/>
+      <img className='image1' src={spotImg} alt='image1'/>
+      <img className='image2' src={spotImg} alt='image2'/>
+      <img className='image3' src={spotImg} alt='image3'/>
+      <img className='image4' src={spotImg} alt='image4'/>
+      <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
+      <p className='description'>{description}</p>
+      <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {centerDot} {numReviews > 0 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
+      <button className='reserveButton' onClick={handleReserve}>Reserve</button>
+      <p className='reviews'>★ {numReviews > 0 ? avgStarRating.toFixed(1) : 'New'} {numReviews >= 1 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
+      {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='postButton' itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
+      {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
+      <SpotReviews className='eachReview'/>
     </div>
   )
 };
