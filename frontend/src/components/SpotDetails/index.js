@@ -24,7 +24,7 @@ const SpotDetails = () => {
   if (isLoading) return (<>Loading...</>);
   const {name, city, state, country, Owner, description, price, avgStarRating, numReviews} = spot;
   const centerDot = numReviews > 0 ? ' · ' : null;
-  const firstReview = numReviews === 0 ? 'Be the first to post a review!' : null;
+  const firstReview = numReviews == 0 ? 'Be the first to post a review!' : null;
   const sessionUserId = sessionUser ? sessionUser.id : null;
   const checkUserVSOwner = sessionUserId === Owner.id ? true : false;
   let checkHasReviewed = false;
@@ -46,9 +46,9 @@ const SpotDetails = () => {
       <img className='image4' src={spotImg} alt='image4'/>
       <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
       <p className='description'>{description}</p>
-      <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseInt(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
+      <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseInt(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
       <button className='reserveButton' onClick={handleReserve}>Reserve</button>
-      <p className='reviews'>★ {numReviews > 0 ? parseInt(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews === 1 ? '1 Review' : `${numReviews} reviews`)}</p>
+      <p className='reviews'>★ {numReviews > 0 ? parseInt(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='postReviewButton' itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
       <SpotReviews className='eachReview'/>

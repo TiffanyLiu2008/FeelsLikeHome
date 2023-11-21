@@ -12,7 +12,7 @@ const MyReviewItem = ({ singleReview }) => {
       <p className='subheading'>{name}</p>
       <p className='subheading'>{createdAt}</p>
       <p className='normal'>{review}</p>
-      <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal/>}/>
+      <OpenModalMenuItem className='deleteReviewButton' itemText='Delete' modalComponent={<DeleteReviewModal/>}/>
     </div>
   );
 };

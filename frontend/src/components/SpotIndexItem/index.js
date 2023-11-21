@@ -13,7 +13,7 @@ const SpotItem = ({ spot }) => {
   const sessionUserId = sessionUser ? sessionUser.id : null;
   const checkUserVSOwner = sessionUserId === ownerId ? true : false;
   return (
-    <div className='grid-container'>
+    <div className='box'>
       <Link to={`/spots/${spot.id}`}><p className='title'>{name}</p></Link>
       <Link to={`/spots/${spot.id}`}><img className='image' src={spotImg} alt='spot'/></Link>
       <p className='cityState'>{city}, {state}</p>

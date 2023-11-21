@@ -55,7 +55,7 @@ function ProfileButton({ user }) {
                     <div>
                         <li className='info'>Hello {user.firstName}</li>
                         <li className='info'>{user.email}</li>
-                        <li className='manageSpot'>
+                        <li className='manageSpots'>
                             <Link to={'/spots/current'}>Manage Spots</Link>
                         </li>
                         <li>

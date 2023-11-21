@@ -3,7 +3,7 @@
     font-size: 14pt;
     padding: 2px;
 }
-.manageSpot {
+.manageSpots {
     font-family: montserrat;
     font-size: 14pt;
     font-weight: bold;
@@ -19,4 +19,7 @@
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
+}
+a:link {
+    text-decoration: none;
 }

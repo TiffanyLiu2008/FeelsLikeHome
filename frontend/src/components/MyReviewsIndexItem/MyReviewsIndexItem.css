@@ -9,3 +9,14 @@
     font-size: 14pt;
     padding: 2px;
 }
+.deleteReviewButton {
+    font-family: montserrat;
+    font-size: 14pt;
+    text-align: center;
+    color: white;
+    padding: 4px;
+    background-color: grey;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 4px 4px gray;
+}
