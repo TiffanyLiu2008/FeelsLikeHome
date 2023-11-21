@@ -16,14 +16,14 @@
     font-size: 14pt;
     color: red;
 }
-.button {
+.submitReviewButton {
     width: 90%;
     font-family: montserrat;
     font-size: 14pt;
     text-align: center;
     color: white;
     padding: 4px;
-    background-color: grey;
+    background-color: red;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;

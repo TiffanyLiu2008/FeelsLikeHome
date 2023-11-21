@@ -136,7 +136,7 @@ const SpotForm = ({ spot, formType }) => {
         <input type="text" value={url4} placeholder="Image URL" onChange={(e) => setUrl4(e.target.value)}/><br/>
       </label>
       </div>
-      <button className='button' type="submit">{formType}</button>
+      <button className='submitFormButton' type="submit">{formType}</button>
     </form>
     </div>
   );

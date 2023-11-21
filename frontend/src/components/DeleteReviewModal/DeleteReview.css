@@ -12,7 +12,7 @@
     text-align: center;
     padding: 2px;
 }
-.yes {
+.deleteReviewYes {
     width: 90%;
     font-family: montserrat;
     font-size: 14pt;
@@ -25,7 +25,7 @@
     box-shadow: 4px 4px gray;
     margin: 10px;
 }
-.no {
+.deleteReviewNo {
     width: 90%;
     font-family: montserrat;
     font-size: 14pt;

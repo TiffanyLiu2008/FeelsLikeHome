@@ -11,11 +11,11 @@
     display: flex;
     align-items: right;
 }
-.create {
+.createSpotButton {
     font-family: montserrat;
     font-size: 14pt;
-    color: white;
     text-align: center;
+    color: white;
     padding: 4px;
     background-color: grey;
     border: 2px solid black;

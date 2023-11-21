@@ -6,29 +6,34 @@
     font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
+    text-align: left;
     padding: 2px;
 }
 .subheading {
     font-family: montserrat;
     font-size: 14pt;
     font-weight: bold;
+    text-align: left;
     padding: 2px;
 }
 .normal {
     font-family: montserrat;
     font-size: 14pt;
+    text-align: left;
     padding: 2px;
 }
 .errors {
     font-family: montserrat;
     font-size: 14pt;
+    text-align: left;
     color: red;
 }
-.button {
+.submitFormButton {
     font-family: montserrat;
     font-size: 14pt;
-    padding: 4px;
+    text-align: center;
     color: white;
+    padding: 4px;
     background-color: red;
     border: 2px solid black;
     border-radius: 4px;

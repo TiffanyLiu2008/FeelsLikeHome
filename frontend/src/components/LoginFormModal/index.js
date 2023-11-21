@@ -53,8 +53,8 @@ function LoginFormModal() {
                     /><br/>
                 </label>
                 </div>
-                <button className='button' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
-                <button className='button' type='submit' onClick={handleDemo}>Log in as Demo User</button>
+                <button className='logInButton' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
+                <button className='logInButton' type='submit' onClick={handleDemo}>Log in as Demo User</button>
             </form>
         </div>
     );

@@ -9,10 +9,10 @@
     'description description priceStars'
     'description description reserveButton'
     'reviews reviews reviews'
-    'postButton postButton postButton'
+    'postReviewButton postReviewButton postReviewButton'
     'firstReview firstReview firstReview'
     'eachReview eachReview eachReview';
-    grid-template-rows:100px 100px 500px 500px 100px 100px 100px 100px 100px 100px 500px;
+    grid-template-rows:100px 100px 500px 500px 100px 50px 50px 100px 50px 50px 500px;
     grid-template-columns: 2fr 1fr 1fr;
 }
 .title {
@@ -66,10 +66,10 @@
 .reserveButton {
     font-family: montserrat;
     font-size: 14pt;
-    color: white;
     text-align: center;
-    background-color: red;
+    color: white;
     padding: 4px;
+    background-color: red;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
@@ -83,18 +83,18 @@
     padding: 2px;
     grid-area: reviews;
 }
-.postButton {
+.postReviewButton {
     font-family: montserrat;
     font-size: 14pt;
-    color: white;
     text-align: center;
-    background-color: grey;
+    color: white;
     padding: 4px;
+    background-color: grey;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
     margin: 10px;
-    grid-area: postButton;
+    grid-area: postReviewButton;
 }
 .firstReview {
     font-family: montserrat;

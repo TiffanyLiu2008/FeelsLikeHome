@@ -57,7 +57,7 @@ function PostReviewModal({spot}) {
                     />
                 )})} Stars
             </div>
-            <button className='button' type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
+            <button className='submitReviewButton' type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
         </form>
     );
 }

@@ -5,7 +5,7 @@
     'image image image'
     'cityState cityState stars'
     'price price price'
-    'update delete delete';
+    'updateSpotButton deleteSpotButton deleteSpotButton';
     grid-template-rows:100px 500px 100px 100px 100px;
     grid-template-columns: 100px 300px 100px;
 }
@@ -38,27 +38,30 @@
     padding: 1px;
     grid-area: price;
 }
-.update {
+.updateSpotButton {
     font-family: montserrat;
     font-size: 14pt;
-    color: white;
     text-align: center;
-    background-color: gray;
+    color: white;
     padding: 4px;
+    background-color: gray;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
-    grid-area: update;
+    grid-area: updateSpotButton;
 }
-.delete {
+.deleteSpotButton {
     font-family: montserrat;
     font-size: 14pt;
-    color: white;
     text-align: center;
-    background-color: gray;
+    color: white;
     padding: 4px;
+    background-color: gray;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
-    grid-area: delete;
+    grid-area: deleteSpotButton;
+}
+a:link {
+    text-decoration: none;
 }
