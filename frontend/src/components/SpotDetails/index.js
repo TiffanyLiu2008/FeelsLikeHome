@@ -46,9 +46,9 @@ const SpotDetails = () => {
       <img className='image4' src={spotImg} alt='image4'/>
       <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
       <p className='description'>{description}</p>
-      <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseInt(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
+      <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
       <button className='reserveButton' onClick={handleReserve}>Reserve</button>
-      <p className='reviews'>★ {numReviews > 0 ? parseInt(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
+      <p className='reviews'>★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='postReviewButton' itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
       <SpotReviews className='eachReview'/>
