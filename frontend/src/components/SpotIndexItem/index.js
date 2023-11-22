@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from '../DeleteSpotModal/index';
-import spotImg from '../../images/spot.png';
+import spotImg from '../../images/0.png';
 
 const SpotItem = ({ spot }) => {
   const dispatch = useDispatch();

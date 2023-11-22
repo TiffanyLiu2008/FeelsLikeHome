@@ -6,7 +6,11 @@ import { getSpotDetails } from '../../store/spots';
 import OpenModalMenuButton from '../Navigation/OpenModalMenuItem';
 import PostReviewModal from '../PostReviewModal/index';
 import SpotReviews from '../SpotReviews/index';
-import spotImg from '../../images/spot.png';
+import image0 from '../../images/0.png';
+import image1 from '../../images/1.png';
+import image2 from '../../images/2.png';
+import image3 from '../../images/3.png';
+import image4 from '../../images/4.png';
 
 const SpotDetails = () => {
   const dispatch = useDispatch();
@@ -39,11 +43,11 @@ const SpotDetails = () => {
     <div className='grid-container'>
       <p className='title'>{name}</p>
       <p className='cityState'>{city}, {state}, {country}</p>
-      <img className='image0' src={spotImg} alt='image0'/>
-      <img className='image1' src={spotImg} alt='image1'/>
-      <img className='image2' src={spotImg} alt='image2'/>
-      <img className='image3' src={spotImg} alt='image3'/>
-      <img className='image4' src={spotImg} alt='image4'/>
+      <img className='image0' src={image0} alt='image0'/>
+      <img className='image1' src={image1} alt='image1'/>
+      <img className='image2' src={image2} alt='image2'/>
+      <img className='image3' src={image3} alt='image3'/>
+      <img className='image4' src={image4} alt='image4'/>
       <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
       <p className='description'>{description}</p>
       <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
