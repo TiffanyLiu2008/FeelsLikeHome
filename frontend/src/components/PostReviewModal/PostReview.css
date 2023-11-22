@@ -29,6 +29,6 @@
     box-shadow: 4px 4px gray;
     margin: 10px;
     &:disabled {
-        background-color: lightgrey;
+        background-color: lightgray;
     }
 }

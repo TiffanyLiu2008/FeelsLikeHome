@@ -10,8 +10,11 @@
     text-align: center;
     color: white;
     padding: 4px;
-    background-color: grey;
+    background-color: lightgray;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
+}
+.deleteReviewButton:hover {
+    background-color: darkgray;
 }

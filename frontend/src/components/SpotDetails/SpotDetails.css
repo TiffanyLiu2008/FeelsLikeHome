@@ -86,6 +86,9 @@
     margin: 10px;
     grid-area: reserveButton;
 }
+.reserveButton:hover {
+    background-color: darkred;
+}
 .reviews {
     font-family: montserrat;
     font-size: 24pt;
@@ -99,12 +102,15 @@
     text-align: center;
     color: white;
     padding: 4px;
-    background-color: grey;
+    background-color: lightgray;
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
     margin: 10px;
     grid-area: postReviewButton;
+}
+.postReviewButton:hover {
+    background-color: darkgray;
 }
 .firstReview {
     font-family: montserrat;
