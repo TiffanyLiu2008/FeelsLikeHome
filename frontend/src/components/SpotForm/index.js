@@ -18,7 +18,7 @@ const SpotForm = ({ spot, formType }) => {
   const [price, setPrice] = useState(spot?.price);
   const [preview, setPreview] = useState(spot?.preview);
   const [url1, setUrl1] = useState(spot?.url1);
-  const [url2, setUrl2] = useState(spot?.ur2);
+  const [url2, setUrl2] = useState(spot?.url2);
   const [url3, setUrl3] = useState(spot?.url3);
   const [url4, setUrl4] = useState(spot?.url4);
   const [errors, setErrors] = useState({});
