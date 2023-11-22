@@ -36,14 +36,14 @@ router.post(
         if (existingEmail) {
             const err = new Error("User already exists");
             err.status = 500;
-            err.errors = ["User with that email already exists"];
+            err.errors = {email: "User with that email already exists"};
             return next(err);
         }
         const existingUsername = await User.findOne({where: {username: username}});
         if (existingUsername) {
             const err = new Error("User already exists");
             err.status = 500;
-            err.errors = ["User with that username already exists"];
+            err.errors = {username: "User with that username already exists"};
             return next(err);
         }
         const hashedPassword = bcrypt.hashSync(password);

@@ -2,11 +2,13 @@
     font-family: montserrat;
     font-size: 14pt;
     font-weight: bold;
+    text-align: left;
     padding: 2px;
 }
 .normal {
     font-family: montserrat;
     font-size: 14pt;
+    text-align: left;
     padding: 2px;
 }
 .deleteReviewButton {
