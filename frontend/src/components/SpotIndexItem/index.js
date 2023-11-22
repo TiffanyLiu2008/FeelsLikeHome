@@ -9,9 +9,7 @@ const SpotItem = ({ spot }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const {name, city, state, price, avgRating, ownerId} = spot;
-  console.log('backend', avgRating);
   const avgStarRating = avgRating ? parseFloat(avgRating).toFixed(1) : 'New';
-  console.log('front', avgStarRating);
   const sessionUserId = sessionUser ? sessionUser.id : null;
   const checkUserVSOwner = sessionUserId === ownerId ? true : false;
   return (
