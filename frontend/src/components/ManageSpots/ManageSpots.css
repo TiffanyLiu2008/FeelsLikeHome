@@ -5,6 +5,8 @@
     padding: 2px;
 }
 .createSpotButton {
+    width: 200px;
+    height: 40px;
     font-family: montserrat;
     font-size: 14pt;
     text-align: center;
@@ -14,7 +16,17 @@
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
+    cursor: pointer;
 }
 .createSpotButton:hover {
     background-color: darkgray;
+}
+.manageSpotIndex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-start;
+}
+.manageEachSpot {
+    list-style-type: none;
+    width: 25%;
 }

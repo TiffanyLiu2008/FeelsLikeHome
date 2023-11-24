@@ -1,11 +1,11 @@
-.heading {
+.logInHeading {
     font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
     text-align: center;
     padding: 2px;
 }
-.normal {
+.logInNormal {
     font-family: montserrat;
     font-size: 14pt;
     text-align: center;
@@ -31,4 +31,5 @@
     &:disabled {
         background-color: lightgray;
     }
+    cursor: pointer;
 }

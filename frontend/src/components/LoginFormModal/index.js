@@ -1,11 +1,13 @@
+import "./LoginForm.css";
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import "./LoginForm.css";
 
 function LoginFormModal() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
@@ -19,6 +21,7 @@ function LoginFormModal() {
         setErrors({});
         return dispatch(sessionActions.login({ credential, password }))
             .then(closeModal)
+            .then(history.push('/'))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
@@ -28,12 +31,12 @@ function LoginFormModal() {
     };
     return (
         <div>
-            <p className='heading'>Log In</p>
+            <p className='logInHeading'>Log In</p>
             <form onSubmit={handleSubmit}>
                 {errors.credential && (
                     <p className='errors'>{errors.credential}</p>
                 )}
-                <div className='normal'>
+                <div className='logInNormal'>
                 <label>
                     Username or Email<br/>
                     <input

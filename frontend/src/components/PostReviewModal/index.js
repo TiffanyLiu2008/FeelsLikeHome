@@ -1,5 +1,5 @@
 import './PostReview.css';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createReview, getSpotReviews } from '../../store/reviews';
@@ -19,14 +19,8 @@ function PostReviewModal({spot}) {
     const handleClick = (value) => {setStars(value)};
     const handleMouseOver = (value) => {setHoverStars(value)};
     const handleMouseLeave = (value) => {setHoverStars(undefined)};
-    useEffect(() => {
-        const errors = {review: [], stars: []};
-        if (!review || review.length < 10) {errors['review'].push('Review needs a minimum of 10 characters');}
-        setErrors(errors);
-    }, [review, stars]);
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
         const reviewData = {review, stars};
         dispatch(createReview(spotId, reviewData))
         .then(() => dispatch(getSpotReviews(spotId)))
@@ -41,14 +35,13 @@ function PostReviewModal({spot}) {
     };
     return (
         <form onSubmit={handleSubmit}>
-            <p className='heading'>How was your stay?</p>
-            <div className='errors'>{errors.review}</div>
-            <label className='normal'>
-                <textarea value={review} placeholder='Leave your review here...' onChange={(e) => setReview(e.target.value)} required/>
+            <p className='postReviewHeading'>How was your stay?</p>
+            <label className='postReviewNormal'>
+                <textarea className='postReviewNormal' value={review} placeholder='Leave your review here...' onChange={(e) => setReview(e.target.value)} required/>
             </label>
-            <div className='normal'>
+            <div className='postReviewNormal'>
                 {fiveStars.map((_, index) => {return (
-                    <FaStar
+                    <FaStar className='postReviewNormal'
                         key={index}
                         color={(hoverStars || stars) > index ? colors.black: colors.gray}
                         onClick={() => handleClick(index + 1)}

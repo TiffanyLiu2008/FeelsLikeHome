@@ -1,8 +1,8 @@
+import './Navigation.css';
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import './Navigation.css';
 import logoImg from '../../images/logo.jpg';
 
 function Navigation({ isLoaded }){
@@ -10,9 +10,14 @@ function Navigation({ isLoaded }){
     const sessionUserId = sessionUser ? sessionUser.id : null;
     return (
         <ul className='nav'>
-            <li>
+            <div className='logoName'>
+            <ul>
                 <NavLink exact to="/"><img className='logo' src={logoImg} alt='logo'/></NavLink>
-            </li>
+            </ul>
+            <ul>
+                <NavLink exact to="/"><p className='siteName'>FeelsLikeHome</p></NavLink>
+            </ul>
+            </div>
             {isLoaded && (
                 <div className='buttons'>
                 <ul>

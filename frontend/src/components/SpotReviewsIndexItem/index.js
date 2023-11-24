@@ -19,11 +19,11 @@ const SpotReviewItem = ({ eachReview }) => {
   return (
     <div>
       <div className='normal'>
-        <p>{firstName}</p>
+        <p>★ {firstName}</p>
         <p>{date}</p>
         <p>{review}</p>
       </div>
-      {checkUserVSOwner && <OpenModalMenuItem className='deleteReviewButton' itemText='Delete' modalComponent={<DeleteReviewModal review={eachReview}/> }/>}
+      {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal review={eachReview}/> }/>}
     </div>
   );
 };

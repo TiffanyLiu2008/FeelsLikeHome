@@ -14,6 +14,7 @@
     'eachReview eachReview eachReview';
     grid-template-rows:100px 100px 500px 500px 100px 50px 50px 100px 50px 50px 500px;
     grid-template-columns: 2fr 1fr 1fr;
+    list-style-type: none;
 }
 .title {
     font-family: montserrat;
@@ -74,6 +75,8 @@
     grid-area: priceStars;
 }
 .reserveButton {
+    width: 200px;
+    height: 40px;
     font-family: montserrat;
     font-size: 14pt;
     text-align: center;
@@ -85,6 +88,7 @@
     box-shadow: 4px 4px gray;
     margin: 10px;
     grid-area: reserveButton;
+    cursor: pointer;
 }
 .reserveButton:hover {
     background-color: darkred;
@@ -97,20 +101,7 @@
     grid-area: reviews;
 }
 .postReviewButton {
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: center;
-    color: white;
-    padding: 4px;
-    background-color: lightgray;
-    border: 2px solid black;
-    border-radius: 4px;
-    box-shadow: 4px 4px gray;
-    margin: 10px;
     grid-area: postReviewButton;
-}
-.postReviewButton:hover {
-    background-color: darkgray;
 }
 .firstReview {
     font-family: montserrat;

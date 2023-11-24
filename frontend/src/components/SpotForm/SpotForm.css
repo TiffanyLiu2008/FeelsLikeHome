@@ -1,22 +1,22 @@
 .body {
-    width: 40%;
+    width: 33%;
     margin: auto;
 }
-.heading {
+.formHeading {
     font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
     text-align: left;
     padding: 2px;
 }
-.subheading {
+.formSubheading {
     font-family: montserrat;
     font-size: 14pt;
     font-weight: bold;
     text-align: left;
     padding: 2px;
 }
-.normal {
+.formNormal {
     font-family: montserrat;
     font-size: 14pt;
     text-align: left;
@@ -29,6 +29,8 @@
     color: red;
 }
 .submitFormButton {
+    width: 200px;
+    height: 40px;
     font-family: montserrat;
     font-size: 14pt;
     text-align: center;
@@ -38,6 +40,8 @@
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
+    margin: 10px 0px;
+    cursor: pointer;
 }
 .submitFormButton:hover {
     background-color: darkred;

@@ -1,11 +1,13 @@
+import "./SignupForm.css";
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import "./SignupForm.css";
 
 function SignupFormModal() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -20,6 +22,7 @@ function SignupFormModal() {
             setErrors({});
             return dispatch(sessionActions.signup({email, username, firstName, lastName, password}))
                 .then(closeModal)
+                .then(history.push('/'))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) {
@@ -34,11 +37,11 @@ function SignupFormModal() {
 
     return (
         <div>
-            <p className='heading'>Sign Up</p>
+            <p className='signUpHeading'>Sign Up</p>
             <form onSubmit={handleSubmit}>
-                <label className='normal'>
+                <label className='signUpNormal'>
                     Email<br/>
-                    <input className='normal'
+                    <input className='signUpNormal'
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -46,9 +49,9 @@ function SignupFormModal() {
                     /><br/>
                 </label>
                 {errors.email && <p className='errors'>{errors.email}</p>}
-                <label className='normal'>
+                <label className='signUpNormal'>
                     Username<br/>
-                    <input className='normal'
+                    <input className='signUpNormal'
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -56,9 +59,9 @@ function SignupFormModal() {
                     /><br/>
                 </label>
                 {errors.username && <p className='errors'>{errors.username}</p>}
-                <label className='normal'>
+                <label className='signUpNormal'>
                     First Name<br/>
-                    <input className='normal'
+                    <input className='signUpNormal'
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
@@ -66,9 +69,9 @@ function SignupFormModal() {
                     /><br/>
                 </label>
                 {errors.firstName && <p className='errors'>{errors.firstName}</p>}
-                <label className='normal'>
+                <label className='signUpNormal'>
                     Last Name<br/>
-                    <input className='normal'
+                    <input className='signUpNormal'
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
@@ -76,9 +79,9 @@ function SignupFormModal() {
                     /><br/>
                 </label>
                 {errors.lastName && <p className='errors'>{errors.lastName}</p>}
-                <label className='normal'>
+                <label className='signUpNormal'>
                     Password<br/>
-                    <input className='normal'
+                    <input className='signUpNormal'
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -86,9 +89,9 @@ function SignupFormModal() {
                     /><br/>
                 </label>
                 {errors.password && <p className='errors'>{errors.password}</p>}
-                <label className='normal'>
+                <label className='signUpNormal'>
                     Confirm Password<br/>
-                    <input className='normal'
+                    <input className='signUpNormal'
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}

@@ -1,6 +1,6 @@
 import './SpotDetails.css';
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpotDetails } from '../../store/spots';
 import OpenModalMenuButton from '../Navigation/OpenModalMenuItem';
@@ -53,7 +53,7 @@ const SpotDetails = () => {
       <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
       <button className='reserveButton' onClick={handleReserve}>Reserve</button>
       <p className='reviews'>★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
-      {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton className='postReviewButton' itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
+      {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
       <SpotReviews className='eachReview'/>
     </div>

@@ -1,5 +1,9 @@
-.box {
+.landingSpotIndex {
     display: flex;
     flex-wrap: wrap;
-    width: 250px;
+    justify-content: space-start;
+}
+.landingEachSpot {
+    list-style-type: none;
+    width: 25%;
 }

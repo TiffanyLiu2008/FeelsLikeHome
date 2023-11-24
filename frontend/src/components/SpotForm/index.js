@@ -60,7 +60,7 @@ const SpotForm = ({ spot, formType }) => {
   return (
     <div className='body'>
     <form className='form' onSubmit={handleSubmit}>
-      <p className='heading'>{title}</p>
+      <p className='formHeading'>{title}</p>
       <div className='errors'>
         <ul >{countryError}</ul>
         <ul>{addressError}</ul>
@@ -72,9 +72,9 @@ const SpotForm = ({ spot, formType }) => {
         <ul>{nameError}</ul>
         <ul>{priceError}</ul>
       </div>
-      <p className='subheading'>Where's your place located?</p>
+      <p className='formSubheading'>Where's your place located?</p>
       <p className='nomal'>Guests will only get your exact address once they booked a reservation.</p>
-      <div className='normal'>
+      <div className='formNormal'>
       <label>
         Country<br/>
         <input type="text" value={country} placeholder="Country" onChange={(e) => setCountry(e.target.value)}/><br/>
@@ -102,24 +102,24 @@ const SpotForm = ({ spot, formType }) => {
         <input type="text" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}/><br/>
       </label>
       </div>
-      <p className='subheading'>Describe your place to guests</p>
-      <p className='normal'>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
-      <label className='normal'>
-        <textarea className='normal' value={description} placeholder="Please write at least 30 characters." onChange={(e) => setDescription(e.target.value)}/>
+      <p className='formSubheading'>Describe your place to guests</p>
+      <p className='formNormal'>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
+      <label className='formNormal'>
+        <textarea className='formNormal' value={description} placeholder="Please write at least 30 characters." onChange={(e) => setDescription(e.target.value)}/>
       </label>
-      <p className='subheading'>Create a title for your spot</p>
-      <p className='normal'>Catch guests' attention with a spot title that highlights what makes your place special.</p>
-      <label className='normal'>
+      <p className='formSubheading'>Create a title for your spot</p>
+      <p className='formNormal'>Catch guests' attention with a spot title that highlights what makes your place special.</p>
+      <label className='formNormal'>
         <input className='input' type="text" value={name} placeholder="Name of your spot" onChange={(e) => setName(e.target.value)}/>
       </label>
-      <p className='subheading'>Set a base price for your spot</p>
-      <p className='normal'>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-      <label className='normal'>
+      <p className='formSubheading'>Set a base price for your spot</p>
+      <p className='formNormal'>Competitive pricing can help your listing stand out and rank higher in search results.</p>
+      <label className='formNormal'>
         $ <input className='input' type="text" value={price} placeholder="Price per night(USD)" onChange={(e) => setPrice(e.target.value)}/>
       </label>
-      <p className='subheading'>Liven up your spot with photos</p>
-      <p className='normal'>Submit a link to at least one photo to publish your spot.</p>
-      <div className='normal'>
+      <p className='formSubheading'>Liven up your spot with photos</p>
+      <p className='formNormal'>Submit a link to at least one photo to publish your spot.</p>
+      <div className='formNormal'>
       <label>
         <input type="text" value={preview} placeholder="Preview Image URL" onChange={(e) => setPreview(e.target.value)}/><br/>
       </label>

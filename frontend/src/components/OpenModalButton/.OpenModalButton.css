@@ -1,4 +1,6 @@
 .openModalButton {
+    width: 88px;
+    height: 40px;
     font-family: montserrat;
     font-size: 14pt;
     text-align: center;
@@ -8,6 +10,7 @@
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
+    cursor: pointer;
 }
 .openModalButton:hover {
     background-color: darkgray;

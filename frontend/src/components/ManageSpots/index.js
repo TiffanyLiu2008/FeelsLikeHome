@@ -1,6 +1,6 @@
 import './ManageSpots.css';
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMySpots } from '../../store/spots';
 import SpotIndexItem from '../SpotIndexItem/index';
@@ -20,9 +20,11 @@ const ManageSpots = () => {
         <div>
             <p className='title'>Manage Spots</p>
             {!hasSpots && <Link to={'/spots/new'}><button className='createSpotButton'>Create a New Spot</button></Link>}
-            {hasSpots && <ul>
+            {hasSpots && <ul className='manageSpotIndex'>
                 {spotsByUser.map((spot) => (
-                    <SpotIndexItem spot={spot} key={spot.id}/>
+                    <li className='manageEachSpot' key={spot.id}>
+                        <SpotIndexItem spot={spot} key={spot.id}/>
+                    </li>
                 ))}
              </ul>}
         </div>

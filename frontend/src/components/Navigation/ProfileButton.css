@@ -6,6 +6,7 @@
     border: 2px solid black;
     border-radius: 20px;
     box-shadow: 4px 4px gray;
+    cursor: pointer;
 }
 .profileButton:hover {
     background-color: lightgray;
@@ -31,6 +32,7 @@
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
+    cursor: pointer;
 }
 .logoutButton:hover {
     background-color: darkgray;

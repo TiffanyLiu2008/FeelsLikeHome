@@ -1,32 +1,43 @@
-.box {
+.spotTile {
     display: flex;
     flex-wrap: wrap;
     width: 250px;
     justify-content: space-between;
 }
-.title {
+.tooltip {
+    visibility: hidden;
+    width: 400px;
+    height: 40px;
     font-family: montserrat;
     font-size: 24pt;
     font-weight: bold;
+    text-align: center;
+    color: white;
     padding: 2px;
+    background-color: darkgray;
+    border: 2px solid black;
+    box-shadow: 4px 4px gray;
+    border-radius: 4px;
 }
+.spotTile:hover .tooltip {
+    visibility: visible;
+  }
 .cityState {
     font-family: montserrat;
     font-size: 14pt;
-    padding: 1px;
 }
 .stars {
     font-family: montserrat;
     font-size: 14pt;
-    padding: 1px;
 }
 .price {
     font-family: montserrat;
-    font-size: 14pt;
+    font-size: 18pt;
     font-weight: bold;
-    padding: 1px;
 }
 .updateSpotButton {
+    width: 100px;
+    height: 50px;
     font-family: montserrat;
     font-size: 14pt;
     text-align: center;
@@ -36,22 +47,9 @@
     border: 2px solid black;
     border-radius: 4px;
     box-shadow: 4px 4px gray;
+    cursor: pointer;
 }
 .updateSpotButton:hover {
-    background-color: darkgray;
-}
-.deleteSpotButton {
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: center;
-    color: white;
-    padding: 4px;
-    background-color: lightgray;
-    border: 2px solid black;
-    border-radius: 4px;
-    box-shadow: 4px 4px gray;
-}
-.deleteSpotButton:hover {
     background-color: darkgray;
 }
 a:link {
