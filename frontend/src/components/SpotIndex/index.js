@@ -16,7 +16,7 @@ const SpotIndex = () => {
     <div>
       <ul className='landingSpotIndex'>
         {spots.map((spot) => (
-          <li className='landingEachSpot' key={spot.Id}>
+          <li className='landingEachSpot' key={spot.id}>
             <SpotIndexItem spot={spot} key={spot.id}/>
           </li>
         ))}

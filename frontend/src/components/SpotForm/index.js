@@ -62,7 +62,7 @@ const SpotForm = ({ spot, formType }) => {
     <form className='form' onSubmit={handleSubmit}>
       <p className='formHeading'>{title}</p>
       <div className='errors'>
-        <ul >{countryError}</ul>
+        <ul>{countryError}</ul>
         <ul>{addressError}</ul>
         <ul>{cityError}</ul>
         <ul>{stateError}</ul>
