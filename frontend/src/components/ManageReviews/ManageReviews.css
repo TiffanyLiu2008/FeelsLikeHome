@@ -1,0 +1,15 @@
+.title {
+    font-family: montserrat;
+    font-size: 24pt;
+    font-weight: bold;
+    padding: 2px;
+}
+.manageReviewIndex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-start;
+}
+.manageEachReview {
+    list-style-type: none;
+    width: 25%;
+}

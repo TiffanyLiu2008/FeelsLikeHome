@@ -5,5 +5,20 @@
 }
 .landingEachSpot {
     list-style-type: none;
-    width: 25%;
+    width: calc(100% / 4);
+}
+@media only screen and (max-width: 1200px) {
+    .landingEachSpot {
+        width: calc(100% / 3);
+    }
+}
+@media only screen and (max-width: 900px) {
+    .landingEachSpot {
+        width: calc(100% / 2);
+    }
+}
+@media only screen and (max-width: 600px) {
+    .landingEachSpot {
+        width: 100%;
+    }
 }

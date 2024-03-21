@@ -6,12 +6,15 @@ import DeleteReviewModal from '../DeleteReviewModal/index';
 const SpotReviewItem = ({ eachReview }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const {review, createdAt, User} = eachReview;
+  const {review, createdAt, User, Spot} = eachReview;
+  const {name} = Spot;
   const {id, firstName} = User;
   const convertDate = (oldDate) => {
-    const str = oldDate.split('-');
-    const findMonth = {'1': 'Janurary', '2': 'February', '3': 'March', '4': 'April', '5': 'May', '6': 'June', '7': 'July', '8': 'August', '9': 'September', '10': 'October', '11': 'November', '12': 'December'};
-    return  findMonth[str[1]] + ' ' + str[0];
+    const dateObject = new Date(oldDate);
+    const month = dateObject.toLocaleString('en-us', { month: 'long' });
+    const day = dateObject.getDate();
+    const year = dateObject.getFullYear();
+    return `${month} ${day}, ${year}`;
   };
   const date = convertDate(createdAt);
   const sessionUserId = sessionUser ? sessionUser.id : null;
@@ -19,6 +22,7 @@ const SpotReviewItem = ({ eachReview }) => {
   return (
     <div>
       <div className='normal'>
+        <p>★ {name}</p>
         <p>★ {firstName}</p>
         <p>{date}</p>
         <p>{review}</p>

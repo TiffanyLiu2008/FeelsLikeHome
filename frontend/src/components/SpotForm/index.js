@@ -48,15 +48,15 @@ const SpotForm = ({ spot, formType }) => {
       });
     }
   };
-  const countryError = errors.country ? 'Country: ' + errors.country : null;
-  const addressError = errors.address ? 'Address: ' + errors.address : null;
-  const cityError = errors.city ? 'City: ' + errors.city : null;
-  const stateError = errors.state ? 'State: ' + errors.state : null;
-  const latError = errors.lat ? 'Latitude: ' + errors.lat : null;
-  const lngError = errors.lng ? 'Longitude: ' + errors.lng : null;
-  const descriptionError = errors.description ? 'Description: ' + errors.description : null;
-  const nameError = errors.name ? 'Name: ' + errors.name : null;
-  const priceError = errors.price ? 'Price: ' + errors.price : null;
+  const countryError = errors.country ? errors.country : null;
+  const addressError = errors.address ? errors.address : null;
+  const cityError = errors.city ? errors.city : null;
+  const stateError = errors.state ? errors.state : null;
+  const latError = errors.lat ? errors.lat : null;
+  const lngError = errors.lng ? errors.lng : null;
+  const descriptionError = errors.description ? errors.description : null;
+  const nameError = errors.name ? errors.name : null;
+  const priceError = errors.price ? errors.price : null;
   return (
     <div className='body'>
     <form className='form' onSubmit={handleSubmit}>

@@ -292,7 +292,7 @@ router.get('/:spotId', async (req, res, next) => {
     });
     const owner = await User.findOne({
         where: {id: ownerId},
-        attributes: ['id', 'firstName', 'lastName']
+        attributes: ['id', 'firstName', 'lastName', 'email']
     });
     const returnObj = {};
     returnObj.id = spotInfo.id;

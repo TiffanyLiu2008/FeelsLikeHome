@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 /** Action Type Constants: */
 export const LOAD_SPOTREVIEWS = 'reviews/LOAD_SPOTREVIEWS';
+export const LOAD_REVIEWS = 'reviews/LOAD_REVIEWS';
 export const RECEIVE_REVIEW = 'reviews/RECEIVE_REVIEW';
 export const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
 
@@ -10,10 +11,14 @@ export const loadSpotReviews = (spotId, reviews) => ({
   spotId,
   reviews,
 });
-export const receiveReview = (spotId, reviewData) => ({
+export const loadReviews = (reviews) => ({
+  type: LOAD_REVIEWS,
+  reviews,
+});
+export const receiveReview = (spotId, review) => ({
   type: RECEIVE_REVIEW,
   spotId,
-  reviewData,
+  review,
 });
 export const removeReview = (reviewId) => ({
   type: REMOVE_REVIEW,
@@ -30,11 +35,20 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
   }
   return res;
 };
-export const createReview = (spotId, reviewData) => async (dispatch) => {
+export const getMyReviews = () => async (dispatch) => {
+  const res = await csrfFetch('/api/reviews/current');
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadReviews(data));
+    return data;
+  }
+  return res;
+};
+export const createReview = (spotId, review) => async (dispatch) => {
   const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(reviewData)
+    body: JSON.stringify(review)
   });
   if (res.ok) {
     const data = await res.json();
@@ -59,13 +73,21 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 const reviewsReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_SPOTREVIEWS:
-      const reviewsState = {};
+      const spotReviewsState = {};
       action.reviews.Reviews.forEach((review) => {
-        reviewsState[review.id] = review;
+        spotReviewsState[review.id] = review;
       });
-      return {...state, [action.spotId]: reviewsState};
+      return {...state, [action.spotId]: spotReviewsState};
+    case LOAD_REVIEWS:
+        const reviewsState = {...state};
+        action.reviews.Reviews.forEach((review) => {
+          if (!reviewsState[review.id]) {
+            reviewsState[review.id] = review;
+          }
+        });
+        return {...reviewsState};
     case RECEIVE_REVIEW:
-      return {...state, [action.spotId]: action.review};
+      return { ...state, [action.spotId]: action.review };
     case REMOVE_REVIEW:
       const newState = { ...state };
       delete newState[action.reviewId];

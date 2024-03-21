@@ -15,12 +15,14 @@
     font-family: montserrat;
     font-size: 14pt;
     padding: 2px;
+    list-style-type: none;
 }
-.manageSpots {
+.manageSpots, .manageReviews {
     font-family: montserrat;
     font-size: 14pt;
     font-weight: bold;
     padding: 2px;
+    list-style-type: none;
 }
 .logoutButton {
     font-family: montserrat;

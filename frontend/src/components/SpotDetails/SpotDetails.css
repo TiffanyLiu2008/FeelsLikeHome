@@ -15,6 +15,7 @@
     grid-template-rows:100px 100px 500px 500px 100px 50px 50px 100px 50px 50px 500px;
     grid-template-columns: 2fr 1fr 1fr;
     list-style-type: none;
+    max-width: 1000px;
 }
 .title {
     font-family: montserrat;
@@ -73,25 +74,6 @@
     font-weight: bold;
     padding: 1px;
     grid-area: priceStars;
-}
-.reserveButton {
-    width: 200px;
-    height: 40px;
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: center;
-    color: white;
-    padding: 4px;
-    background-color: red;
-    border: 2px solid black;
-    border-radius: 4px;
-    box-shadow: 4px 4px gray;
-    margin: 10px;
-    grid-area: reserveButton;
-    cursor: pointer;
-}
-.reserveButton:hover {
-    background-color: darkred;
 }
 .reviews {
     font-family: montserrat;

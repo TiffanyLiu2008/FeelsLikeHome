@@ -36,19 +36,21 @@ function LoginFormModal() {
                 {errors.credential && (
                     <p className='errors'>{errors.credential}</p>
                 )}
-                <div className='logInNormal'>
-                <label>
+                <div>
+                <label className='logInNormal'>
                     Username or Email<br/>
                     <input
+                        className='logInNormal'
                         type="text"
                         value={credential}
                         onChange={(e) => setCredential(e.target.value)}
                         required
                     /><br/>
                 </label>
-                <label>
+                <label className='logInNormal'>
                     Password<br/>
                     <input
+                        className='logInNormal'
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}

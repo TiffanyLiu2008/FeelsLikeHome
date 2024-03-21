@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpotDetails } from '../../store/spots';
 import OpenModalMenuButton from '../Navigation/OpenModalMenuItem';
+import ReserveModal from '../ReserveModal/index';
 import PostReviewModal from '../PostReviewModal/index';
 import SpotReviews from '../SpotReviews/index';
 import image0 from '../../images/0.png';
@@ -22,11 +23,9 @@ const SpotDetails = () => {
   useEffect(() => {
     dispatch(getSpotDetails(spotId)).then(() => setIsLoading(false));
   }, [dispatch, spotId]);
-  const handleReserve = (e) => {
-    alert('Feature Coming Soon...');
-  };
   if (isLoading) return (<>Loading...</>);
   const {name, city, state, country, Owner, description, price, avgStarRating, numReviews} = spot;
+  const email = Owner.email;
   const centerDot = numReviews > 0 ? ' · ' : null;
   const firstReview = numReviews == 0 ? 'Be the first to post a review!' : null;
   const sessionUserId = sessionUser ? sessionUser.id : null;
@@ -51,7 +50,7 @@ const SpotDetails = () => {
       <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
       <p className='description'>{description}</p>
       <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
-      <button className='reserveButton' onClick={handleReserve}>Reserve</button>
+      {sessionUserId && !checkUserVSOwner && <OpenModalMenuButton itemText='Reserve' modalComponent={<ReserveModal email={email}/>}/>}
       <p className='reviews'>★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
