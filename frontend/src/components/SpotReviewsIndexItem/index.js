@@ -7,7 +7,6 @@ const SpotReviewItem = ({ eachReview }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const {review, createdAt, User, Spot} = eachReview;
-  const {name} = Spot;
   const {id, firstName} = User;
   const convertDate = (oldDate) => {
     const dateObject = new Date(oldDate);
@@ -22,12 +21,11 @@ const SpotReviewItem = ({ eachReview }) => {
   return (
     <div>
       <div className='normal'>
-        <p>★ {name}</p>
         <p>★ {firstName}</p>
         <p>{date}</p>
         <p>{review}</p>
       </div>
-      {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal review={eachReview}/> }/>}
+      {checkUserVSOwner && <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal review={eachReview}/>}/>}
     </div>
   );
 };

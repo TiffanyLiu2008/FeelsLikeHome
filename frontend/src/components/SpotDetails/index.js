@@ -12,6 +12,7 @@ import image1 from '../../images/1.png';
 import image2 from '../../images/2.png';
 import image3 from '../../images/3.png';
 import image4 from '../../images/4.png';
+import MapContainer from '../Maps/index';
 
 const SpotDetails = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const SpotDetails = () => {
     dispatch(getSpotDetails(spotId)).then(() => setIsLoading(false));
   }, [dispatch, spotId]);
   if (isLoading) return (<>Loading...</>);
-  const {name, city, state, country, Owner, description, price, avgStarRating, numReviews} = spot;
+  const {name, city, state, country, Owner, description, price, avgStarRating, numReviews, lat, lng} = spot;
   const email = Owner.email;
   const centerDot = numReviews > 0 ? ' · ' : null;
   const firstReview = numReviews == 0 ? 'Be the first to post a review!' : null;
@@ -47,6 +48,7 @@ const SpotDetails = () => {
       <img className='image2' src={image2} alt='image2'/>
       <img className='image3' src={image3} alt='image3'/>
       <img className='image4' src={image4} alt='image4'/>
+      <MapContainer spot={spot}/>
       <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
       <p className='description'>{description}</p>
       <p className='priceStars'>$ {price} night ★ {numReviews > 0 ? parseFloat(avgStarRating).toFixed(1) : 'New'} {centerDot} {numReviews >= 1 && (numReviews == 1 ? '1 Review' : `${numReviews} Reviews`)}</p>
