@@ -31,7 +31,7 @@ FeelsLikeHome, an Airbnb clone, is a website for users to reserve accommodations
 
 * Authenticated users should be able to create a booking.
 * Authenticated users should be able to view the bookings they made.
-* Authenticated users should be able to view all the bookings for a spot that they are the owner of.
+* Authenticated users should be able to view all bookings for a spot they are the owner of.
 * Authenticated users should be able to edit a booking they made.
 * Authenticated users should be able to delete a booking they made.
 
