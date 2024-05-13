@@ -10,24 +10,18 @@ if (process.env.NODE_ENV === 'production') {
 
 const reviewImages = [
   {
-    url: 'https://review1Image.com',
+    url: 'https://raw.githubusercontent.com/TiffanyLiu2008/project-images/main/airbnb-images/1_1.png',
     reviewId: 1
   },{
-    url: 'https://review2Image.com',
+    url: 'https://raw.githubusercontent.com/TiffanyLiu2008/project-images/main/airbnb-images/2_1.png',
     reviewId: 2
   },{
-    url: 'https://review3Image.com',
+    url: 'https://raw.githubusercontent.com/TiffanyLiu2008/project-images/main/airbnb-images/3_1.png',
     reviewId: 3
   },
   {
-    url: 'https://review4Image.com',
+    url: 'https://raw.githubusercontent.com/TiffanyLiu2008/project-images/main/airbnb-images/4_1.png',
     reviewId: 4
-  },{
-    url: 'https://review5Image.com',
-    reviewId: 5
-  },{
-    url: 'https://review6Image.com',
-    reviewId: 6
   },
 ];
 

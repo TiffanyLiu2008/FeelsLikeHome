@@ -6,7 +6,7 @@ import { getSpotDetails } from '../../store/spots';
 import { getSpotReviews } from '../../store/reviews';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from '../DeleteSpotModal/index';
-import spotImg from '../../images/0.png';
+import loadingImg from '../../images/loading.png';
 
 const SpotItem = ({ spot }) => {
   const dispatch = useDispatch();
@@ -19,15 +19,15 @@ const SpotItem = ({ spot }) => {
     .then(() => dispatch(getSpotReviews(spot.id)))
     .then(() => setIsLoading(false));
   }, [dispatch, spot.id]);
-  if (isLoading) return (<>Loading...</>);
-  const {name, city, state, price, avgStarRating, ownerId} = spotData;
+  if (isLoading) return (<img src={loadingImg} alt='loadingImg'/>);
+  const {name, city, state, price, avgStarRating, ownerId, SpotImages, Owner} = spotData;
   const avgRating = avgStarRating ? parseFloat(avgStarRating).toFixed(1) : 'New';
   const sessionUserId = sessionUser ? sessionUser.id : null;
   const checkUserVSOwner = sessionUserId === ownerId ? true : false;
   return (
     <div className='spotTile'>
       <span className='tooltip'>{name}</span>
-      <Link to={`/spots/${spot.id}`}><img className='image' src={spotImg} alt='spot'/></Link>
+      <Link to={`/spots/${spot.id}`}><img className='image' src={SpotImages[0].url} alt='spot'/></Link>
       <Link to={`/spots/${spot.id}`}><p className='cityState'>{city}, {state}</p></Link>
       <Link to={`/spots/${spot.id}`}><p className='stars'>★ {avgRating}</p></Link>
       <Link to={`/spots/${spot.id}`}><p className='price'>$ {price} per night</p></Link>
