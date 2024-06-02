@@ -1,0 +1,30 @@
+.footer {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: lightblue;
+}
+.developer {
+    display: flex;
+    font-family: montserrat;
+    font-size: 16pt;
+    color: white;
+    padding-left: 40px;
+    padding-right: 20px;
+    margin: 0px;
+    text-decoration: none;
+}
+.linkedin {
+    display: flex;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.github {
+    display: flex;
+    padding-left: 20px;
+}

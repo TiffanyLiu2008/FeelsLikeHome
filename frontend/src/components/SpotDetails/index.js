@@ -8,6 +8,7 @@ import ReserveModal from '../ReserveModal/index';
 import PostReviewModal from '../PostReviewModal/index';
 import SpotReviews from '../SpotReviews/index';
 import MapContainer from '../Maps/index';
+import loadingImg from '../../images/loading.png';
 
 const SpotDetails = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const SpotDetails = () => {
   useEffect(() => {
     dispatch(getSpotDetails(spotId)).then(() => setIsLoading(false));
   }, [dispatch, spotId]);
-  if (isLoading) return (<>Loading...</>);
+  if (isLoading) return (<img src={loadingImg} alt='loadingImg'/>);
   const {name, city, state, country, SpotImages, Owner, description, price, avgStarRating, numReviews, lat, lng} = spot;
   const email = Owner.email;
   const centerDot = numReviews > 0 ? ' · ' : null;

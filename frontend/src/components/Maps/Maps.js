@@ -1,9 +1,22 @@
 import React from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import marker from '../../images/marker.png';
 
 const containerStyle = {
     width: '400px',
     height: '400px',
+};
+
+const mapOptions = {
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+        style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: window.google.maps.ControlPosition.TOP_LEFT,
+    },
+    streetViewControl: true,
+    streetViewControlOptions: {
+        position: window.google.maps.ControlPosition.TOP_RIGHT,
+    },
 };
 
 const Maps = ({ apiKey, spot}) => {
@@ -23,7 +36,16 @@ const Maps = ({ apiKey, spot}) => {
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={10}
+                    options={mapOptions}
+                >
+                <Marker
+                    position={center}
+                    icon={{
+                        url: marker,
+                        scaledSize: new window.google.maps.Size(50, 50),
+                    }}
                 />
+                </GoogleMap>
             )}
         </>
     );

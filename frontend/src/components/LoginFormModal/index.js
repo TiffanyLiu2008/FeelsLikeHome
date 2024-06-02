@@ -13,7 +13,7 @@ function LoginFormModal() {
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
     const handleDemo = (e) => {
-        setCredential("Demo-lition");
+        setCredential("EmmaSmith");
         setPassword("password");
     };
     const handleSubmit = (e) => {

@@ -9,6 +9,7 @@ import CreateSpot from './components/CreateSpot/index';
 import UpdateSpot from './components/UpdateSpot/index';
 import ManageSpots from './components/ManageSpots/index';
 import ManageReviews from './components/ManageReviews/index';
+import Footer from './components/Footer/index';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/spots/:spotId(\d+)" component={SpotDetails}/>
         <Route exact path="/" component={SpotIndex}/>
       </Switch>}
+      <Footer isLoaded={isLoaded}/>
     </>
   );
 }
