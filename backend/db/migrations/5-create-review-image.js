@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       url: {
-        type: Sequelize.STRING(512),
+        type: Sequelize.TEXT,
         allowNull: false,
         unique: true,
       },

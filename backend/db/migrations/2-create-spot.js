@@ -53,7 +53,7 @@ module.exports = {
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING(512),
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       price: {
@@ -71,7 +71,7 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       previewImage: {
-        type: Sequelize.STRING(512),
+        type: Sequelize.TEXT,
       }
     }, options);
   },
