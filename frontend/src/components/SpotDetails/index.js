@@ -39,11 +39,14 @@ const SpotDetails = () => {
     <div className='grid-container'>
       <p className='title'>{name}</p>
       <p className='cityState'>{city}, {state}, {country}</p>
-      <img className='image0' src={SpotImages[0].url} alt='image0'/>
+      {SpotImages.map((image, index) => (
+        <img key={index} className={`image${index}`} src={image.url} alt={`image${index}`} />
+      ))}
+      {/* <img className='image0' src={SpotImages[0].url} alt='image0'/>
       <img className='image1' src={SpotImages[1].url} alt='image1'/>
       <img className='image2' src={SpotImages[2].url} alt='image2'/>
       <img className='image3' src={SpotImages[3].url} alt='image3'/>
-      <img className='image4' src={SpotImages[4].url} alt='image4'/>
+      <img className='image4' src={SpotImages[4].url} alt='image4'/> */}
       <MapContainer spot={spot}/>
       <p className='owner'>Hosted by {Owner.firstName} {Owner.lastName}</p>
       <p className='description'>{description}</p>
