@@ -99,7 +99,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(512),
       allowNull: false,
       validate: {
         notEmpty: {
@@ -119,7 +119,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     previewImage: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(512),
     },
   }, {
     sequelize,

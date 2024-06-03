@@ -49,7 +49,7 @@ module.exports = {
         allowNull: false,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       description: {
@@ -71,7 +71,7 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       previewImage: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(512),
       }
     }, options);
   },
