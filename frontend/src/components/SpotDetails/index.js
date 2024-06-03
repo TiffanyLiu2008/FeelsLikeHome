@@ -40,7 +40,7 @@ const SpotDetails = () => {
       <p className='title'>{name}</p>
       <p className='cityState'>{city}, {state}, {country}</p>
       {SpotImages.map((image, index) => (
-        <img key={index} className={`image${index}`} src={image.url} alt={`image${index}`} />
+        <img key={index} className={`image${index}`} src={image.url} alt={`image${index}`}/>
       ))}
       {/* <img className='image0' src={SpotImages[0].url} alt='image0'/>
       <img className='image1' src={SpotImages[1].url} alt='image1'/>
