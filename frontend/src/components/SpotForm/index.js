@@ -57,6 +57,11 @@ const SpotForm = ({ spot, formType }) => {
   const descriptionError = errors.description ? errors.description : null;
   const nameError = errors.name ? errors.name : null;
   const priceError = errors.price ? errors.price : null;
+  const previewError = errors.preview ? errors.preview : null;
+  const url1Error = errors.url1 ? errors.url1 : null;
+  const url2Error = errors.url2 ? errors.url2 : null;
+  const url3Error = errors.url3 ? errors.url3 : null;
+  const url4Error = errors.url4 ? errors.url4 : null;
   return (
     <div className='body'>
     <form className='form' onSubmit={handleSubmit}>
@@ -71,6 +76,11 @@ const SpotForm = ({ spot, formType }) => {
         <ul>{descriptionError}</ul>
         <ul>{nameError}</ul>
         <ul>{priceError}</ul>
+        <ul>{previewError}</ul>
+        <ul>{url1Error}</ul>
+        <ul>{url2Error}</ul>
+        <ul>{url3Error}</ul>
+        <ul>{url4Error}</ul>
       </div>
       <p className='formSubheading'>Where's your place located?</p>
       <p className='nomal'>Guests will only get your exact address once they booked a reservation.</p>
@@ -91,7 +101,6 @@ const SpotForm = ({ spot, formType }) => {
         ,
         State
       </label>
-        {/* <input type="text" value={state} placeholder="STATE" onChange={(e) => setState(e.target.value)}/><br/> */}
       <select value={state} name='State' onChange={(e) => setState(e.target.value)}><br/>
         <option value='' disabled>Please select a state</option>
         <option>AL</option>
@@ -175,19 +184,19 @@ const SpotForm = ({ spot, formType }) => {
       <p className='formNormal'>Submit a link to at least one photo to publish your spot.</p>
       <div className='formNormal'>
       <label>
-        <input type="text" value={preview} placeholder="Preview Image URL" onChange={(e) => setPreview(e.target.value)}/><br/>
+        <input className='input' type="text" value={preview} placeholder="Preview Image URL" onChange={(e) => setPreview(e.target.value)}/><br/>
       </label>
       <label>
-        <input type="text" value={url1} placeholder="Image URL" onChange={(e) => setUrl1(e.target.value)}/><br/>
+        <input className='input' type="text" value={url1} placeholder="Image URL" onChange={(e) => setUrl1(e.target.value)}/><br/>
       </label>
       <label>
-        <input type="text" value={url2} placeholder="Image URL" onChange={(e) => setUrl2(e.target.value)}/><br/>
+        <input className='input' type="text" value={url2} placeholder="Image URL" onChange={(e) => setUrl2(e.target.value)}/><br/>
       </label>
       <label>
-        <input type="text" value={url3} placeholder="Image URL" onChange={(e) => setUrl3(e.target.value)}/><br/>
+        <input className='input' type="text" value={url3} placeholder="Image URL" onChange={(e) => setUrl3(e.target.value)}/><br/>
       </label>
       <label>
-        <input type="text" value={url4} placeholder="Image URL" onChange={(e) => setUrl4(e.target.value)}/><br/>
+        <input className='input' type="text" value={url4} placeholder="Image URL" onChange={(e) => setUrl4(e.target.value)}/><br/>
       </label>
       </div>
       <button className='submitFormButton' type="submit">{formType}</button>

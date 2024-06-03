@@ -120,6 +120,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     previewImage: {
       type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Preview image is required',
+        },
+      },
     },
   }, {
     sequelize,
