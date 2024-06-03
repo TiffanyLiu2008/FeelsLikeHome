@@ -39,6 +39,6 @@ FeelsLikeHome, an Airbnb clone, is a website for users to reserve accommodations
 
 ## Messaging (Coming Soon)
 
-## User Profiles (Coming soon)
+## User Profiles (Coming Soon)
 
 ## AWS S3 Image Upload (Coming Soon)

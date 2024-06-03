@@ -8,18 +8,6 @@ const containerStyle = {
     height: '400px',
 };
 
-const mapOptions = {
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-        style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-        position: window.google.maps.ControlPosition.TOP_LEFT,
-    },
-    streetViewControl: true,
-    streetViewControlOptions: {
-        position: window.google.maps.ControlPosition.TOP_RIGHT,
-    },
-};
-
 const Maps = ({ apiKey, spot}) => {
     const center = {
         lat: spot.lat,
@@ -31,9 +19,23 @@ const Maps = ({ apiKey, spot}) => {
         googleMapsApiKey: apiKey,
     });
 
+    const mapOptions = isLoaded
+    ? {
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          position: window.google.maps.ControlPosition.TOP_LEFT,
+        },
+        streetViewControl: true,
+        streetViewControlOptions: {
+          position: window.google.maps.ControlPosition.TOP_RIGHT,
+        },
+      }
+    : {};
+
     return (
         <>
-            {isLoaded && (
+            {isLoaded ? (
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
@@ -48,6 +50,10 @@ const Maps = ({ apiKey, spot}) => {
                     }}
                 />
                 </GoogleMap>
+            ) : (
+                <div>
+                <img src={loadingImg} alt="loadingImg"/>
+              </div>
             )}
         </>
     );
