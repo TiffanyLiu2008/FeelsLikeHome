@@ -71,7 +71,6 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       previewImage: {
-        allowNull: false,
         type: Sequelize.STRING,
       }
     }, options);
