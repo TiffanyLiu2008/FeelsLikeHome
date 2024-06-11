@@ -1,35 +1,73 @@
-.postReviewHeading {
+* {
+    padding: 0;
+    margin: 0;
     font-family: montserrat;
-    font-size: 24pt;
-    font-weight: bold;
+    color: #000000;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+button {
     text-align: center;
-    padding: 2px;
-}
-.postReviewNormal {
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: left;
-    padding: 2px;
-}
-.errors {
-    font-family: montserrat;
-    font-size: 14pt;
-    color: red;
-}
-.submitReviewButton {
-    width: 90%;
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: center;
-    color: white;
-    padding: 4px;
-    background-color: red;
-    border: 2px solid black;
-    border-radius: 4px;
-    box-shadow: 4px 4px gray;
-    margin: 10px;
-    &:disabled {
-        background-color: lightgray;
-    }
     cursor: pointer;
+}
+button:hover {
+    opacity: 0.8;
+}
+li {
+    list-style: none;
+}
+input, textarea {
+    outline: none;
+}
+textarea {
+    resize: none;
+}
+.heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+.subheading {
+    font-size: 18px;
+    font-weight: 500;
+}
+.normal {
+    font-size: 14px;
+    font-weight: 400;
+}
+/* General CSS Above */
+.logInModal {
+    margin: 20px;
+}
+.heading {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.normal {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    background-color: #FFFFFF;
+}
+.postReviewButton {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    box-shadow: 4px 4px #999999;
+    background-color: #FF5A5F;
+    color: #FFFFFF;
+    &:disabled {
+        background-color: #FFFFFF;
+        color: lightgrey;
+        border: 2px solid #CCCCCC;
+        cursor: not-allowed;
+    }
 }

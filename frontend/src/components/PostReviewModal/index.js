@@ -34,24 +34,26 @@ function PostReviewModal({spot}) {
         });
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <p className='postReviewHeading'>How was your stay?</p>
-            <label className='postReviewNormal'>
-                <textarea className='postReviewNormal' value={review} placeholder='Leave your review here...' onChange={(e) => setReview(e.target.value)} required/>
-            </label>
-            <div className='postReviewNormal'>
-                {fiveStars.map((_, index) => {return (
-                    <FaStar className='postReviewNormal'
-                        key={index}
-                        color={(hoverStars || stars) > index ? colors.black: colors.gray}
-                        onClick={() => handleClick(index + 1)}
-                        onMouseOver={() => handleMouseOver(index + 1)}
-                        onMouseLeave={handleMouseLeave}
-                    />
-                )})} Stars
-            </div>
-            <button className='submitReviewButton' type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
-        </form>
+        <div className='logInModal'>
+            <h1 className='heading'>How was your stay?</h1>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    <textarea className='normal' value={review} placeholder='At least 10 characters' onChange={(e) => setReview(e.target.value)} required/>
+                </label>
+                <div>
+                    {fiveStars.map((_, index) => {return (
+                        <FaStar
+                            key={index}
+                            color={(hoverStars || stars) > index ? colors.black: colors.gray}
+                            onClick={() => handleClick(index + 1)}
+                            onMouseOver={() => handleMouseOver(index + 1)}
+                            onMouseLeave={handleMouseLeave}
+                        />
+                    )})} Stars
+                </div>
+                <button className='postReviewButton' type='submit' disabled={review.length < 10 || stars < 1}>Submit Your Review</button>
+            </form>
+        </div>
     );
 }
 
