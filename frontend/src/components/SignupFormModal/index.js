@@ -34,64 +34,65 @@ function SignupFormModal() {
             confirmPassword: "Confirm Password field must be the same as the Password field"
         });
     };
-
     return (
-        <div>
-            <p className='signUpHeading'>Sign Up</p>
+        <div className='signUpModal'>
+            <h1 className='heading'>Sign Up</h1>
             <form onSubmit={handleSubmit}>
-                <label className='signUpNormal'>
+                <label className='subheading'>
                     Email<br/>
-                    <input className='signUpNormal'
+                    <input className='normal'
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     /><br/>
                 </label>
-                {errors.email && <p className='errors'>{errors.email}</p>}
-                <label className='signUpNormal'>
+                {errors.email && <em className='errors'>{errors.email}</em>}
+                <label className='subheading'>
                     Username<br/>
-                    <input className='signUpNormal'
+                    <input className='normal'
                         type="text"
                         value={username}
+                        placeholder="At least 4 characters"
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     /><br/>
                 </label>
-                {errors.username && <p className='errors'>{errors.username}</p>}
-                <label className='signUpNormal'>
+                {errors.username && <em className='errors'>{errors.username}</em>}
+                <label className='subheading'>
                     First Name<br/>
-                    <input className='signUpNormal'
+                    <input className='normal'
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
                     /><br/>
                 </label>
-                {errors.firstName && <p className='errors'>{errors.firstName}</p>}
-                <label className='signUpNormal'>
+                {errors.firstName && <em className='errors'>{errors.firstName}</em>}
+                <label className='subheading'>
                     Last Name<br/>
-                    <input className='signUpNormal'
+                    <input className='normal'
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required
                     /><br/>
                 </label>
-                {errors.lastName && <p className='errors'>{errors.lastName}</p>}
-                <label className='signUpNormal'>
+                {errors.lastName && <em className='errors'>{errors.lastName}</em>}
+                <label className='subheading'>
                     Password<br/>
-                    <input className='signUpNormal'
+                    <input className='normal'
                         type="password"
                         value={password}
+                        placeholder="At least 6 characters"
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     /><br/>
                 </label>
-                {errors.password && <p className='errors'>{errors.password}</p>}
-                <label className='signUpNormal'>
+                {errors.password && <em className='errors'>{errors.password}</em>}
+                <label className='subheading'>
                     Confirm Password<br/>
-                    <input className='signUpNormal'
+                    <input className='normal'
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -99,7 +100,7 @@ function SignupFormModal() {
                     /><br/>
                 </label>
                 {errors.confirmPassword && (
-                    <p className='errors'>{errors.confirmPassword}</p>
+                    <em className='errors'>{errors.confirmPassword}</em>
                 )}
                 <button className='signUpButton' type="submit" disabled={username.length < 4 || password.length < 6 || !email.length || !firstName.length || !lastName.length || !confirmPassword.length}>Sign Up</button>
             </form>
