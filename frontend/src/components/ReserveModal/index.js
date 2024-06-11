@@ -2,8 +2,8 @@ import './Reserve.css';
 
 function ReserveModal({email}) {
     return (
-        <div>
-            <p className='reserveHeading'>Please email your host at {email} to reserve :-) </p>
+        <div className='reserveModal'>
+            <h1 className='heading'>Please email your host at {email} to reserve.</h1>
         </div>
     );
 }

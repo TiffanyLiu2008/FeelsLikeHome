@@ -51,6 +51,7 @@ const SpotDetails = () => {
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <OpenModalMenuButton itemText='Post Your Review' modalComponent={<PostReviewModal spot={spot}/>}/>}
       {sessionUserId && !checkUserVSOwner && !checkHasReviewed && <p className='firstReview'>{firstReview}</p>}
       <SpotReviews className='eachReview'/>
+      {sessionUserId && !checkUserVSOwner && <OpenModalMenuButton itemText='Request' modalComponent={<ReserveModal email={email}/>}/>}
     </div>
   )
 };

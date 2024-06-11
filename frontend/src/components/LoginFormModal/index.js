@@ -36,7 +36,6 @@ function LoginFormModal() {
                 {errors.credential && (
                     <em className='errors'>{errors.credential}</em>
                 )}
-                <div className='modalContent'>
                 <label className='subheading'>
                     Username or Email<br/>
                     <input
@@ -59,7 +58,6 @@ function LoginFormModal() {
                 </label>
                 <button className='logInButton' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
                 <div className='demoUser'><a className='demoUser' href="#" onClick={handleDemo}>Demo User</a></div>
-                </div>
             </form>
         </div>
     );
