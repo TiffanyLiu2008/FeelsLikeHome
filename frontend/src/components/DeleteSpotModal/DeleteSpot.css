@@ -1,42 +1,71 @@
-.heading {
+* {
+    padding: 0;
+    margin: 0;
     font-family: montserrat;
-    font-size: 24pt;
-    font-weight: bold;
+    color: #000000;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+button {
     text-align: center;
-    padding: 2px;
+    cursor: pointer;
+}
+button:hover {
+    opacity: 0.8;
+}
+li {
+    list-style: none;
+}
+input, textarea {
+    outline: none;
+}
+textarea {
+    resize: none;
+}
+.heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
 }
 .subheading {
-    font-family: montserrat;
-    font-size: 14pt;
-    font-weight: bold;
-    text-align: center;
-    padding: 2px;
+    font-size: 18px;
+    font-weight: 500;
 }
-.deleteSpotYes {
-    width: 90%;
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: center;
-    color: white;
-    padding: 4px;
-    background-color: red;
-    border: 2px solid black;
-    border-radius: 4px;
-    box-shadow: 4px 4px gray;
-    margin: 10px;
-    cursor: pointer;
+.normal {
+    font-size: 14px;
+    font-weight: 400;
 }
-.deleteSpotNo {
-    width: 90%;
-    font-family: montserrat;
-    font-size: 14pt;
-    text-align: center;
-    color: white;
-    padding: 4px;
-    background-color: gray;
-    border: 2px solid black;
+/* General CSS Above */
+.deleteSpotModal {
+    margin: 20px;
+}
+.heading {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.subheading {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.deleteYes, .deleteNo {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 2px solid #000000;
     border-radius: 4px;
-    box-shadow: 4px 4px gray;
-    margin: 10px;
-    cursor: pointer;
+    box-shadow: 4px 4px #999999;
+    color: #FFFFFF;
+}
+.deleteYes {
+    background-color: #FF5A5F;
+}
+.deleteNo {
+    background-color: #999999;
 }
