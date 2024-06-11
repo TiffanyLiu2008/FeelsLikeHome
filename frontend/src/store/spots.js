@@ -51,11 +51,11 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
   }
   return res;
 };
-export const createSpot = (payload) => async (dispatch) => {
+export const createSpot = (spot) => async (dispatch) => {
   const res = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
+    body: JSON.stringify(spot)
   });
   if (res.ok) {
     const data = await res.json();
@@ -64,11 +64,11 @@ export const createSpot = (payload) => async (dispatch) => {
   }
   return res;
 };
-export const updateSpot = (payload) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${payload.id}`, {
+export const updateSpot = (spot) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spot.id}`, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
+    body: JSON.stringify(spot)
   });
   if (res.ok) {
     const data = await res.json();
